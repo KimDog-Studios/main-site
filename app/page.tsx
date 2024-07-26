@@ -1,0 +1,76 @@
+"use client";
+
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Button, Box, Typography, CircularProgress, Backdrop } from '@mui/material';
+import RedirectBackdrop from '../components/RedirectBackdrop'; // Adjust the path if necessary
+
+export default function Home() {
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [countdown, setCountdown] = useState(5); // Set the countdown time in seconds
+  const redirectUrl = "https://example.com"; // Replace with your URL
+
+  useEffect(() => {
+    // Simulate page loading
+    const timer = setTimeout(() => {
+      setLoading(false); // Hide spinner after 2 seconds
+    }, 2000); // Adjust the delay as needed
+
+    return () => clearTimeout(timer); // Cleanup on unmount
+  }, []);
+
+  const handleOpen = () => {
+    setOpen(true);
+
+    // Reset countdown and handle redirection
+    setCountdown(5); // Reset countdown time to 5 seconds
+    setTimeout(() => {
+      setOpen(false); // Close the backdrop
+      window.open(redirectUrl, "_blank"); // Redirect to new page
+    }, 5 * 1000); // Set delay to countdown time in milliseconds
+  };
+
+  if (loading) {
+    return (
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
+
+  return (
+    <main className="min-h-screen flex flex-col p-8">
+      <div className="flex flex-col items-start space-y-4">
+        <h2 className="text-2xl font-bold">KimDog&apos;s LLCC Optional Mod Pack</h2>
+        <Image
+          src="https://raw.githubusercontent.com/KimDog-Studios/modding-website/main/public/assets/freeman_cover.jpg"
+          alt="My Image"
+          width={276}
+          height={162}
+          className="rounded"
+        />
+        <p>This pack contains Graphics and other Tweaks!</p>
+        <Button
+          onClick={handleOpen}
+          variant="contained"
+          color="primary"
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Download
+        </Button>
+      </div>
+
+      {/* Redirect Backdrop with Spinner and Countdown */}
+      <RedirectBackdrop
+        open={open}
+        redirectUrl={redirectUrl}
+        onClose={() => setOpen(false)}
+        countdown={countdown}
+      />
+    </main>
+  );
+}
