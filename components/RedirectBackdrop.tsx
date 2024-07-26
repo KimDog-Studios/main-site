@@ -1,9 +1,5 @@
-import React from 'react';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import * as React from 'react';
+import { Dialog, DialogContent, Typography, Button, CircularProgress } from '@mui/material';
 
 interface RedirectBackdropProps {
   open: boolean;
@@ -15,23 +11,26 @@ interface RedirectBackdropProps {
 
 const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, countdown, url, onClose, onManualRedirect }) => {
   return (
-    <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    <Dialog
       open={open}
+      onClose={onClose}
+      PaperProps={{
+        style: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          boxShadow: 'none',
+        },
+      }}
     >
-      <CircularProgress color="inherit" />
-      <Box sx={{ ml: 2 }}>
-        <Typography variant="h6">
-          Redirecting to <a href={url} target="_blank" rel="noopener noreferrer">{url}</a> in {countdown} seconds
+      <DialogContent>
+        <Typography variant="h6" color="white">
+          Redirecting in {countdown} seconds...
         </Typography>
-        <Typography variant="body1" sx={{ mt: 1 }}>
-          If not redirected automatically, 
-          <Button variant="contained" color="primary" onClick={onManualRedirect} sx={{ ml: 1 }}>
-            click here
-          </Button>.
+        <CircularProgress color="inherit" />
+        <Typography variant="body1" color="white" sx={{ mt: 2 }}>
+          If not redirected automatically, <Button onClick={onManualRedirect} color="primary">click here</Button>.
         </Typography>
-      </Box>
-    </Backdrop>
+      </DialogContent>
+    </Dialog>
   );
 };
 

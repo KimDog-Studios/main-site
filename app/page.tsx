@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Button, Typography, Backdrop, CircularProgress, Container, Box } from '@mui/material';
+import { Button, Backdrop, CircularProgress, Container, Box } from '@mui/material';
 import RedirectBackdrop from '../components/RedirectBackdrop'; // Adjust the path if necessary
 import Navbar from '../components/NavBar'; // Adjust the path if necessary
 
@@ -30,6 +30,13 @@ export default function Home() {
       setOpen(false); // Close the backdrop
       window.open(mod1_redirectUrl, "_blank"); // Redirect to new page
     }, 5 * 1000); // Set delay to countdown time in milliseconds
+  };
+
+  const handleManualRedirect = () => {
+    if (open) {
+      window.open(mod1_redirectUrl, "_blank");
+      setOpen(false);
+    }
   };
 
   if (loading) {
@@ -117,9 +124,10 @@ export default function Home() {
             {/* Redirect Backdrop with Spinner and Countdown */}
             <RedirectBackdrop
               open={open}
-              mod1_redirectUrl={mod1_redirectUrl}
-              onClose={() => setOpen(false)}
               countdown={countdown}
+              url={mod1_redirectUrl} // Use 'url' here
+              onClose={() => setOpen(false)}
+              onManualRedirect={handleManualRedirect}
             />
           </Box>
         </main>
