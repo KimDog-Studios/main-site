@@ -21,15 +21,26 @@ export default function Home() {
     return () => clearTimeout(timer); // Cleanup on unmount
   }, []);
 
+  useEffect(() => {
+    if (open) {
+      const countdownInterval = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev > 1) {
+            return prev - 1;
+          } else {
+            clearInterval(countdownInterval);
+            window.open(mod1_redirectUrl, "_blank"); // Redirect to new page
+            setOpen(false); // Close the backdrop after redirect
+            return 0;
+          }
+        });
+      }, 1000); // Update countdown every second
+    }
+  }, [open]);
+
   const handleOpen = () => {
     setOpen(true);
-
-    // Reset countdown and handle redirection
     setCountdown(5); // Reset countdown time to 5 seconds
-    setTimeout(() => {
-      setOpen(false); // Close the backdrop
-      window.open(mod1_redirectUrl, "_blank"); // Redirect to new page
-    }, 5 * 1000); // Set delay to countdown time in milliseconds
   };
 
   const handleManualRedirect = () => {
@@ -125,7 +136,7 @@ export default function Home() {
             <RedirectBackdrop
               open={open}
               countdown={countdown}
-              url={mod1_redirectUrl} // Use 'url' here
+              url={mod1_redirectUrl}
               onClose={() => setOpen(false)}
               onManualRedirect={handleManualRedirect}
             />

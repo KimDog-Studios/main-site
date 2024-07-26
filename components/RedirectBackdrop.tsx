@@ -21,13 +21,24 @@ const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, countdown, ur
         },
       }}
     >
-      <DialogContent>
-        <Typography variant="h6" color="white">
+      <DialogContent
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 2,
+        }}
+      >
+        <CircularProgress color="inherit" />
+        <Typography variant="h6" color="white" sx={{ mt: 2 }}>
           Redirecting in {countdown} seconds...
         </Typography>
-        <CircularProgress color="inherit" />
         <Typography variant="body1" color="white" sx={{ mt: 2 }}>
-          If not redirected automatically, <Button onClick={onManualRedirect} color="primary">click here</Button>.
+          If not redirected automatically,{' '}
+          <Button onClick={onManualRedirect} color="primary">
+            click here
+          </Button>.
         </Typography>
       </DialogContent>
     </Dialog>
