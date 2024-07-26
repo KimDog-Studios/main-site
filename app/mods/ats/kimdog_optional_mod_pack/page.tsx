@@ -47,7 +47,7 @@ const ModDetailPage: React.FC = () => {
 
   // Generate the local image paths
   const images = Array.from({ length: 24 }, (_, index) => 
-    `/assets/mods/kimdog-optional-mod-pack/engines/${index + 1}.png`
+    `/assets/mods/kimdog-optional-mod-pack/${index + 1}.png`
   );
 
   return (
@@ -93,10 +93,16 @@ const ModDetailPage: React.FC = () => {
               >
                 <Typography className="mb-4">
                   This mod pack contains various optional modifications that can enhance your gaming experience.
-                  All mods are designed to be fully compatible with the latest version of the game.
+                  Down below is some pictures of all the Engines in the Pack with many more things that's not shown.
+                  Pack Contains:
+                  Engines,
+                  Transmissions,
+                  Physics,
+                  Mirror FOV,
+                  and more!
                 </Typography>
                 <Typography className="mb-4">
-                  Enjoy the new features and enhancements!
+                  Enjoy the new features and enhancements! Made by KimDog-Studios!
                 </Typography>
                 <Tooltip title="Download Mod Pack" placement="right">
                   <Button
@@ -158,19 +164,18 @@ const ModDetailPage: React.FC = () => {
           {/* Screenshots Section */}
           <Box>
             <Typography variant="h6" className="text-lg font-semibold mb-2">
-              Engines:
+              Screenshots
             </Typography>
             <div
               style={{
-                display: 'flex',
-                flexWrap: 'wrap',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
                 gap: '16px',
                 padding: '8px 0',
-                justifyContent: 'space-between' // Ensure spacing between images
               }}
             >
               {images.map((image, index) => (
-                <div key={index} style={{ position: 'relative', width: 'calc(25% - 16px)', height: 'auto' }}>
+                <div key={index} style={{ position: 'relative', width: '100%', height: 'auto' }}>
                   <Image
                     src={image}
                     alt={`Screenshot ${index + 1}`}
