@@ -183,8 +183,8 @@ const ModDetailPage: React.FC = () => {
               <Image
                 src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
                 alt="Screenshot 1"
-                width={276}
-                height={162}
+                width={487}
+                height={1143}
                 style={{ objectFit: 'cover' }}
               />
               <Image
