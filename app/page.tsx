@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
-import { Button, Box } from "@mui/material";
-import LoadingScreen from "../components/LoadingScreen"; // Adjust the path if necessary
-import RedirectBackdrop from "../components/RedirectBackdrop"; // Adjust the path if necessary
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Button, Typography, Backdrop, CircularProgress, Container } from '@mui/material';
+import RedirectBackdrop from '../components/RedirectBackdrop'; // Adjust the path if necessary
+import Navbar from '../components/NavBar'; // Adjust the path if necessary
 
 export default function Home() {
-  const { data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [countdown, setCountdown] = useState(5); // Set the countdown time in seconds
@@ -17,8 +15,8 @@ export default function Home() {
   useEffect(() => {
     // Simulate page loading
     const timer = setTimeout(() => {
-      setLoading(false); // Hide spinner after 3 seconds
-    }, 3000); // Adjust the delay as needed
+      setLoading(false); // Hide spinner after 2 seconds
+    }, 2000); // Adjust the delay as needed
 
     return () => clearTimeout(timer); // Cleanup on unmount
   }, []);
@@ -34,65 +32,63 @@ export default function Home() {
     }, 5 * 1000); // Set delay to countdown time in milliseconds
   };
 
+  if (loading) {
+    return (
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
+
   return (
-    <main className="min-h-screen flex flex-col p-8">
-      {/* Single Mod */}
-      <Box className="flex flex-col items-start space-y-4 max-w-md mx-auto">
-        <h2 className="text-2xl font-bold">KimDog&apos;s LLCC Optional Mod Pack</h2>
-        <Image
-          src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
-          alt="Mod Image"
-          width={276}
-          height={162}
-          className="rounded"
-        />
-        <p>This pack contains Graphics and other Tweaks!</p>
-        <Button
-          onClick={handleOpen}
-          variant="contained"
-          color="primary"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Download
-        </Button>
-      </Box>
+    <div>
+      {/* Navbar Component */}
+      <Navbar />
 
-      {/* Sign-In Button */}
-      <Box className="flex flex-col items-center space-y-4 mt-8">
-        {!session ? (
-          <Button
-            onClick={() => signIn("google")} // Change 'google' to another provider if needed
-            variant="contained"
-            color="secondary"
-            className="bg-red-500 text-white px-4 py-2 rounded"
-          >
-            Sign In with Google
-          </Button>
-        ) : (
-          <>
-            <p>Welcome, {session.user.name}!</p>
+      {/* Main Content */}
+      <Container sx={{ mt: 4 }}>
+        <main className="min-h-screen flex flex-col p-8">
+          <div className="flex flex-col items-start space-y-4">
+            <h2 className="text-2xl font-bold">KimDog&apos;s LLCC Optional Mod Pack</h2>
+            <Image
+              src="https://raw.githubusercontent.com/KimDog-Studios/modding-website/main/public/assets/freeman_cover.jpg"
+              alt="My Image"
+              width={276}
+              height={162}
+              className="rounded"
+            />
+            <p>This pack contains Graphics and other Tweaks!</p>
             <Button
-              onClick={() => signOut()}
+              onClick={handleOpen}
               variant="contained"
-              color="secondary"
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              sx={{
+                backgroundColor: 'blue', // Keep the button blue
+                color: 'white',
+                padding: '8px 16px',
+                borderRadius: '8px',
+                transition: 'transform 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'scale(1.05)', // Scale up on hover
+                  backgroundColor: 'darkblue', // Slightly darker blue on hover
+                },
+              }}
             >
-              Sign Out
+              Download
             </Button>
-          </>
-        )}
-      </Box>
+          </div>
 
-      {/* Loading Screen */}
-      <LoadingScreen open={loading} />
-
-      {/* Redirect Backdrop with Spinner and Countdown */}
-      <RedirectBackdrop
-        open={open}
-        redirectUrl={redirectUrl}
-        onClose={() => setOpen(false)}
-        countdown={countdown}
-      />
-    </main>
+          {/* Redirect Backdrop with Spinner and Countdown */}
+          <RedirectBackdrop
+            open={open}
+            redirectUrl={redirectUrl}
+            onClose={() => setOpen(false)}
+            countdown={countdown}
+          />
+        </main>
+      </Container>
+    </div>
   );
 }

@@ -1,21 +1,23 @@
-// components/LoadingScreen.js
 import React from 'react';
-import { CircularProgress, Backdrop } from '@mui/material';
+import { Backdrop, Box, Typography } from '@mui/material';
 
-const LoadingScreen = ({ open }) => {
+interface LoadingScreenProps {
+  open: boolean;
+}
+
+const LoadingScreen: React.FC<LoadingScreenProps> = ({ open }) => {
   return (
     <Backdrop
-      sx={{
-        color: '#fff',
-        backgroundColor: 'rgba(0, 0, 0, 1)', // Black background with some opacity
-        zIndex: (theme) => theme.zIndex.drawer + 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
       open={open}
     >
-      <CircularProgress color="inherit" />
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* Gradient Spinner */}
+        <div className="gradient-spinner"></div>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Loading...
+        </Typography>
+      </Box>
     </Backdrop>
   );
 };

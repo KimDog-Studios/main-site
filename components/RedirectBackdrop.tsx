@@ -38,7 +38,7 @@ const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, redirectUrl, 
       onClick={onClose}
     >
       <div style={{ textAlign: 'center' }}>
-        <CircularProgress color="primary" sx={{ color: 'blue' }} /> {/* Set spinner color to blue */}
+        <CircularProgress color="primary" sx={{ color: 'red' }} /> {/* Set spinner color to blue */}
         <Typography variant="h6" sx={{ marginTop: 2 }}>
           Redirecting to <Link href={redirectUrl} target="_blank" rel="noopener noreferrer" color="inherit">{redirectUrl}</Link>...
         </Typography>
