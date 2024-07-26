@@ -45,6 +45,11 @@ const ModDetailPage: React.FC = () => {
     }
   };
 
+  // Generate the local image paths
+  const images = Array.from({ length: 24 }, (_, index) => 
+    `/assets/mods/kimdog-optional-mod-pack/engines/${index + 1}.png`
+  );
+
   return (
     <div style={{ fontWeight: 'bold' }}> {/* Make all text bold */}
       <Navbar />
@@ -59,23 +64,6 @@ const ModDetailPage: React.FC = () => {
               alignItems: 'flex-start'
             }}
           >
-            {/* Main Image */}
-            <Box
-              sx={{
-                width: { xs: '100%', sm: '276px' },
-                height: { xs: 'auto', sm: '162px' },
-                position: 'relative',
-                flexShrink: 0
-              }}
-            >
-              <Image
-                src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGVhbGxxdGNkaGVnMjR0cGZtdnF6aHp0M3JzeG16cGg1eHcxcnk0ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/F429PudI8RGfyIWUU5/giphy.webp"
-                alt="Main Mod Image"
-                layout="fill"
-                objectFit="cover"
-              />
-            </Box>
-
             {/* Description and Download Button */}
             <Box
               sx={{
@@ -170,38 +158,29 @@ const ModDetailPage: React.FC = () => {
           {/* Screenshots Section */}
           <Box>
             <Typography variant="h6" className="text-lg font-semibold mb-2">
-              Screenshots
+              Engines:
             </Typography>
             <div
               style={{
                 display: 'flex',
-                overflowX: 'auto',
+                flexWrap: 'wrap',
                 gap: '16px',
-                padding: '8px 0'
+                padding: '8px 0',
+                justifyContent: 'space-between' // Ensure spacing between images
               }}
             >
-              <Image
-                src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
-                alt="Screenshot 1"
-                width={487}
-                height={1143}
-                style={{ objectFit: 'cover' }}
-              />
-              <Image
-                src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
-                alt="Screenshot 2"
-                width={276}
-                height={162}
-                style={{ objectFit: 'cover' }}
-              />
-              <Image
-                src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
-                alt="Screenshot 3"
-                width={276}
-                height={162}
-                style={{ objectFit: 'cover' }}
-              />
-              {/* Add more screenshots as needed */}
+              {images.map((image, index) => (
+                <div key={index} style={{ position: 'relative', width: 'calc(25% - 16px)', height: 'auto' }}>
+                  <Image
+                    src={image}
+                    alt={`Screenshot ${index + 1}`}
+                    layout="responsive"
+                    width={487} // Width of the image
+                    height={1143} // Height of the image
+                    style={{ maxWidth: '100%', height: 'auto' }}
+                  />
+                </div>
+              ))}
             </div>
           </Box>
         </main>
