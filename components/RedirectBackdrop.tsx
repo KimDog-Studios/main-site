@@ -1,50 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+// components/RedirectBackdrop.tsx
+import React from 'react';
+import { Backdrop, CircularProgress, Typography, Button } from '@mui/material';
 
 interface RedirectBackdropProps {
   open: boolean;
-  redirectUrl: string;
+  countdown: number;
+  url: string;
   onClose: () => void;
-  countdown: number; // Add countdown as a prop
+  onManualRedirect: () => void;
 }
 
-const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, redirectUrl, onClose, countdown }) => {
-  const [timeLeft, setTimeLeft] = useState(countdown);
-
-  useEffect(() => {
-    if (open) {
-      setTimeLeft(countdown); // Reset timeLeft when `open` changes
-      const interval = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            clearInterval(interval);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-
-      return () => clearInterval(interval); // Cleanup on component unmount
-    }
-  }, [open, countdown]);
-
+const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, countdown, url, onClose, onManualRedirect }) => {
   return (
-    <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
-      onClick={onClose}
-    >
+    <Backdrop open={open} onClick={onClose} sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <div style={{ textAlign: 'center' }}>
-        <CircularProgress color="primary" sx={{ color: 'red' }} /> {/* Set spinner color to blue */}
+        <CircularProgress color="inherit" />
         <Typography variant="h6" sx={{ marginTop: 2 }}>
-          Redirecting to <Link href={redirectUrl} target="_blank" rel="noopener noreferrer" color="inherit">{redirectUrl}</Link>...
+          Redirecting to <a href={url} target="_blank" rel="noopener noreferrer">{url}</a> in {countdown} seconds...
         </Typography>
-        <Typography variant="body2" sx={{ marginTop: 1 }}>
-          If you are not redirected automatically in {timeLeft} seconds, <Link href={redirectUrl} target="_blank" rel="noopener noreferrer" color="inherit">click here</Link>.
-        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={onManualRedirect}
+          sx={{ marginTop: 2 }}
+        >
+          Go Now
+        </Button>
       </div>
     </Backdrop>
   );

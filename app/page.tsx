@@ -10,7 +10,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [countdown, setCountdown] = useState(5); // Set the countdown time in seconds
-  const redirectUrl = "https://example.com"; // Replace with your URL
+  const mod1_redirectUrl = "https://example.com"; // Replace with your URL
 
   useEffect(() => {
     // Simulate page loading
@@ -28,7 +28,7 @@ export default function Home() {
     setCountdown(5); // Reset countdown time to 5 seconds
     setTimeout(() => {
       setOpen(false); // Close the backdrop
-      window.open(redirectUrl, "_blank"); // Redirect to new page
+      window.open(mod1_redirectUrl, "_blank"); // Redirect to new page
     }, 5 * 1000); // Set delay to countdown time in milliseconds
   };
 
@@ -52,41 +52,74 @@ export default function Home() {
       <Container sx={{ mt: 4 }}>
         <main className="min-h-screen flex flex-col p-8">
           <div className="flex flex-col items-start space-y-4">
-            <h2 className="text-2xl font-bold">KimDog&apos;s LLCC Optional Mod Pack</h2>
-            <Image
-              src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
-              alt="My Image"
-              width={276}
-              height={162}
-              className="rounded"
-            />
-            <p>This pack contains Graphics and other Tweaks!</p>
-            <Button
-              onClick={handleOpen}
-              variant="contained"
-              sx={{
-                backgroundColor: 'red', // Keep the button blue
-                color: 'white',
-                padding: '8px 16px',
-                borderRadius: '8px',
-                transition: 'transform 0.3s ease-in-out',
-                '&:hover': {
-                  transform: 'scale(1.15)', // Scale up on hover
-                  backgroundColor: 'darkred', // Slightly darker blue on hover
-                },
-              }}
-            >
-              Download
-            </Button>
-          </div>
+            <div className="flex flex-wrap gap-8">
+              <div className="flex flex-col items-start space-y-4">
+                <h2 className="text-2xl font-bold">KimDog&apos;s LLCC Optional Mod Pack</h2>
+                <Image
+                  src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
+                  alt="My Image"
+                  width={276}
+                  height={162}
+                  className="rounded"
+                />
+                <p>This pack contains Graphics and other Tweaks!</p>
+                <Button
+                  onClick={handleOpen}
+                  variant="contained"
+                  sx={{
+                    backgroundColor: 'red', // Keep the button red
+                    color: 'white',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    transition: 'transform 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'scale(1.15)', // Scale up on hover
+                      backgroundColor: 'darkred', // Slightly darker red on hover
+                    },
+                  }}
+                >
+                  Download
+                </Button>
+              </div>
 
-          {/* Redirect Backdrop with Spinner and Countdown */}
-          <RedirectBackdrop
-            open={open}
-            redirectUrl={redirectUrl}
-            onClose={() => setOpen(false)}
-            countdown={countdown}
-          />
+              <div className="flex flex-col items-start space-y-4">
+                <h2 className="text-2xl font-bold">KimDog&apos;s LLCC Optional Mod Pack</h2>
+                <Image
+                  src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
+                  alt="My Image"
+                  width={276}
+                  height={162}
+                  className="rounded"
+                />
+                <p>This pack contains Graphics and other Tweaks!</p>
+                <Button
+                  onClick={handleOpen}
+                  variant="contained"
+                  sx={{
+                    backgroundColor: 'red', // Keep the button red
+                    color: 'white',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    transition: 'transform 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'scale(1.15)', // Scale up on hover
+                      backgroundColor: 'darkred', // Slightly darker red on hover
+                    },
+                  }}
+                >
+                  Download
+                </Button>
+              </div>
+            </div>
+
+            {/* Redirect Backdrop with Spinner and Countdown */}
+            <RedirectBackdrop
+              open={open}
+              mod1_redirectUrl={mod1_redirectUrl}
+              onClose={() => setOpen(false)}
+              countdown={countdown}
+            />
+          </div>
         </main>
       </Container>
     </div>

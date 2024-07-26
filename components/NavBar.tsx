@@ -1,104 +1,213 @@
-import React from 'react';
-import { AppBar, Toolbar, Button, TextField, IconButton, Box, useTheme, useMediaQuery, Tooltip } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import Link from 'next/link';
+import * as React from 'react';
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import { FaGithub, FaDiscord } from 'react-icons/fa';
+import Image from 'next/image';
+import RedirectBackdrop from './RedirectBackdrop'; // Ensure the path is correct
+
+const pages = ['Home', 'About', 'Contact'];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const NavBar: React.FC = () => {
-  const [searchTerm, setSearchTerm] = React.useState<string>('');
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [redirecting, setRedirecting] = React.useState<{ url: string, countdown: number } | null>(null);
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
   };
 
-  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (searchTerm.trim()) {
-      window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const startRedirect = (url: string) => {
+    setRedirecting({ url, countdown: 5 });
+    const countdownInterval = setInterval(() => {
+      setRedirecting((prev) => {
+        if (prev && prev.countdown > 1) {
+          return { ...prev, countdown: prev.countdown - 1 };
+        } else {
+          clearInterval(countdownInterval);
+          window.open(url, "_blank");
+          return null;
+        }
+      });
+    }, 1000);
+  };
+
+  const handleManualRedirect = () => {
+    if (redirecting) {
+      window.open(redirecting.url, "_blank");
+      setRedirecting(null);
     }
   };
 
   return (
-    <AppBar
-      position="static"
-      sx={{
-        backgroundColor: '#f44336', // Red color
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-        transition: 'box-shadow 0.3s ease',
-        '&:hover': {
-          boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
-        },
-      }}
-    >
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
-        {!isMobile && (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Link href="/" passHref>
-              <Button color="inherit" sx={{ fontWeight: 'bold' }}>Home</Button>
-            </Link>
-            <Link href="/about" passHref>
-              <Button color="inherit" sx={{ fontWeight: 'bold' }}>About</Button>
-            </Link>
-            <Link href="/contact" passHref>
-              <Button color="inherit" sx={{ fontWeight: 'bold' }}>Contact</Button>
-            </Link>
-          </Box>
-        )}
-
-        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-          <form onSubmit={handleSearchSubmit} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-            <TextField
-              size="small"
-              placeholder="Search..."
-              variant="outlined"
-              value={searchTerm}
-              onChange={handleSearchChange}
+    <div>
+      <AppBar position="static" sx={{ backgroundColor: 'red' }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+              <Image
+                src="/path/to/your/logo.png" // Replace with your logo path
+                alt="Logo"
+                width={40} // Adjust width as needed
+                height={40} // Adjust height as needed
+              />
+            </Box>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
               sx={{
-                bgcolor: 'white',
-                borderRadius: 1,
-                borderColor: 'transparent',
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'transparent',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: theme.palette.primary.light,
-                  },
-                },
-                width: { xs: '100%', sm: '400px' },
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
               }}
-            />
-            <IconButton type="submit" color="inherit">
-              <SearchIcon />
-            </IconButton>
-          </form>
-        </Box>
+            >
+              LOGO
+            </Typography>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Link href="/signin" passHref>
-            <Button color="inherit" sx={{ fontWeight: 'bold' }}>Sign In</Button>
-          </Link>
-          <Tooltip title="GitHub" arrow>
-            <IconButton
-              color="inherit"
-              onClick={() => window.open('https://github.com/KimDog-Studios/main-site', '_blank')}
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+              <Image
+                src="/public/assets/logo.png" // Replace with your logo path
+                alt="Logo"
+                width={32} // Adjust width as needed
+                height={32} // Adjust height as needed
+              />
+            </Box>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
             >
-              <FaGithub />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Discord" arrow>
-            <IconButton
-              color="inherit"
-              onClick={() => window.open('https://discord.gg/XAeYaZMxz3', '_blank')}
-            >
-              <FaDiscord />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </Toolbar>
-    </AppBar>
+              LOGO
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  href={`/${page.toLowerCase()}`}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Box>
+
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="GitHub" arrow>
+                <IconButton color="inherit" onClick={() => startRedirect('https://github.com/KimDog-Studios/main-site')}>
+                  <FaGithub />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Discord" arrow>
+                <IconButton color="inherit" onClick={() => startRedirect('https://discord.gg/QWJHH4JBKe')}>
+                  <FaDiscord />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+
+      {redirecting && (
+        <RedirectBackdrop
+          open={true}
+          countdown={redirecting.countdown}
+          url={redirecting.url}
+          onClose={() => setRedirecting(null)}
+          onManualRedirect={handleManualRedirect}
+        />
+      )}
+    </div>
   );
 };
 
