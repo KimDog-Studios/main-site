@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Container, Typography, TextField, Button, Box, Grid, Paper } from '@mui/material';
-import Navbar from '../../../components/NavBar'; // Ensure the path is correct
+import Navbar from '../../../components/main/NavBar'; // Ensure the path is correct
 import { signIn } from 'next-auth/react'; // Import next-auth signIn
 
 const SignInSignUpPage: React.FC = () => {

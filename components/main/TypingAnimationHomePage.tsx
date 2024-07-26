@@ -10,7 +10,7 @@ const TypingEffect: React.FC = () => {
         <Typewriter
           options={{
             loop: true,  // Enables infinite looping
-            delay: 130,  // Adjust typing speed here
+            delay: 100,  // Adjust typing speed here
           }}
           onInit={(typewriter) => {
             typewriter
@@ -18,6 +18,12 @@ const TypingEffect: React.FC = () => {
               .pauseFor(2000)
               .deleteAll()
               .typeString('Explore our mod packs and more!')
+              .pauseFor(2000)
+              .deleteAll()
+              .typeString('We aim to keep all of our mod Packs upto date when the Game Gets a Major Update!')
+              .pauseFor(2000)
+              .deleteAll()
+              .typeString('Report all Bugs/Errors into the Discord Server!')
               .pauseFor(2000)
               .deleteAll()
               .start();

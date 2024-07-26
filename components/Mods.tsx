@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Container, Box, Typography } from '@mui/material';
-import Navbar from '../components/NavBar'; // Ensure the path is correct
+import Navbar from './main/NavBar'; // Ensure the path is correct
 import Link from 'next/link';
 import styled, { keyframes, css } from 'styled-components';
 

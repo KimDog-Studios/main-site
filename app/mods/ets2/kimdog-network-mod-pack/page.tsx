@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button, Container, Box, Typography, Tooltip, Alert } from '@mui/material';
-import Navbar from '../../../../components/NavBar'; // Ensure the path is correct
+import Navbar from '../../../../components/main/NavBar'; // Ensure the path is correct
 
 const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);

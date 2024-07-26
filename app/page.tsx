@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Backdrop, CircularProgress, Container, Box, Typography } from '@mui/material';
-import Navbar from '../components/NavBar'; // Ensure the path is correct
+import Navbar from '../components/main/NavBar'; // Ensure the path is correct
 import Mods from '../components/Mods';
-import TypingAnimation from '../components/TypingAnimation'; // Import the new component
+import TypingAnimation from '../components/main/TypingAnimationHomePage'; // Import the new component
 
 const MainPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
