@@ -1,3 +1,5 @@
+/* ModDetailPage.module.css */
+
 /* General text styling */
 .boldText {
   font-weight: bold;
@@ -6,10 +8,6 @@
 /* Container styling */
 .mainContainer {
   margin-top: 2rem; /* Adjust the margin as needed */
-  height: 100vh; /* Ensure full viewport height for containers */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* Description Box styling */
@@ -81,6 +79,13 @@
   margin-top: 1rem;
 }
 
+/* Mods.module.css */
+
+/* Container styling */
+.mainContainer {
+  margin-top: 2rem; /* Adjust the margin as needed */
+}
+
 /* Header styling */
 .header {
   font-size: 1.5rem; /* Adjust the font size as needed */
@@ -126,6 +131,8 @@
   display: block;
   border-radius: 8px;
 }
+
+/* NavBar.module.css */
 
 /* Drawer styling */
 .drawerContainer {
@@ -173,6 +180,8 @@
   height: 40px;
 }
 
+/* RedirectBackdrop.module.css */
+
 /* DialogContent styling */
 .dialogContent {
   display: flex;
@@ -198,7 +207,18 @@
   color: #1976d2; /* MUI primary color */
 }
 
-/* SignInSignUpPage styles */
+
+/* SignInSignUpPage.module.css */
+
+/* Container styling */
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Paper styling */
 .paper {
   padding: 16px;
   width: 100%;

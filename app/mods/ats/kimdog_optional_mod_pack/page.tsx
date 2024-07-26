@@ -123,14 +123,14 @@ const ModDetailPage: React.FC = () => {
             </Typography>
             <div className={styles.screenshotsGrid}>
               {images.map((image, index) => (
-                <div key={index} style={{ position: 'relative', width: '100%', height: 'auto' }}>
+                <div key={index} className={styles.imageWrapper}>
                   <Image
                     src={image}
                     alt={`Screenshot ${index + 1}`}
                     layout="responsive"
                     width={487} // Width of the image
                     height={1143} // Height of the image
-                    style={{ maxWidth: '100%', height: 'auto' }}
+                    className={styles.roundedImage}
                   />
                 </div>
               ))}
