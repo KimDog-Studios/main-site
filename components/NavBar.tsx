@@ -2,6 +2,7 @@ import * as React from 'react';
 import { AppBar, Box, Toolbar, IconButton, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { FaGithub, FaDiscord } from 'react-icons/fa';
+import Image from 'next/image';
 import RedirectBackdrop from './RedirectBackdrop'; // Ensure the path is correct
 
 const pages = ['Home', 'About', 'Contact'];
@@ -50,9 +51,26 @@ const NavBar: React.FC = () => {
 
   return (
     <div>
-      <AppBar position="fixed" sx={{ backgroundColor: 'red' }}>
+      <AppBar position="static" sx={{ backgroundColor: 'red' }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+              <Image
+                src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/logo.png"
+                alt="Logo"
+                width={40}
+                height={40}
+              />
+            </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+              <Image
+                src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/logo.png"
+                alt="Logo"
+                width={40}
+                height={40}
+              />
+            </Box>
+
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
@@ -89,7 +107,7 @@ const NavBar: React.FC = () => {
                 ))}
               </Menu>
             </Box>
-
+            
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
@@ -116,7 +134,7 @@ const NavBar: React.FC = () => {
               </Tooltip>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Profile Picture" src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/attachments/delivery/asset/fc216515708f9d8f31759b19f7551944-1586808569/Mythiot-Discord-Server-Icon/make-you-an-animated-discord-server-icon.gif" />
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
               <Menu
