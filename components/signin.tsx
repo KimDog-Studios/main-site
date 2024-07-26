@@ -14,8 +14,8 @@ const SignIn: React.FC = () => {
     event.preventDefault();
     console.log('Email:', email);
     console.log('Password:', password);
-    // Replace this with your actual sign-in logic
-    router.push('/'); // Redirect to home page after successful sign-in
+    // Replace with actual sign-in logic
+    router.push('/'); // Redirect to home page after sign-in
   };
 
   return (

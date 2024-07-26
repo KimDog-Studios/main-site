@@ -1,8 +1,8 @@
 import React from 'react';
 import { AppBar, Toolbar, Button, TextField, IconButton, Box, useTheme, useMediaQuery, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import Link from 'next/link'; // Adjust based on your routing library
-import { FaGithub, FaDiscord } from 'react-icons/fa'; // Import GitHub and Discord icons from react-icons
+import Link from 'next/link';
+import { FaGithub, FaDiscord } from 'react-icons/fa';
 
 const NavBar: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState<string>('');
@@ -24,7 +24,7 @@ const NavBar: React.FC = () => {
     <AppBar
       position="static"
       sx={{
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: '#f44336', // Red color
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
         transition: 'box-shadow 0.3s ease',
         '&:hover': {
@@ -35,9 +35,15 @@ const NavBar: React.FC = () => {
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         {!isMobile && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Button color="inherit" sx={{ fontWeight: 'bold' }}>Home</Button>
-            <Button color="inherit" sx={{ fontWeight: 'bold' }}>About</Button>
-            <Button color="inherit" sx={{ fontWeight: 'bold' }}>Contact</Button>
+            <Link href="/" passHref>
+              <Button color="inherit" sx={{ fontWeight: 'bold' }}>Home</Button>
+            </Link>
+            <Link href="/about" passHref>
+              <Button color="inherit" sx={{ fontWeight: 'bold' }}>About</Button>
+            </Link>
+            <Link href="/contact" passHref>
+              <Button color="inherit" sx={{ fontWeight: 'bold' }}>Contact</Button>
+            </Link>
           </Box>
         )}
 
@@ -71,11 +77,10 @@ const NavBar: React.FC = () => {
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Link href="/pages/signin" passHref>
+          <Link href="/signin" passHref>
             <Button color="inherit" sx={{ fontWeight: 'bold' }}>Sign In</Button>
           </Link>
-          
-          <Tooltip title="Contribute to the Page" arrow>
+          <Tooltip title="GitHub" arrow>
             <IconButton
               color="inherit"
               onClick={() => window.open('https://github.com/KimDog-Studios/main-site', '_blank')}
@@ -83,11 +88,10 @@ const NavBar: React.FC = () => {
               <FaGithub />
             </IconButton>
           </Tooltip>
-          
-          <Tooltip title="Join Our Discord Server" arrow>
+          <Tooltip title="Discord" arrow>
             <IconButton
               color="inherit"
-              onClick={() => window.open('https://discord.gg/QWJHH4JBKe', '_blank')}
+              onClick={() => window.open('https://discord.gg/XAeYaZMxz3', '_blank')}
             >
               <FaDiscord />
             </IconButton>
