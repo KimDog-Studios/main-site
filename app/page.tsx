@@ -5,21 +5,22 @@ import Image from 'next/image';
 import { Button, Backdrop, CircularProgress, Container, Box } from '@mui/material';
 import RedirectBackdrop from '../components/RedirectBackdrop'; // Adjust the path if necessary
 import Navbar from '../components/NavBar'; // Adjust the path if necessary
-import SpeedInsights from '@vercel/speed-insights'; // Import Speed Insights
+
+const PAGE_SPEED_API_KEY = 'YOUR_GOOGLE_API_KEY'; // Replace with your API Key
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [countdown, setCountdown] = useState(5); // Set the countdown time in seconds
-  const mod1_redirectUrl = "https://example.com"; // Replace with your URL
+  const [countdown, setCountdown] = useState(5);
+  const [pageSpeedData, setPageSpeedData] = useState<any>(null);
+  const mod1_redirectUrl = "https://example.com";
 
   useEffect(() => {
-    // Simulate page loading
     const timer = setTimeout(() => {
-      setLoading(false); // Hide spinner after 2 seconds
-    }, 2000); // Adjust the delay as needed
+      setLoading(false);
+    }, 2000);
 
-    return () => clearTimeout(timer); // Cleanup on unmount
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -30,25 +31,26 @@ export default function Home() {
             return prev - 1;
           } else {
             clearInterval(countdownInterval);
-            window.open(mod1_redirectUrl, "_blank"); // Redirect to new page
-            setOpen(false); // Close the backdrop after redirect
+            window.open(mod1_redirectUrl, "_blank");
+            setOpen(false);
             return 0;
           }
         });
-      }, 1000); // Update countdown every second
+      }, 1000);
     }
   }, [open]);
 
   useEffect(() => {
-    const speedInsights = new SpeedInsights();
-    speedInsights.run({
-      url: window.location.href,
-    });
+    // Fetch PageSpeed Insights data
+    fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${window.location.href}&key=${PAGE_SPEED_API_KEY}`)
+      .then(response => response.json())
+      .then(data => setPageSpeedData(data))
+      .catch(error => console.error('Error fetching PageSpeed Insights:', error));
   }, []);
 
   const handleOpen = () => {
     setOpen(true);
-    setCountdown(5); // Reset countdown time to 5 seconds
+    setCountdown(5);
   };
 
   const handleManualRedirect = () => {
@@ -71,13 +73,11 @@ export default function Home() {
 
   return (
     <div>
-      {/* Navbar Component */}
       <Navbar />
 
-      {/* Main Content */}
-      <Container sx={{ mt: 8 }}> {/* Adjust the margin-top here */}
+      <Container sx={{ mt: 8 }}>
         <main className="min-h-screen flex flex-col p-8">
-          <Box sx={{ mt: 4 }}> {/* Additional margin can be adjusted here */}
+          <Box sx={{ mt: 4 }}>
             <div className="flex flex-col items-start space-y-4">
               <div className="flex flex-wrap gap-8">
                 <div className="flex flex-col items-start space-y-4">
@@ -94,14 +94,14 @@ export default function Home() {
                     onClick={handleOpen}
                     variant="contained"
                     sx={{
-                      backgroundColor: 'red', // Keep the button red
+                      backgroundColor: 'red',
                       color: 'white',
                       padding: '8px 16px',
                       borderRadius: '8px',
                       transition: 'transform 0.3s ease-in-out',
                       '&:hover': {
-                        transform: 'scale(1.15)', // Scale up on hover
-                        backgroundColor: 'darkred', // Slightly darker red on hover
+                        transform: 'scale(1.15)',
+                        backgroundColor: 'darkred',
                       },
                     }}
                   >
@@ -123,14 +123,14 @@ export default function Home() {
                     onClick={handleOpen}
                     variant="contained"
                     sx={{
-                      backgroundColor: 'red', // Keep the button red
+                      backgroundColor: 'red',
                       color: 'white',
                       padding: '8px 16px',
                       borderRadius: '8px',
                       transition: 'transform 0.3s ease-in-out',
                       '&:hover': {
-                        transform: 'scale(1.15)', // Scale up on hover
-                        backgroundColor: 'darkred', // Slightly darker red on hover
+                        transform: 'scale(1.15)',
+                        backgroundColor: 'darkred',
                       },
                     }}
                   >
@@ -140,7 +140,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Redirect Backdrop with Spinner and Countdown */}
             <RedirectBackdrop
               open={open}
               countdown={countdown}
