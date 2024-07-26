@@ -16,7 +16,7 @@ const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, countdown, ur
       <div style={{ textAlign: 'center' }}>
         <CircularProgress color="inherit" />
         <Typography variant="h6" sx={{ marginTop: 2 }}>
-          Redirecting to <a href={url} target="_blank" rel="noopener noreferrer">{url}</a> in {countdown} seconds...
+          Redirecting in {countdown} seconds...
         </Typography>
         <Button
           variant="contained"

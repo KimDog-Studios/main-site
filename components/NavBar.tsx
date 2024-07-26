@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { FaGithub, FaDiscord } from 'react-icons/fa';
-import Image from 'next/image';
 import RedirectBackdrop from './RedirectBackdrop'; // Ensure the path is correct
 
 const pages = ['Home', 'About', 'Contact'];
@@ -51,35 +50,9 @@ const NavBar: React.FC = () => {
 
   return (
     <div>
-      <AppBar position="static" sx={{ backgroundColor: 'red' }}>
+      <AppBar position="fixed" sx={{ backgroundColor: 'red' }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
-              <Image
-                src="/path/to/your/logo.png" // Replace with your logo path
-                alt="Logo"
-                width={40} // Adjust width as needed
-                height={40} // Adjust height as needed
-              />
-            </Box>
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
-
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
@@ -111,37 +84,12 @@ const NavBar: React.FC = () => {
               >
                 {pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                    {page}
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-            <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
-              <Image
-                src="/public/assets/logo.png" // Replace with your logo path
-                alt="Logo"
-                width={32} // Adjust width as needed
-                height={32} // Adjust height as needed
-              />
-            </Box>
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
+
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
@@ -168,7 +116,7 @@ const NavBar: React.FC = () => {
               </Tooltip>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Profile Picture" src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/attachments/delivery/asset/fc216515708f9d8f31759b19f7551944-1586808569/Mythiot-Discord-Server-Icon/make-you-an-animated-discord-server-icon.gif" />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -189,7 +137,7 @@ const NavBar: React.FC = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    {setting}
                   </MenuItem>
                 ))}
               </Menu>

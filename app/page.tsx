@@ -51,10 +51,10 @@ export default function Home() {
       {/* Main Content */}
       <Container sx={{ mt: 4 }}>
         <main className="min-h-screen flex flex-col p-8">
-          <div className="flex flex-col items-start space-y-4">
+          <div className="flex flex-col items-start space-y-4" style={{ marginTop: '2rem' }}>
             <div className="flex flex-wrap gap-8">
               <div className="flex flex-col items-start space-y-4">
-                <h2 className="text-2xl font-bold">KimDog&apos;s LLCC Optional Mod Pack</h2>
+                <h2 className="text-2xl font-bold">Test</h2>
                 <Image
                   src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
                   alt="My Image"
@@ -62,7 +62,7 @@ export default function Home() {
                   height={162}
                   className="rounded"
                 />
-                <p>This pack contains Graphics and other Tweaks!</p>
+                <p>Test</p>
                 <Button
                   onClick={handleOpen}
                   variant="contained"
@@ -83,7 +83,7 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col items-start space-y-4">
-                <h2 className="text-2xl font-bold">KimDog&apos;s LLCC Optional Mod Pack</h2>
+                <h2 className="text-2xl font-bold">Test</h2>
                 <Image
                   src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
                   alt="My Image"
@@ -91,7 +91,7 @@ export default function Home() {
                   height={162}
                   className="rounded"
                 />
-                <p>This pack contains Graphics and other Tweaks!</p>
+                <p>Test</p>
                 <Button
                   onClick={handleOpen}
                   variant="contained"
