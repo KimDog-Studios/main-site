@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Button, Backdrop, CircularProgress, Container, Box } from '@mui/material';
+import { Button, Backdrop, CircularProgress, Container, Box, Accordion, AccordionSummary, AccordionDetails, Typography, Tooltip } from '@mui/material';
 import RedirectBackdrop from '../components/RedirectBackdrop'; // Adjust the path if necessary
 import Navbar from '../components/NavBar'; // Adjust the path if necessary
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const PAGE_SPEED_API_KEY = 'AIzaSyBKqjdtGThmzjSHpIX8YtOlDiN7ilnB-V0'; // Replace with your API Key
 
@@ -13,7 +14,10 @@ export default function Home() {
   const [open, setOpen] = useState(false);
   const [countdown, setCountdown] = useState(5);
   const [pageSpeedData, setPageSpeedData] = useState<any>(null);
-  const mod1_redirectUrl = "https://example.com";
+  const [expanded, setExpanded] = useState<string | false>(false); // State for Accordion
+  const [imageWidth, setImageWidth] = useState<number>(0); // State to store image width
+  const imageRef = useRef<HTMLImageElement | null>(null); // Ref to access the image element
+  const mod1_redirectUrl = "https://drive.google.com/drive/folders/1qMIuUpE7EE7gJtoBVYj09iRJTmCOnEKk?usp=sharing";
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,6 +52,13 @@ export default function Home() {
       .catch(error => console.error('Error fetching PageSpeed Insights:', error));
   }, []);
 
+  useEffect(() => {
+    // Set the image width once the image is loaded
+    if (imageRef.current) {
+      setImageWidth(imageRef.current.width);
+    }
+  }, []);
+
   const handleOpen = () => {
     setOpen(true);
     setCountdown(5);
@@ -58,6 +69,10 @@ export default function Home() {
       window.open(mod1_redirectUrl, "_blank");
       setOpen(false);
     }
+  };
+
+  const handleAccordionChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
   };
 
   if (loading) {
@@ -81,61 +96,86 @@ export default function Home() {
             <div className="flex flex-col items-start space-y-4">
               <div className="flex flex-wrap gap-8">
                 <div className="flex flex-col items-start space-y-4">
-                  <h2 className="text-2xl font-bold">Test</h2>
+                  <h2 className="text-2xl font-bold">KimDog's Optional Mod Pack</h2>
                   <Image
                     src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
                     alt="My Image"
                     width={276}
                     height={162}
                     className="rounded"
+                    ref={imageRef} // Assign ref to the image
+                    onLoad={() => {
+                      if (imageRef.current) {
+                        setImageWidth(imageRef.current.width);
+                      }
+                    }}
                   />
-                  <p>Test</p>
-                  <Button
-                    onClick={handleOpen}
-                    variant="contained"
-                    sx={{
-                      backgroundColor: 'red',
-                      color: 'white',
-                      padding: '8px 16px',
-                      borderRadius: '8px',
-                      transition: 'transform 0.3s ease-in-out',
-                      '&:hover': {
-                        transform: 'scale(1.15)',
-                        backgroundColor: 'darkred',
-                      },
+                  <Accordion
+                    expanded={expanded === 'panel1'}
+                    onChange={handleAccordionChange('panel1')}
+                    sx={{ 
+                      width: imageWidth,
+                      backgroundColor: '#333', // Dark gray background
+                      color: '#fff', // White text color
+                      borderRadius: '8px', // Rounded corners
+                      '&:before': {
+                        display: 'none', // Remove default border
+                      }
                     }}
                   >
-                    Download
-                  </Button>
-                </div>
-
-                <div className="flex flex-col items-start space-y-4">
-                  <h2 className="text-2xl font-bold">Test</h2>
-                  <Image
-                    src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
-                    alt="My Image"
-                    width={276}
-                    height={162}
-                    className="rounded"
-                  />
-                  <p>Test</p>
-                  <Button
-                    onClick={handleOpen}
-                    variant="contained"
-                    sx={{
-                      backgroundColor: 'red',
-                      color: 'white',
-                      padding: '8px 16px',
-                      borderRadius: '8px',
-                      transition: 'transform 0.3s ease-in-out',
-                      '&:hover': {
-                        transform: 'scale(1.15)',
-                        backgroundColor: 'darkred',
-                      },
-                    }}
-                  >
-                    Download
-                  </Button>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon sx={{ color: '#fff' }} />} // White icon color
+                      aria-controls="panel1-content"
+                      id="panel1-header"
+                      sx={{ 
+                        backgroundColor: '#444', // Slightly lighter gray for header
+                        color: '#fff', // White text color
+                        '& .MuiAccordionSummary-content': {
+                          color: '#fff', // Ensure text color is white
+                        },
+                      }}
+                    >
+                      <Typography>Mod Description</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails
+                      sx={{ 
+                        backgroundColor: '#333', // Dark gray background
+                        color: '#fff', // White text color
+                      }}
+                    >
+                      <Typography>
+                        <ul>
+                          <li>Graphics Mod 2K Clouds</li>
+                          <li>Engine Sounds</li>
+                          <li>Interior Sounds</li>
+                          <li>UI Changes</li>
+                          <li>Realistic Physics and more!</li>
+                        </ul>
+                        <Typography component="div" sx={{ fontWeight: 'bold', mt: 2 }}>
+                          Pack Contains two .scs Files which need to go into your ATS Mod Folder!
+                        </Typography>
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                  <Tooltip title={`Redirecting to: ${mod1_redirectUrl}`} arrow>
+                    <Button
+                      onClick={handleOpen}
+                      variant="contained"
+                      sx={{
+                        backgroundColor: 'red',
+                        color: 'white',
+                        padding: '8px 16px',
+                        borderRadius: '8px',
+                        transition: 'transform 0.3s ease-in-out',
+                        '&:hover': {
+                          transform: 'scale(1.15)',
+                          backgroundColor: 'darkred',
+                        },
+                      }}
+                    >
+                      Download
+                    </Button>
+                  </Tooltip>
                 </div>
               </div>
             </div>
