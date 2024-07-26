@@ -54,7 +54,7 @@ export default function Home() {
           <div className="flex flex-col items-start space-y-4">
             <h2 className="text-2xl font-bold">KimDog&apos;s LLCC Optional Mod Pack</h2>
             <Image
-              src="https://raw.githubusercontent.com/KimDog-Studios/modding-website/main/public/assets/freeman_cover.jpg"
+              src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
               alt="My Image"
               width={276}
               height={162}
