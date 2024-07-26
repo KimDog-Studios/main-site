@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Button, Container, Box, Typography, Tooltip, Alert } from '@mui/material';
 import Navbar from '../../../../components/NavBar'; // Ensure the path is correct
 
-const ModDetailPage: React.FC = () => {
+const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
   const [countdown, setCountdown] = useState<number>(5); // Countdown in seconds
   const [showRedirectUI, setShowRedirectUI] = useState(false);
@@ -194,4 +194,4 @@ const ModDetailPage: React.FC = () => {
   );
 };
 
-export default ModDetailPage;
+export default Ets2KimDog_Network_Mod_DetailPage;
