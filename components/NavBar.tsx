@@ -1,16 +1,23 @@
 import * as React from 'react';
 import { AppBar, Box, Toolbar, IconButton, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FaGithub, FaDiscord } from 'react-icons/fa';
 import Image from 'next/image';
 import RedirectBackdrop from './RedirectBackdrop'; // Ensure the path is correct
 
-const pages = ['Home', 'About', 'Contact'];
+const pages = ['About', 'Contact']; // Removed 'Home'
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+const modCategories = [
+  { name: 'ETS 2', link: '/ets2-mods' },
+  { name: 'ATS', link: '/ats-mods' },
+];
 
 const NavBar: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElModCategory, setAnchorElModCategory] = React.useState<null | HTMLElement>(null);
   const [redirecting, setRedirecting] = React.useState<{ url: string, countdown: number } | null>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -19,12 +26,18 @@ const NavBar: React.FC = () => {
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
+  const handleOpenModCategoryMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElModCategory(event.currentTarget);
+  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const handleCloseModCategoryMenu = () => {
+    setAnchorElModCategory(null);
   };
 
   const startRedirect = (url: string) => {
@@ -100,6 +113,10 @@ const NavBar: React.FC = () => {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
+                <MenuItem onClick={handleOpenModCategoryMenu}>
+                  Mod Category
+                  <ExpandMoreIcon />
+                </MenuItem>
                 {pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     {page}
@@ -107,8 +124,17 @@ const NavBar: React.FC = () => {
                 ))}
               </Menu>
             </Box>
-            
+
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              <Button
+                aria-controls="mod-category-menu"
+                aria-haspopup="true"
+                onClick={handleOpenModCategoryMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+                endIcon={<ExpandMoreIcon />}
+              >
+                Mod Category
+              </Button>
               {pages.map((page) => (
                 <Button
                   key={page}
@@ -163,6 +189,32 @@ const NavBar: React.FC = () => {
           </Toolbar>
         </Container>
       </AppBar>
+
+      {/* Mod Category Dropdown Menu */}
+      <Menu
+        id="mod-category-menu"
+        anchorEl={anchorElModCategory}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        open={Boolean(anchorElModCategory)}
+        onClose={handleCloseModCategoryMenu}
+      >
+        {modCategories.map((category) => (
+          <MenuItem key={category.name} onClick={() => {
+            window.location.href = category.link; // Navigate to the category page
+            handleCloseModCategoryMenu();
+          }}>
+            {category.name}
+          </MenuItem>
+        ))}
+      </Menu>
 
       {redirecting && (
         <RedirectBackdrop
