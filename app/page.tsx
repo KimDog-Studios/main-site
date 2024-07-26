@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Button, Backdrop, CircularProgress, Container, Box } from '@mui/material';
 import RedirectBackdrop from '../components/RedirectBackdrop'; // Adjust the path if necessary
 import Navbar from '../components/NavBar'; // Adjust the path if necessary
+import SpeedInsights from '@vercel/speed-insights'; // Import Speed Insights
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -37,6 +38,13 @@ export default function Home() {
       }, 1000); // Update countdown every second
     }
   }, [open]);
+
+  useEffect(() => {
+    const speedInsights = new SpeedInsights();
+    speedInsights.run({
+      url: window.location.href,
+    });
+  }, []);
 
   const handleOpen = () => {
     setOpen(true);
