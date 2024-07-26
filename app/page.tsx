@@ -6,7 +6,7 @@ import { Button, Backdrop, CircularProgress, Container, Box } from '@mui/materia
 import RedirectBackdrop from '../components/RedirectBackdrop'; // Adjust the path if necessary
 import Navbar from '../components/NavBar'; // Adjust the path if necessary
 
-const PAGE_SPEED_API_KEY = 'YOUR_GOOGLE_API_KEY'; // Replace with your API Key
+const PAGE_SPEED_API_KEY = 'AIzaSyBKqjdtGThmzjSHpIX8YtOlDiN7ilnB-V0'; // Replace with your API Key
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
