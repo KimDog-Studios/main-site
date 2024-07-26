@@ -51,7 +51,7 @@ const NavBar: React.FC = () => {
 
   return (
     <div>
-      <AppBar position="static" sx={{ backgroundColor: 'red' }}>
+      <AppBar position="fixed" sx={{ backgroundColor: 'red', width: '100%', top: 0, left: 0, zIndex: 1200 }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
