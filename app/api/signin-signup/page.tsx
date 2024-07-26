@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Container, Typography, TextField, Button, Box, Grid, Paper } from '@mui/material';
 import Navbar from '../../../components/NavBar'; // Ensure the path is correct
+import { signIn } from 'next-auth/react'; // Import next-auth signIn
 
 const SignInSignUpPage: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false); // Toggle between Sign In and Sign Up
@@ -12,8 +13,7 @@ const SignInSignUpPage: React.FC = () => {
   };
 
   const handleSignInWithProvider = (provider: string) => {
-    console.log(`Sign in with ${provider}`);
-    // Implement your sign-in logic here
+    signIn(provider); // Initiates sign-in with the specified provider
   };
 
   return (
@@ -82,7 +82,7 @@ const SignInSignUpPage: React.FC = () => {
                 <Button
                   variant="outlined"
                   fullWidth
-                  onClick={() => handleSignInWithProvider('Google')}
+                  onClick={() => handleSignInWithProvider('google')}
                   sx={{
                     borderColor: '#db4437',
                     color: '#db4437',
@@ -100,7 +100,7 @@ const SignInSignUpPage: React.FC = () => {
                 <Button
                   variant="outlined"
                   fullWidth
-                  onClick={() => handleSignInWithProvider('Facebook')}
+                  onClick={() => handleSignInWithProvider('facebook')}
                   sx={{
                     borderColor: '#3b5998',
                     color: '#3b5998',
@@ -118,7 +118,7 @@ const SignInSignUpPage: React.FC = () => {
                 <Button
                   variant="outlined"
                   fullWidth
-                  onClick={() => handleSignInWithProvider('Steam')}
+                  onClick={() => handleSignInWithProvider('steam')}
                   sx={{
                     borderColor: '#000000',
                     color: '#000000',
@@ -136,7 +136,7 @@ const SignInSignUpPage: React.FC = () => {
                 <Button
                   variant="outlined"
                   fullWidth
-                  onClick={() => handleSignInWithProvider('Microsoft')}
+                  onClick={() => handleSignInWithProvider('microsoft')}
                   sx={{
                     borderColor: '#0078d4',
                     color: '#0078d4',
@@ -154,7 +154,7 @@ const SignInSignUpPage: React.FC = () => {
                 <Button
                   variant="outlined"
                   fullWidth
-                  onClick={() => handleSignInWithProvider('GitHub')}
+                  onClick={() => handleSignInWithProvider('github')}
                   sx={{
                     borderColor: '#333333',
                     color: '#333333',

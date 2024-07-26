@@ -1,5 +1,3 @@
-// components/NavBar.tsx
-
 "use client";
 
 import React, { useState } from 'react';
@@ -9,6 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FaGithub, FaDiscord } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
 
 const pages = ['About', 'Contact'];
 const settings = ['Sign In/Sign Up'];
@@ -18,6 +17,8 @@ const NavBar: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElMod, setAnchorElMod] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const router = useRouter(); // Initialize useRouter
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -41,6 +42,10 @@ const NavBar: React.FC = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleSignInClick = () => {
+    router.push('/api/signin-signup'); // Navigate to the Sign In/Sign Up page
   };
 
   return (
@@ -201,11 +206,9 @@ const NavBar: React.FC = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  {setting}
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Button onClick={handleSignInClick}>Sign In/Sign Up</Button> {/* Added Sign In/Sign Up button */}
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
