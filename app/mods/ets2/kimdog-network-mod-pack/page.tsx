@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button, Container, Box, Typography, Tooltip, Alert } from '@mui/material';
 import Navbar from '../../../../components/main/NavBar'; // Ensure the path is correct
+import styles from '../../../../css/Main.module.css'; // Import the CSS module
 
 const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
@@ -51,9 +52,9 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
   );
 
   return (
-    <div style={{ fontWeight: 'bold' }}> {/* Make all text bold */}
+    <div className={styles.boldText}>
       <Navbar />
-      <Container sx={{ mt: 8 }}>
+      <Container className={styles.mainContainer}>
         <main className="flex flex-col p-4 sm:p-8">
           <Box
             sx={{
@@ -65,20 +66,7 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
             }}
           >
             {/* Description and Download Button */}
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-start',
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                color: 'white',
-                p: 2,
-                borderRadius: 2,
-                textAlign: 'center',
-                flexGrow: 1,
-                width: { xs: '100%', sm: 'auto' }
-              }}
-            >
+            <Box className={styles.descriptionBox}>
               <Typography variant="h6" className="text-lg font-semibold mb-2">
                 Mod Description
               </Typography>
@@ -109,52 +97,19 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
                     variant="contained"
                     color="primary"
                     onClick={handleDownloadClick}
-                    sx={{
-                      position: 'relative',
-                      overflow: 'hidden',
-                      width: { xs: '100%', sm: 'auto' },
-                      background: 'linear-gradient(45deg, #FF6F61 30%, #FFC107 90%)',
-                      borderRadius: 3,
-                      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-                      color: 'white',
-                      fontWeight: 'bold',
-                      textTransform: 'none',
-                      transition: 'background 0.3s, transform 0.3s',
-                      '&:hover': {
-                        background: 'linear-gradient(45deg, #FF8A80 30%, #FFD740 90%)',
-                        transform: 'scale(1.05)',
-                        '&::before': {
-                          transform: 'scale(1.5)',
-                          opacity: 1
-                        }
-                      },
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        border: '2px solid #FFC107',
-                        borderRadius: '50%',
-                        transition: 'transform 0.3s, opacity 0.3s',
-                        transform: 'scale(0)',
-                        opacity: 0,
-                        zIndex: 1
-                      }
-                    }}
+                    className={styles.downloadButton}
                   >
                     Download
                   </Button>
                 </Tooltip>
               </Box>
               {openAlert && (
-                <Alert severity="info" onClose={() => setOpenAlert(false)} sx={{ mt: 2 }}>
+                <Alert severity="info" onClose={() => setOpenAlert(false)} className={styles.alertInfo}>
                   Downloading will start in {countdown} seconds...
                 </Alert>
               )}
               {showRedirectUI && (
-                <Alert severity="success" sx={{ mt: 2 }}>
+                <Alert severity="success" className={styles.alertSuccess}>
                   Redirecting to download link...
                 </Alert>
               )}
@@ -166,14 +121,7 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
             <Typography variant="h6" className="text-lg font-semibold mb-2">
               Screenshots
             </Typography>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                gap: '16px',
-                padding: '8px 0',
-              }}
-            >
+            <div className={styles.screenshotsGrid}>
               {images.map((image, index) => (
                 <div key={index} style={{ position: 'relative', width: '100%', height: 'auto' }}>
                   <Image

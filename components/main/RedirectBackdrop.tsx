@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Dialog, DialogContent, Typography, Button, CircularProgress } from '@mui/material';
+import styles from '../../css/Main.module.css'; // Import the CSS module
 
 interface RedirectBackdropProps {
   open: boolean;
@@ -9,7 +10,7 @@ interface RedirectBackdropProps {
   onManualRedirect: () => void;
 }
 
-const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, countdown, url, onClose, onManualRedirect }) => {
+const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, countdown, onClose, onManualRedirect }) => {
   return (
     <Dialog
       open={open}
@@ -21,22 +22,14 @@ const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, countdown, ur
         },
       }}
     >
-      <DialogContent
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 2,
-        }}
-      >
+      <DialogContent className={styles.dialogContent}>
         <CircularProgress color="inherit" />
-        <Typography variant="h6" color="white" sx={{ mt: 2 }}>
+        <Typography variant="h6" className={styles.typographyHeading}>
           Redirecting in {countdown} seconds...
         </Typography>
-        <Typography variant="body1" color="white" sx={{ mt: 2 }}>
+        <Typography variant="body1" className={styles.typographyBody}>
           If not redirected automatically,{' '}
-          <Button onClick={onManualRedirect} color="primary">
+          <Button onClick={onManualRedirect} className={styles.button}>
             click here
           </Button>.
         </Typography>

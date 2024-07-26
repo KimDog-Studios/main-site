@@ -6,6 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { FaGithub, FaDiscord } from 'react-icons/fa';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import styles from '../../css/Main.module.css'; // Import the CSS module
 
 const pages = ['Home', 'About', 'Contact'];
 const settings = ['Sign In/Sign Up'];
@@ -34,15 +35,7 @@ const NavBar: React.FC = () => {
 
   const drawer = (
     <Box
-      sx={{
-        width: 250,
-        backgroundColor: '#333',
-        color: 'white',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}
+      className={styles.drawerContainer}
       role="presentation"
       onClick={handleDrawerToggle}
     >
@@ -61,17 +54,7 @@ const NavBar: React.FC = () => {
         <Button
           variant="contained"
           color="primary"
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-            mb: 2,
-            backgroundColor: '#444',
-            '&:hover': {
-              backgroundColor: '#555',
-            },
-          }}
+          className={styles.drawerButton}
           onClick={() => window.open('https://github.com/KimDog-Studios/main-site', '_blank')}
         >
           <FaGithub style={{ marginRight: 8 }} />
@@ -80,16 +63,7 @@ const NavBar: React.FC = () => {
         <Button
           variant="contained"
           color="primary"
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-            backgroundColor: '#444',
-            '&:hover': {
-              backgroundColor: '#555',
-            },
-          }}
+          className={styles.drawerButton}
           onClick={() => window.open('https://discord.gg/QWJHH4JBKe', '_blank')}
         >
           <FaDiscord style={{ marginRight: 8 }} />
@@ -108,7 +82,7 @@ const NavBar: React.FC = () => {
         aria-haspopup="true"
         onClick={handleDrawerToggle}
         color="inherit"
-        sx={{ position: 'fixed', top: 16, left: 16, zIndex: 1201 }}
+        className={styles.menuButton}
       >
         <MenuIcon />
       </IconButton>
@@ -117,10 +91,10 @@ const NavBar: React.FC = () => {
         {drawer}
       </Drawer>
 
-      <Box sx={{ position: 'fixed', top: 16, right: 16, zIndex: 1201 }}>
+      <Box className={styles.userMenuButton}>
         <Tooltip title="Open settings">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" className={styles.avatar} />
           </IconButton>
         </Tooltip>
         <Menu

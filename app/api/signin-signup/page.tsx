@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Container, Typography, TextField, Button, Box, Grid, Paper } from '@mui/material';
 import Navbar from '../../../components/main/NavBar'; // Ensure the path is correct
 import { signIn } from 'next-auth/react'; // Import next-auth signIn
+import styles from '../../../css/Main.module.css'; // Import the CSS module
 
 const SignInSignUpPage: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false); // Toggle between Sign In and Sign Up
@@ -19,9 +20,9 @@ const SignInSignUpPage: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <Container component="main" maxWidth="xs" sx={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Paper elevation={3} sx={{ padding: 4, width: '100%', maxWidth: '400px' }}>
-          <Typography variant="h5" align="center" gutterBottom>
+      <Container component="main" className={styles.container}>
+        <Paper elevation={3} className={styles.paper}>
+          <Typography variant="h5" className={styles.typographyTitle}>
             {isSignUp ? 'Sign Up' : 'Sign In'}
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
@@ -62,13 +63,13 @@ const SignInSignUpPage: React.FC = () => {
               fullWidth
               variant="contained"
               color="primary"
-              sx={{ mt: 3, mb: 2 }}
+              className={styles.authButton}
             >
               {isSignUp ? 'Sign Up' : 'Sign In'}
             </Button>
             <Grid container>
               <Grid item xs>
-                <Button onClick={handleToggle} color="primary">
+                <Button onClick={handleToggle} className={styles.authToggleButton}>
                   {isSignUp ? 'Already have an account? Sign In' : 'Don’t have an account? Sign Up'}
                 </Button>
               </Grid>
@@ -83,16 +84,13 @@ const SignInSignUpPage: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   onClick={() => handleSignInWithProvider('google')}
-                  sx={{
-                    borderColor: '#db4437',
-                    color: '#db4437',
-                    '&:hover': { borderColor: '#b1361f', color: '#b1361f' },
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
+                  className={`${styles.authButton} ${styles.authButtonGoogle}`}
                 >
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/150px-Google_%22G%22_logo.svg.png" alt="Google" style={{ width: 24, height: 24, marginRight: 8 }} />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/150px-Google_%22G%22_logo.svg.png"
+                    alt="Google"
+                    className={styles.authButtonIcon}
+                  />
                   Google
                 </Button>
 
@@ -101,16 +99,13 @@ const SignInSignUpPage: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   onClick={() => handleSignInWithProvider('facebook')}
-                  sx={{
-                    borderColor: '#3b5998',
-                    color: '#3b5998',
-                    '&:hover': { borderColor: '#2d4373', color: '#2d4373' },
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
+                  className={`${styles.authButton} ${styles.authButtonFacebook}`}
                 >
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style={{ width: 24, height: 24, marginRight: 8 }} />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                    alt="Facebook"
+                    className={styles.authButtonIcon}
+                  />
                   Facebook
                 </Button>
 
@@ -119,16 +114,13 @@ const SignInSignUpPage: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   onClick={() => handleSignInWithProvider('steam')}
-                  sx={{
-                    borderColor: '#000000',
-                    color: '#000000',
-                    '&:hover': { borderColor: '#333333', color: '#333333' },
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
+                  className={`${styles.authButton} ${styles.authButtonSteam}`}
                 >
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/120px-Steam_icon_logo.svg.png" alt="Steam" style={{ width: 24, height: 24, marginRight: 8 }} />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/120px-Steam_icon_logo.svg.png"
+                    alt="Steam"
+                    className={styles.authButtonIcon}
+                  />
                   Steam
                 </Button>
 
@@ -137,16 +129,13 @@ const SignInSignUpPage: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   onClick={() => handleSignInWithProvider('microsoft')}
-                  sx={{
-                    borderColor: '#0078d4',
-                    color: '#0078d4',
-                    '&:hover': { borderColor: '#005a9e', color: '#005a9e' },
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
+                  className={`${styles.authButton} ${styles.authButtonMicrosoft}`}
                 >
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/120px-Microsoft_logo.svg.png?20210729021049" alt="Microsoft" style={{ width: 24, height: 24, marginRight: 8 }} />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/120px-Microsoft_logo.svg.png?20210729021049"
+                    alt="Microsoft"
+                    className={styles.authButtonIcon}
+                  />
                   Microsoft
                 </Button>
 
@@ -155,16 +144,13 @@ const SignInSignUpPage: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   onClick={() => handleSignInWithProvider('github')}
-                  sx={{
-                    borderColor: '#333333',
-                    color: '#333333',
-                    '&:hover': { borderColor: '#000000', color: '#000000' },
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
+                  className={`${styles.authButton} ${styles.authButtonGithub}`}
                 >
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" style={{ width: 24, height: 24, marginRight: 8 }} />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                    alt="GitHub"
+                    className={styles.authButtonIcon}
+                  />
                   GitHub
                 </Button>
               </Box>

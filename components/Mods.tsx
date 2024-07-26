@@ -5,41 +5,7 @@ import Image from 'next/image';
 import { Container, Box, Typography } from '@mui/material';
 import Navbar from './main/NavBar'; // Ensure the path is correct
 import Link from 'next/link';
-import styled, { keyframes, css } from 'styled-components';
-
-// Define the pulsing and circular motion animation
-const pulseAnimation = keyframes`
-  0% {
-    box-shadow: 0 0 0 4px #FF6F61; /* Initial color */
-  }
-  25% {
-    box-shadow: 0 0 0 8px #FFC107; /* Intermediate color */
-  }
-  50% {
-    box-shadow: 0 0 0 4px #FF8A80; /* Another intermediate color */
-  }
-  75% {
-    box-shadow: 0 0 0 8px #FFD740; /* Final color */
-  }
-  100% {
-    box-shadow: 0 0 0 4px #FF6F61; /* Back to initial color */
-  }
-`;
-
-// Create a styled component with animation
-const ImageContainer = styled.div<{ isHovered: boolean }>`
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  border-radius: 8px; /* Rounded corners */
-  transition: transform 1.0s ease;
-  transform: ${({ isHovered }) => isHovered ? 'scale(1.05)' : 'scale(1)'};
-  ${({ isHovered }) =>
-    isHovered && css`
-      animation: ${pulseAnimation} 1s infinite;
-    `
-  }
-`;
+import styles from '../css/Main.module.css'; // Import the CSS module
 
 const Mods: React.FC = () => {
   const [isHovered1, setIsHovered1] = useState<boolean>(false);
@@ -56,16 +22,16 @@ const Mods: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <Container sx={{ mt: 8 }}>
+      <Container className={styles.mainContainer}>
         <main className="min-h-screen flex flex-col p-8">
           <Box sx={{ mt: 4 }}>
             <div className="flex flex-row gap-8">
               {/* ETS 2 Mod */}
               <div className="flex flex-col items-start space-y-4">
-                <h2 className="text-2xl font-bold">[ETS 2] KimDog's Network Mod Pack</h2>
+                <h2 className={styles.header}>[ETS 2] KimDog's Network Mod Pack</h2>
                 <Link href="/mods/ets2/kimdog-network-mod-pack">
-                  <ImageContainer
-                    isHovered={isHovered1}
+                  <div
+                    className={`${styles.imageContainer} ${isHovered1 ? styles.imageContainerHovered : ''}`}
                     onMouseEnter={() => setIsHovered1(true)}
                     onMouseLeave={() => setIsHovered1(false)}
                   >
@@ -75,18 +41,18 @@ const Mods: React.FC = () => {
                       width={276}
                       height={162}
                       ref={imageRef}
-                      style={{ display: 'block', borderRadius: '8px' }} // Ensure image is displayed properly and rounded
+                      className={styles.image}
                     />
-                  </ImageContainer>
+                  </div>
                 </Link>
               </div>
 
               {/* ATS Mod */}
               <div className="flex flex-col items-start space-y-4">
-                <h2 className="text-2xl font-bold">[ATS] KimDog's Mod Pack</h2>
+                <h2 className={styles.header}>[ATS] KimDog's Mod Pack</h2>
                 <Link href="/mods/ats/kimdog_optional_mod_pack">
-                  <ImageContainer
-                    isHovered={isHovered2}
+                  <div
+                    className={`${styles.imageContainer} ${isHovered2 ? styles.imageContainerHovered : ''}`}
                     onMouseEnter={() => setIsHovered2(true)}
                     onMouseLeave={() => setIsHovered2(false)}
                   >
@@ -96,9 +62,9 @@ const Mods: React.FC = () => {
                       width={276}
                       height={162}
                       ref={imageRef}
-                      style={{ display: 'block', borderRadius: '8px' }} // Ensure image is displayed properly and rounded
+                      className={styles.image}
                     />
-                  </ImageContainer>
+                  </div>
                 </Link>
               </div>
             </div>

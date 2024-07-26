@@ -1,0 +1,280 @@
+/* General text styling */
+.boldText {
+  font-weight: bold;
+}
+
+/* Container styling */
+.mainContainer {
+  margin-top: 2rem; /* Adjust the margin as needed */
+  height: 100vh; /* Ensure full viewport height for containers */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Description Box styling */
+.descriptionBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  flex-grow: 1;
+}
+
+/* Button styling */
+.downloadButton {
+  position: relative;
+  overflow: hidden;
+  width: 20%;
+  background: linear-gradient(45deg, #FF6F61 30%, #FFC107 90%);
+  border-radius: 0.75rem;
+  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);
+  color: white;
+  font-weight: bold;
+  text-transform: none;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.downloadButton:hover {
+  background: linear-gradient(45deg, #FF8A80 30%, #FFD740 90%);
+  transform: scale(1.05);
+}
+
+.downloadButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #FFC107;
+  border-radius: 50%;
+  transition: transform 0.3s, opacity 0.3s;
+  transform: scale(0);
+  opacity: 0;
+  z-index: 1;
+}
+
+.downloadButton:hover::before {
+  transform: scale(1.5);
+  opacity: 1;
+}
+
+/* Screenshots Grid styling */
+.screenshotsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+/* Alert styling */
+.alertInfo {
+  margin-top: 1rem;
+}
+
+.alertSuccess {
+  margin-top: 1rem;
+}
+
+/* Header styling */
+.header {
+  font-size: 1.5rem; /* Adjust the font size as needed */
+  font-weight: bold;
+  margin-bottom: 1rem; /* Add space below the header */
+}
+
+/* Image container styling with animation */
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  border-radius: 8px; /* Rounded corners */
+  transition: transform 1.0s ease;
+}
+
+.imageContainerHovered {
+  transform: scale(1.05);
+  animation: pulseAnimation 1s infinite;
+}
+
+/* Keyframes for pulsing animation */
+@keyframes pulseAnimation {
+  0% {
+    box-shadow: 0 0 0 4px #FF6F61; /* Initial color */
+  }
+  25% {
+    box-shadow: 0 0 0 8px #FFC107; /* Intermediate color */
+  }
+  50% {
+    box-shadow: 0 0 0 4px #FF8A80; /* Another intermediate color */
+  }
+  75% {
+    box-shadow: 0 0 0 8px #FFD740; /* Final color */
+  }
+  100% {
+    box-shadow: 0 0 0 4px #FF6F61; /* Back to initial color */
+  }
+}
+
+/* Image styling */
+.image {
+  display: block;
+  border-radius: 8px;
+}
+
+/* Drawer styling */
+.drawerContainer {
+  width: 250px;
+  background-color: #333;
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.drawerButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: #444;
+}
+
+.drawerButton:hover {
+  background-color: #555;
+}
+
+/* IconButton styling for menu icon */
+.menuButton {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1201;
+}
+
+/* IconButton styling for user menu */
+.userMenuButton {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1201;
+}
+
+/* Avatar styling */
+.avatar {
+  width: 40px;
+  height: 40px;
+}
+
+/* DialogContent styling */
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* Typography styling */
+.typographyHeading {
+  margin-top: 16px;
+  color: white;
+}
+
+.typographyBody {
+  margin-top: 16px;
+  color: white;
+}
+
+/* Button styling */
+.button {
+  color: #1976d2; /* MUI primary color */
+}
+
+/* SignInSignUpPage styles */
+.paper {
+  padding: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Typography styling */
+.typographyTitle {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* Button styling */
+.authButton {
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.authButtonGoogle {
+  border-color: #db4437;
+  color: #db4437;
+}
+
+.authButtonGoogle:hover {
+  border-color: #b1361f;
+  color: #b1361f;
+}
+
+.authButtonFacebook {
+  border-color: #3b5998;
+  color: #3b5998;
+}
+
+.authButtonFacebook:hover {
+  border-color: #2d4373;
+  color: #2d4373;
+}
+
+.authButtonSteam {
+  border-color: #000000;
+  color: #000000;
+}
+
+.authButtonSteam:hover {
+  border-color: #333333;
+  color: #333333;
+}
+
+.authButtonMicrosoft {
+  border-color: #0078d4;
+  color: #0078d4;
+}
+
+.authButtonMicrosoft:hover {
+  border-color: #005a9e;
+  color: #005a9e;
+}
+
+.authButtonGithub {
+  border-color: #333333;
+  color: #333333;
+}
+
+.authButtonGithub:hover {
+  border-color: #000000;
+  color: #000000;
+}
+
+/* Icon styling */
+.authButtonIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+/* Link styling */
+.authToggleButton {
+  color: #1976d2; /* MUI primary color */
+}
