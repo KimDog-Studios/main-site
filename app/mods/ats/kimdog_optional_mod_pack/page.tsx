@@ -49,46 +49,78 @@ const ModDetailPage: React.FC = () => {
     <div>
       <Navbar />
       <Container sx={{ mt: 8 }}>
-        <main className="flex flex-col p-8">
-          <Box sx={{ display: 'flex', gap: 4, mb: 4 }}>
+        <main className="flex flex-col p-4 sm:p-8">
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: 4,
+              mb: 4,
+              alignItems: 'center'
+            }}
+          >
             {/* Main Image */}
-            <Box sx={{ flexShrink: 0, width: '276px', height: '162px' }}>
+            <Box
+              sx={{
+                width: { xs: '100%', sm: '276px' },
+                height: { xs: 'auto', sm: '162px' },
+                position: 'relative',
+                flexShrink: 0
+              }}
+            >
               <Image
                 src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGVhbGxxdGNkaGVnMjR0cGZtdnF6aHp0M3JzeG16cGg1eHcxcnk0ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/F429PudI8RGfyIWUU5/giphy.webp"
                 alt="Main Mod Image"
-                width={276}
-                height={162}
-                style={{ objectFit: 'cover' }}
+                layout="fill"
+                objectFit="cover"
               />
             </Box>
 
             {/* Description and Download Button */}
-            <Box sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              color: 'white',
-              p: 2,
-              borderRadius: 2,
-              textAlign: 'center',
-              flexGrow: 1
-            }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                color: 'white',
+                p: 2,
+                borderRadius: 2,
+                textAlign: 'center',
+                flexGrow: 1,
+                width: { xs: '100%', sm: 'auto' }
+              }}
+            >
               <Typography variant="h6" className="text-lg font-semibold mb-2">
                 Mod Description
               </Typography>
-              <Typography className="mb-4">
-                This mod pack contains various optional modifications that can enhance your gaming experience.
-                All mods are designed to be fully compatible with the latest version of the game.
-              </Typography>
-              <Typography className="mb-4">
-                Enjoy the new features and enhancements!
-              </Typography>
-              <Tooltip title="Download Mod Pack" placement="right">
-                <Button variant="contained" color="primary" onClick={handleDownloadClick}>
-                  Download
-                </Button>
-              </Tooltip>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 2
+                }}
+              >
+                <Typography className="mb-4">
+                  This mod pack contains various optional modifications that can enhance your gaming experience.
+                  All mods are designed to be fully compatible with the latest version of the game.
+                </Typography>
+                <Typography className="mb-4">
+                  Enjoy the new features and enhancements!
+                </Typography>
+                <Tooltip title="Download Mod Pack" placement="right">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleDownloadClick}
+                    sx={{ width: '100%', maxWidth: '276px' }}
+                  >
+                    Download
+                  </Button>
+                </Tooltip>
+              </Box>
               {openAlert && (
                 <Alert severity="info" onClose={() => setOpenAlert(false)} sx={{ mt: 2 }}>
                   Downloading will start in {countdown} seconds...
@@ -107,7 +139,14 @@ const ModDetailPage: React.FC = () => {
             <Typography variant="h6" className="text-lg font-semibold mb-2">
               Screenshots
             </Typography>
-            <div style={{ display: 'flex', overflowX: 'auto', gap: '16px' }}>
+            <div
+              style={{
+                display: 'flex',
+                overflowX: 'auto',
+                gap: '16px',
+                padding: '8px 0'
+              }}
+            >
               <Image
                 src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
                 alt="Screenshot 1"
