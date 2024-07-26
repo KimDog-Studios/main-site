@@ -46,7 +46,7 @@ const ModDetailPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div style={{ fontWeight: 'bold' }}> {/* Make all text bold */}
       <Navbar />
       <Container sx={{ mt: 8 }}>
         <main className="flex flex-col p-4 sm:p-8">
@@ -56,7 +56,7 @@ const ModDetailPage: React.FC = () => {
               flexDirection: { xs: 'column', sm: 'row' },
               gap: 4,
               mb: 4,
-              alignItems: 'center'
+              alignItems: 'flex-start'
             }}
           >
             {/* Main Image */}
@@ -81,7 +81,7 @@ const ModDetailPage: React.FC = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 backgroundColor: 'rgba(0, 0, 0, 0.7)',
                 color: 'white',
                 p: 2,
@@ -115,7 +115,40 @@ const ModDetailPage: React.FC = () => {
                     variant="contained"
                     color="primary"
                     onClick={handleDownloadClick}
-                    sx={{ width: '100%', maxWidth: '276px' }}
+                    sx={{
+                      position: 'relative',
+                      overflow: 'hidden',
+                      width: { xs: '100%', sm: 'auto' },
+                      background: 'linear-gradient(45deg, #FF6F61 30%, #FFC107 90%)',
+                      borderRadius: 3,
+                      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textTransform: 'none',
+                      transition: 'background 0.3s, transform 0.3s',
+                      '&:hover': {
+                        background: 'linear-gradient(45deg, #FF8A80 30%, #FFD740 90%)',
+                        transform: 'scale(1.05)',
+                        '&::before': {
+                          transform: 'scale(1.5)',
+                          opacity: 1
+                        }
+                      },
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        border: '2px solid #FFC107',
+                        borderRadius: '50%',
+                        transition: 'transform 0.3s, opacity 0.3s',
+                        transform: 'scale(0)',
+                        opacity: 0,
+                        zIndex: 1
+                      }
+                    }}
                   >
                     Download
                   </Button>

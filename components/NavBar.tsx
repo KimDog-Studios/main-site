@@ -11,7 +11,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const pages = ['About', 'Contact'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Sign In/Sign Up'];
 const modCategories = ['ETS 2', 'ATS'];
 
 const NavBar: React.FC = () => {
