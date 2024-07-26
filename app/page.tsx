@@ -1,11 +1,14 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { Button, Box, Typography, CircularProgress, Backdrop } from '@mui/material';
-import RedirectBackdrop from '../components/RedirectBackdrop'; // Adjust the path if necessary
+import { useState, useEffect } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import { Button, Box } from "@mui/material";
+import LoadingScreen from "../components/LoadingScreen"; // Adjust the path if necessary
+import RedirectBackdrop from "../components/RedirectBackdrop"; // Adjust the path if necessary
 
 export default function Home() {
+  const { data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [countdown, setCountdown] = useState(5); // Set the countdown time in seconds
@@ -14,8 +17,8 @@ export default function Home() {
   useEffect(() => {
     // Simulate page loading
     const timer = setTimeout(() => {
-      setLoading(false); // Hide spinner after 2 seconds
-    }, 2000); // Adjust the delay as needed
+      setLoading(false); // Hide spinner after 3 seconds
+    }, 3000); // Adjust the delay as needed
 
     return () => clearTimeout(timer); // Cleanup on unmount
   }, []);
@@ -31,24 +34,14 @@ export default function Home() {
     }, 5 * 1000); // Set delay to countdown time in milliseconds
   };
 
-  if (loading) {
-    return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={true}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    );
-  }
-
   return (
     <main className="min-h-screen flex flex-col p-8">
-      <div className="flex flex-col items-start space-y-4">
+      {/* Single Mod */}
+      <Box className="flex flex-col items-start space-y-4 max-w-md mx-auto">
         <h2 className="text-2xl font-bold">KimDog&apos;s LLCC Optional Mod Pack</h2>
         <Image
-          src="https://raw.githubusercontent.com/KimDog-Studios/modding-website/main/public/assets/freeman_cover.jpg"
-          alt="My Image"
+          src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
+          alt="Mod Image"
           width={276}
           height={162}
           className="rounded"
@@ -62,7 +55,36 @@ export default function Home() {
         >
           Download
         </Button>
-      </div>
+      </Box>
+
+      {/* Sign-In Button */}
+      <Box className="flex flex-col items-center space-y-4 mt-8">
+        {!session ? (
+          <Button
+            onClick={() => signIn("google")} // Change 'google' to another provider if needed
+            variant="contained"
+            color="secondary"
+            className="bg-red-500 text-white px-4 py-2 rounded"
+          >
+            Sign In with Google
+          </Button>
+        ) : (
+          <>
+            <p>Welcome, {session.user.name}!</p>
+            <Button
+              onClick={() => signOut()}
+              variant="contained"
+              color="secondary"
+              className="bg-red-500 text-white px-4 py-2 rounded"
+            >
+              Sign Out
+            </Button>
+          </>
+        )}
+      </Box>
+
+      {/* Loading Screen */}
+      <LoadingScreen open={loading} />
 
       {/* Redirect Backdrop with Spinner and Countdown */}
       <RedirectBackdrop
