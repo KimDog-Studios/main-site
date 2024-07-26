@@ -1,32 +1,28 @@
-// components/RedirectBackdrop.tsx
 import React from 'react';
-import { Backdrop, CircularProgress, Typography, Button } from '@mui/material';
+import { Backdrop, CircularProgress, Typography, Button, Box } from '@mui/material';
 
 interface RedirectBackdropProps {
   open: boolean;
-  countdown: number;
-  url: string;
+  redirectUrl: string;
   onClose: () => void;
-  onManualRedirect: () => void;
+  countdown: number;
 }
 
-const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, countdown, url, onClose, onManualRedirect }) => {
+const RedirectBackdrop: React.FC<RedirectBackdropProps> = ({ open, redirectUrl, onClose, countdown }) => {
   return (
-    <Backdrop open={open} onClick={onClose} sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-      <div style={{ textAlign: 'center' }}>
+    <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={open}>
+      <Box textAlign="center">
         <CircularProgress color="inherit" />
-        <Typography variant="h6" sx={{ marginTop: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }}>
           Redirecting in {countdown} seconds...
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={onManualRedirect}
-          sx={{ marginTop: 2 }}
-        >
-          Go Now
-        </Button>
-      </div>
+        <Typography variant="body1" sx={{ mt: 1 }}>
+          If not redirected automatically, click{' '}
+          <Button variant="contained" color="primary" onClick={() => window.open(redirectUrl, '_blank')}>
+            here
+          </Button>.
+        </Typography>
+      </Box>
     </Backdrop>
   );
 };

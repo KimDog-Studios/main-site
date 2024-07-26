@@ -10,7 +10,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [countdown, setCountdown] = useState(5); // Set the countdown time in seconds
-  const mod1_redirectUrl = "https://example.com"; // Replace with your URL
+  const redirectUrl = "https://example.com"; // Replace with your URL
 
   useEffect(() => {
     // Simulate page loading
@@ -28,7 +28,7 @@ export default function Home() {
     setCountdown(5); // Reset countdown time to 5 seconds
     setTimeout(() => {
       setOpen(false); // Close the backdrop
-      window.open(mod1_redirectUrl, "_blank"); // Redirect to new page
+      window.open(redirectUrl, "_blank"); // Redirect to new page
     }, 5 * 1000); // Set delay to countdown time in milliseconds
   };
 
@@ -115,7 +115,7 @@ export default function Home() {
             {/* Redirect Backdrop with Spinner and Countdown */}
             <RedirectBackdrop
               open={open}
-              mod1_redirectUrl={mod1_redirectUrl}
+              redirectUrl={redirectUrl}
               onClose={() => setOpen(false)}
               countdown={countdown}
             />
