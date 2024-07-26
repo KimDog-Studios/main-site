@@ -1,56 +1,25 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Button, Container, Box, Accordion, AccordionSummary, AccordionDetails, Typography, Tooltip, Alert } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Navbar from '../../../components/NavBar'; // Ensure the path is correct
+import Link from 'next/link';
 
 const AtsModsPage: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [openAlert, setOpenAlert] = useState(false);
-  const [countdown, setCountdown] = useState<number>(5); // Countdown in seconds
-  const [showRedirectUI, setShowRedirectUI] = useState(false);
-  const [isRedirecting, setIsRedirecting] = useState(false);
-
-  const imageWidth = 276; // Width of the image
+  const [imageWidth, setImageWidth] = useState<number>(0);
+  const imageRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-
-    if (openAlert && countdown > 0) {
-      timer = setInterval(() => {
-        setCountdown(prev => prev - 1);
-      }, 1000);
+    if (imageRef.current) {
+      setImageWidth(imageRef.current.width);
     }
-
-    if (countdown === 0) {
-      setOpenAlert(false);
-      setShowRedirectUI(true);
-
-      // Redirect after a 1-second delay
-      setTimeout(() => {
-        if (showRedirectUI && !isRedirecting) { // Ensure we are still in redirect UI state and not already redirecting
-          setIsRedirecting(true);
-          window.open("https://drive.google.com/drive/folders/1qMIuUpE7EE7gJtoBVYj09iRJTmCOnEKk?usp=sharing", "_blank");
-          setShowRedirectUI(false); // Clean up redirect UI state
-        }
-      }, 1000);
-    }
-
-    return () => clearInterval(timer); // Clean up interval on unmount or when dependencies change
-  }, [openAlert, countdown, showRedirectUI, isRedirecting]);
+  }, []);
 
   const handleAccordionChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
-  };
-
-  const handleDownloadClick = () => {
-    if (!isRedirecting) { // Prevent multiple redirections
-      setOpenAlert(true);
-      setCountdown(5); // Reset countdown to 5 seconds
-      setIsRedirecting(false); // Reset redirecting state
-    }
   };
 
   return (
@@ -63,12 +32,15 @@ const AtsModsPage: React.FC = () => {
               <div className="flex flex-wrap gap-8">
                 <div className="flex flex-col items-start space-y-4">
                   <h2 className="text-2xl font-bold">KimDog's ATS Mod Pack</h2>
-                  <Image
-                    src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
-                    alt="Mod Image"
-                    width={imageWidth}
-                    height={162}
-                  />
+                  <Link href="/mods/ats/kimdog_optional_mod_pack">
+                    <Image
+                      src="https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/freeman_cover.jpg"
+                      alt="Mod Image"
+                      width={276}
+                      height={162}
+                      ref={imageRef}
+                    />
+                  </Link>
                   <Accordion 
                     expanded={expanded === 'panel1'} 
                     onChange={handleAccordionChange('panel1')}
@@ -99,21 +71,6 @@ const AtsModsPage: React.FC = () => {
                       </Typography>
                     </AccordionDetails>
                   </Accordion>
-                  <Tooltip title="Download Mod Pack" placement="right">
-                    <Button variant="contained" color="primary" onClick={handleDownloadClick}>
-                      Download
-                    </Button>
-                  </Tooltip>
-                  {openAlert && (
-                    <Alert severity="info" onClose={() => setOpenAlert(false)}>
-                      Downloading will start in {countdown} seconds...
-                    </Alert>
-                  )}
-                  {showRedirectUI && (
-                    <Alert severity="success">
-                      Redirecting to download link...
-                    </Alert>
-                  )}
                 </div>
               </div>
             </div>

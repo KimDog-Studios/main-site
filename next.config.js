@@ -1,11 +1,13 @@
-// next.config.js
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   images: {
-    domains: ['raw.githubusercontent.com'],
+    domains: [
+      'raw.githubusercontent.com', 
+      'giphy.com', 
+      'media0.giphy.com'
+    ],
   },
 };
 
