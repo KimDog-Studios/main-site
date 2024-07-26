@@ -45,9 +45,9 @@ const ModDetailPage: React.FC = () => {
     }
   };
 
-  // Generate the local image paths
+  // Construct the GitHub raw image URLs
   const images = Array.from({ length: 24 }, (_, index) => 
-    `/assets/mods/kimdog-optional-mod-pack/${index + 1}.png`
+    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-optional-mod-pack/engines/${index + 1}.png`
   );
 
   return (
@@ -169,7 +169,7 @@ const ModDetailPage: React.FC = () => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
                 gap: '16px',
                 padding: '8px 0',
               }}
