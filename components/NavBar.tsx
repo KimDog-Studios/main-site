@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, Button, TextField, IconButton, Box, useTheme, useMediaQuery } from '@mui/material';
+import React from 'react';
+import { AppBar, Toolbar, Button, TextField, IconButton, Box, useTheme, useMediaQuery, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import Link from 'next/link'; // Adjust based on your routing library
+import { FaGithub, FaDiscord } from 'react-icons/fa'; // Import GitHub and Discord icons from react-icons
 
 const NavBar: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = React.useState<string>('');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  // Handle change in search input
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
-  // Handle search form submission
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (searchTerm.trim()) {
@@ -68,6 +68,30 @@ const NavBar: React.FC = () => {
               <SearchIcon />
             </IconButton>
           </form>
+        </Box>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Link href="/pages/signin" passHref>
+            <Button color="inherit" sx={{ fontWeight: 'bold' }}>Sign In</Button>
+          </Link>
+          
+          <Tooltip title="Contribute to the Page" arrow>
+            <IconButton
+              color="inherit"
+              onClick={() => window.open('https://github.com/KimDog-Studios/main-site', '_blank')}
+            >
+              <FaGithub />
+            </IconButton>
+          </Tooltip>
+          
+          <Tooltip title="Join Our Discord Server" arrow>
+            <IconButton
+              color="inherit"
+              onClick={() => window.open('https://discord.gg/QWJHH4JBKe', '_blank')}
+            >
+              <FaDiscord />
+            </IconButton>
+          </Tooltip>
         </Box>
       </Toolbar>
     </AppBar>

@@ -65,14 +65,14 @@ export default function Home() {
               onClick={handleOpen}
               variant="contained"
               sx={{
-                backgroundColor: 'blue', // Keep the button blue
+                backgroundColor: 'red', // Keep the button blue
                 color: 'white',
                 padding: '8px 16px',
                 borderRadius: '8px',
                 transition: 'transform 0.3s ease-in-out',
                 '&:hover': {
-                  transform: 'scale(1.05)', // Scale up on hover
-                  backgroundColor: 'darkblue', // Slightly darker blue on hover
+                  transform: 'scale(1.15)', // Scale up on hover
+                  backgroundColor: 'darkred', // Slightly darker blue on hover
                 },
               }}
             >
