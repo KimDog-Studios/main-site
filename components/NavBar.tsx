@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, Button, TextField, IconButton, Box, useTheme, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-const Navbar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+const NavBar: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   // Handle change in search input
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
   // Handle search form submission
-  const handleSearchSubmit = (event) => {
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Perform search action (e.g., redirect or filter results)
     if (searchTerm.trim()) {
       window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
     }
@@ -34,7 +33,6 @@ const Navbar = () => {
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        {/* Navigation Buttons */}
         {!isMobile && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Button color="inherit" sx={{ fontWeight: 'bold' }}>Home</Button>
@@ -43,7 +41,6 @@ const Navbar = () => {
           </Box>
         )}
 
-        {/* Centered Search Bar */}
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
           <form onSubmit={handleSearchSubmit} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
             <TextField
@@ -64,7 +61,7 @@ const Navbar = () => {
                     borderColor: theme.palette.primary.light,
                   },
                 },
-                width: { xs: '100%', sm: '400px' }, // Adjust width on mobile and desktop
+                width: { xs: '100%', sm: '400px' },
               }}
             />
             <IconButton type="submit" color="inherit">
@@ -72,12 +69,9 @@ const Navbar = () => {
             </IconButton>
           </form>
         </Box>
-
-        {/* Sign In Button */}
-        <Button color="inherit" sx={{ fontWeight: 'bold' }}>Sign In</Button>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Navbar;
+export default NavBar;
