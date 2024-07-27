@@ -2,11 +2,10 @@
 // app/components/TypingEffect.tsx
 import Typewriter from 'typewriter-effect';
 import React, { useState, useEffect, useRef } from 'react';
-import { Container, Box, Typography, Dialog, Button, CircularProgress, DialogContent, Backdrop, CardContent, CardMedia } from '@mui/material';
+import { Container, Box, Typography, Dialog, Button, CircularProgress, DialogContent, Backdrop, CardContent, CardMedia, Avatar, Drawer, IconButton, List, ListItem, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../css/Main.module.css'; // Import the CSS module
-//import DiscordServers from '../components/DiscordServers'
 
 // Mods
 const Mods: React.FC = () => {
@@ -72,8 +71,6 @@ const Mods: React.FC = () => {
               </div>
             </Box>
           </main>
-
-        
         </Container>
       </div>
     );
@@ -129,7 +126,7 @@ const TypingEffectHomePage: React.FC = () => {
               .typeString('We aim to keep all of our mod Packs upto date when the Game Gets a Major Update!')
               .pauseFor(2000)
               .deleteAll()
-              .typeString('Report all Bugs/Errors into the Discord Server!')
+              .typeString('Report all Bugs or Errors into the Discord Server!')
               .pauseFor(2000)
               .deleteAll()
               .start();
