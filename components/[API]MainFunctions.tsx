@@ -5,7 +5,6 @@ import { Container, Box, Typography, Dialog, Button, CircularProgress, DialogCon
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../css/Main.module.css'; // Import the CSS module
-import NavBar from './NavBar';
 
 // Mods
 const Mods: React.FC = () => {
@@ -156,6 +155,61 @@ const TypingEffectETS2KimDogNetwork: React.FC = () => {
               .pauseFor(2000)
               .deleteAll()
               .typeString("Not MP Optional")
+              .pauseFor(2000)
+              .deleteAll()
+              .start();
+          }}
+        />
+      </Typography>
+    </Box>
+  );
+};
+
+// TypingEffectMinecraftKimDogsResourcePack Component
+const TypingEffectMinecraftKimDogsResourcePack: React.FC = () => {
+  return (
+    <Box sx={{ textAlign: 'center', mt: 8 }}>
+      <Typography variant="h2" component="h1" gutterBottom>
+        <Typewriter
+          options={{
+            loop: true, // Enables infinite looping
+            delay: 100, // Adjust typing speed here
+          }}
+          onInit={(typewriter) => {
+            typewriter
+              .typeString("KimDog's Resource Pack")
+              .pauseFor(2000)
+              .deleteAll()
+              .typeString("Last updated: 17.7.24")
+              .pauseFor(2000)
+              .deleteAll()
+              .typeString("Supports Minecraft Java 1.20.6")
+              .pauseFor(2000)
+              .deleteAll()
+              .start();
+          }}
+        />
+      </Typography>
+    </Box>
+  );
+};
+
+// TypingEffectKimDoglogisticsETS2 Component
+const TypingEffectKimDoglogisticsETS2: React.FC = () => {
+  return (
+    <Box sx={{ textAlign: 'center', mt: 8 }}>
+      <Typography variant="h2" component="h1" gutterBottom>
+        <Typewriter
+          options={{
+            loop: true, // Enables infinite looping
+            delay: 100, // Adjust typing speed here
+          }}
+          onInit={(typewriter) => {
+            typewriter
+              .typeString("KimDog Logistics [ETS 2]")
+              .pauseFor(2000)
+              .deleteAll()
+              .typeString("Last updated: 16.6.24")
               .pauseFor(2000)
               .deleteAll()
               .start();
@@ -339,4 +393,4 @@ const DiscordPage: React.FC = () => {
   );
 };
 
-export { TypingEffectATSModPack, TypingEffectETS2KimDogNetwork, TypingEffectHomePage, Mods, RedirectBackdrop, LoadingScreen, DiscordPage};
+export { TypingEffectATSModPack, TypingEffectETS2KimDogNetwork, TypingEffectHomePage, Mods, RedirectBackdrop, LoadingScreen, DiscordPage, TypingEffectMinecraftKimDogsResourcePack, TypingEffectKimDoglogisticsETS2};
