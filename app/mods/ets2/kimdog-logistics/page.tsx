@@ -48,9 +48,15 @@ const Mod_DetailPage: React.FC = () => {
   };
 
   // Construct the GitHub raw image URLs
-  const images = Array.from({ length: 12 }, (_, index) => 
-    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-logistics-ets2/trucks/${index + 1}.png`
+  const AITruckimages = Array.from({ length: 12 }, (_, index) => 
+    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-logistics-ets2/${index + 1}.png`
   );
+
+  // Construct the GitHub raw image URLs
+  const Playerownedimages = Array.from({ length: 2 }, (_, index) => 
+    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-logistics-ets2/playerowned${index + 1}.png`
+  );
+
 
   const [loading, setLoading] = useState(true);
 
@@ -138,17 +144,38 @@ const Mod_DetailPage: React.FC = () => {
           {/* Screenshots Section */}
           <Box>
             <Typography variant="h6" className="text-lg font-semibold mb-2">
-              AI Trucks
+              AI Trucks:
             </Typography>
             <div className={styles.screenshotsGrid}>
-              {images.map((image, index) => (
+              {AITruckimages.map((AiTruckimage, index) => (
                 <div key={index} style={{ position: 'relative', width: '100%', height: 'auto' }}>
                   <Image
-                    src={image}
+                    src={AiTruckimage}
                     alt={`Screenshot ${index + 1}`}
                     layout="responsive"
-                    width={487} // Width of the image
-                    height={1143} // Height of the image
+                    width={2560} // Width of the image
+                    height={1440} // Height of the image
+                    style={{ maxWidth: '100%', height: 'auto' }}
+                  />
+                </div>
+              ))}
+            </div>
+            </Box>
+
+            {/* Screenshots Section */}
+          <Box>
+            <Typography variant="h6" className="text-lg font-semibold mb-2">
+              Player Owned:
+            </Typography>
+            <div className={styles.screenshotsGrid}>
+              {Playerownedimages.map((Playerownedimage, index) => (
+                <div key={index} style={{ position: 'relative', width: '100%', height: 'auto' }}>
+                  <Image
+                    src={Playerownedimage}
+                    alt={`Screenshot ${index + 1}`}
+                    layout="responsive"
+                    width={2560} // Width of the image
+                    height={1440} // Height of the image
                     style={{ maxWidth: '100%', height: 'auto' }}
                   />
                 </div>
