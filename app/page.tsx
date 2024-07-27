@@ -12,7 +12,7 @@ const MainPage: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1750);
 
     return () => clearTimeout(timer);
   }, []);
