@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button, Container, Box, Typography, Tooltip, Alert, Backdrop, CircularProgress } from '@mui/material';
-import Navbar from '../../../../components/[API]NavBar'; // Ensure the path is correct
-import styles from '../../../../css/Main.module.css'; // Import the CSS module
-import { TypingEffectETS2KimDogNetwork } from '../../../../components/[API]MainFunctions';
+import Navbar from '@/components/[API]NavBar'; // Ensure the path is correct
+import styles from '@/css/Main.module.css'; // Import the CSS module
+import { TypingEffectETS2KimDogNetwork } from '@/components/[API]MainFunctions';
+import BreadcrumbsComponent from '@/components/Breadcrumbs';
 
 const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
@@ -73,10 +74,22 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
     );
   }
 
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'ETS 2 Mods'},
+    { label: "KimDog's Network Mod Pack" }
+  ];
+
   return (
     <div className={styles.boldText}>
       <TypingEffectETS2KimDogNetwork/>
       <Navbar />
+
+      {/* Breadcrumbs */}
+      <div className="flex justify-center">
+      <BreadcrumbsComponent items={breadcrumbItems} className="breadcrumb-position" />
+      </div>
+
       <Container className={styles.mainContainer}>
         <main className="flex flex-col p-4 sm:p-8">
           <Box

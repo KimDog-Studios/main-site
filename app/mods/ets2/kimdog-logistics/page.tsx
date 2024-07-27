@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button, Container, Box, Typography, Tooltip, Alert, Backdrop, CircularProgress } from '@mui/material';
-import Navbar from '../../../../components/[API]NavBar'; // Ensure the path is correct
-import styles from '../../../../css/Main.module.css'; // Import the CSS module
-import { TypingEffectKimDoglogisticsETS2 } from '../../../../components/[API]MainFunctions';
+import Navbar from '@/components/[API]NavBar'; // Ensure the path is correct
+import styles from '@/css/Main.module.css'; // Import the CSS module
+import { TypingEffectKimDoglogisticsETS2 } from '@/components/[API]MainFunctions';
+import BreadcrumbsComponent from '@/components/Breadcrumbs';
 
 const Mod_DetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
@@ -79,10 +80,22 @@ const Mod_DetailPage: React.FC = () => {
     );
   }
 
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'ETS2 Mods'},
+    { label: "KimDog's Logistics" }
+  ];
+
   return (
     <div className={styles.boldText}>
       <TypingEffectKimDoglogisticsETS2/>
       <Navbar />
+
+      {/* Breadcrumbs */}
+      <div className="flex justify-center">
+      <BreadcrumbsComponent items={breadcrumbItems} className="breadcrumb-position" />
+      </div>
+
       <Container className={styles.mainContainer}>
         <main className="flex flex-col p-4 sm:p-8">
           <Box
@@ -110,7 +123,7 @@ const Mod_DetailPage: React.FC = () => {
               >
                 <Typography className="mb-4">
                   This logistics pack offers a variety of improvements and enhancements to the existing game, such as:
-                  Skinned AI
+                  Skinned AI!
 
                   Coming in the Future Skinned Companies and more!
                 </Typography>

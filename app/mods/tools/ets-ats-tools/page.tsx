@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button, Container, Box, Typography, Tooltip, Alert, Backdrop, CircularProgress } from '@mui/material';
-import Navbar from '../../../../components/[API]NavBar'; // Ensure the path is correct
-import styles from '../../../../css/Main.module.css'; // Import the CSS module
-import { TypingEffectATSAndETSTools } from '../../../../components/[API]MainFunctions';
+import Navbar from '@/components/[API]NavBar'; // Ensure the path is correct
+import styles from '@/css/Main.module.css'; // Import the CSS module
+import { TypingEffectATSAndETSTools } from '@/components/[API]MainFunctions';
+import BreadcrumbsComponent from '@/components/Breadcrumbs';
 
 const Mod_DetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
@@ -48,7 +49,7 @@ const Mod_DetailPage: React.FC = () => {
   };
 
   // Construct the GitHub raw image URLs
-  const images = Array.from({ length: 2 }, (_, index) => 
+  const images = Array.from({ length: 6 }, (_, index) => 
     `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/tools/softwares/${index + 1}.png`
   );
 
@@ -73,10 +74,22 @@ const Mod_DetailPage: React.FC = () => {
     );
   }
 
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'ETS 2 + ATS Tools'},
+    { label: "KimDog's Software and Tools Pack" }
+  ];
+
   return (
     <div className={styles.boldText}>
       <TypingEffectATSAndETSTools/>
       <Navbar />
+
+      {/* Breadcrumbs */}
+      <div className="flex justify-center">
+      <BreadcrumbsComponent items={breadcrumbItems} className="breadcrumb-position" />
+      </div>
+
       <Container className={styles.mainContainer}>
         <main className="flex flex-col p-4 sm:p-8">
           <Box
