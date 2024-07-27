@@ -1,5 +1,4 @@
 'use client';
-// app/components/TypingEffect.tsx
 import Typewriter from 'typewriter-effect';
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Box, Typography, Dialog, Button, CircularProgress, DialogContent, Backdrop, CardContent, CardMedia, Avatar, Drawer, IconButton, List, ListItem, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
