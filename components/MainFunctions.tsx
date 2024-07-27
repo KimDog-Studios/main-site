@@ -5,6 +5,7 @@ import { Container, Box, Typography, Dialog, Button, CircularProgress, DialogCon
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../css/Main.module.css'; // Import the CSS module
+import NavBar from './NavBar';
 
 // Mods
 const Mods: React.FC = () => {
