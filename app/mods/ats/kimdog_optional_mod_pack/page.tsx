@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button, Container, Box, Typography, Tooltip, Alert, Backdrop, CircularProgress } from '@mui/material';
-import Navbar from '../../../../components/NavBar'; // Ensure the path is correct
+import Navbar from '../../../../components/[API]NavBar'; // Ensure the path is correct
 import styles from '../../../../css/Main.module.css'; // Import the CSS module
-import { TypingEffectATSModPack } from '../../../../components/MainFunctions';
+import { TypingEffectATSModPack } from '../../../../components/[API]MainFunctions';
 
 const ModDetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
