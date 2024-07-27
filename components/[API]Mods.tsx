@@ -45,6 +45,12 @@ const modsData: ModsData = {
       title: "[ETS2 + ATS] Modding Tools Pack",
       imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/KimDogLogo.png',
       link: '/mods/tools/ets-ats-tools'
+    },
+    {
+      id: 6,
+      title: "KimDog's Template Pack",
+      imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/KimDogLogo.png',
+      link: '/mods/templates/'
     }
   ],
   DiscordServers: [
