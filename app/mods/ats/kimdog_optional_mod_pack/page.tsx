@@ -48,7 +48,7 @@ const ModDetailPage: React.FC = () => {
   };
 
   // Construct the GitHub raw image URLs
-  const images = Array.from({ length: 24 }, (_, index) => 
+  const Engineimages = Array.from({ length: 24 }, (_, index) => 
     `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-optional-mod-pack/engines/${index + 1}.png`
   );
 
@@ -141,14 +141,14 @@ const ModDetailPage: React.FC = () => {
 
           {/* Screenshots Section */}
           <Box>
-            <Typography variant="h6" className="text-lg font-semibold mb-2">
+            <Typography variant="h6" className="text-lg font-bold mb-2">
               Engines:
             </Typography>
             <div className={styles.screenshotsGrid}>
-              {images.map((image, index) => (
+              {Engineimages.map((Engineimage, index) => (
                 <div key={index} className={styles.imageWrapper}>
                   <Image
-                    src={image}
+                    src={Engineimage}
                     alt={`Screenshot ${index + 1}`}
                     layout="responsive"
                     width={487} // Width of the image
