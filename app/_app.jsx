@@ -1,12 +1,13 @@
-import { SessionProvider } from 'next-auth/react';
+import React from 'react';
+import { ParallaxProvider } from 'react-scroll-parallax';
+import '../styles/globals.css'; // Adjust the path if necessary
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+function MyApp({ Component, pageProps }) {
   return (
-    <SessionProvider session={session}>
-        <Component {...pageProps} />
-    </SessionProvider>
+    <ParallaxProvider>
+      <Component {...pageProps} />
+    </ParallaxProvider>
   );
 }
+
+export default MyApp;
