@@ -40,6 +40,12 @@ const modsData: ModsData = {
       title: "[ETS2] KimDog's Logistics",
       imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/KimDogLogo.png',
       link: '/mods/ets2/kimdog-logistics'
+    },
+    {
+      id: 5,
+      title: "Modding Tools Pack [ETS2 + ATS]",
+      imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/KimDogLogo.png',
+      link: '/mods/tools/ets-ats-tools'
     }
   ],
   DiscordServers: [
