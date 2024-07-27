@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { FaGithub, FaDiscord } from 'react-icons/fa';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import styles from '../../css/Main.module.css'; // Import the CSS module
+import styles from '../css/Main.module.css'; // Import the CSS module
 
 const pages = ['Home', 'About', 'Contact'];
 const settings = ['Sign In/Sign Up'];

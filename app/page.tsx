@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Backdrop, CircularProgress, Container, Box, Typography } from '@mui/material';
-import NavBar from '../components/main/NavBar'; // Ensure the path is correct
-import { TypingEffectHomePage, Mods, DiscordPage} from '../components/API'; // Import the new component with correct path
+import NavBar from '../components/NavBar'; // Ensure the path is correct
+import { TypingEffectHomePage, Mods, DiscordPage} from '../components/Main'; // Import the new component with correct path
 
 const MainPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
