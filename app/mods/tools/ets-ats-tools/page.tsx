@@ -48,7 +48,7 @@ const Mod_DetailPage: React.FC = () => {
   };
 
   // Construct the GitHub raw image URLs
-  const images = Array.from({ length: 24 }, (_, index) => 
+  const images = Array.from({ length: 2 }, (_, index) => 
     `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/tools/softwares/${index + 1}.png`
   );
 
@@ -135,7 +135,7 @@ const Mod_DetailPage: React.FC = () => {
           {/* Screenshots Section */}
           <Box>
             <Typography variant="h6" className="text-lg font-semibold mb-2">
-              Engines
+              Softwares
             </Typography>
             <div className={styles.screenshotsGrid}>
               {images.map((image, index) => (
