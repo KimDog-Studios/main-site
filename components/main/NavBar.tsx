@@ -33,6 +33,10 @@ const NavBar: React.FC = () => {
     router.push('/api/signin-signup');
   };
 
+  const handleHomeClick = () => {
+    router.push('/'); // Navigate to the home page
+  };
+
   const drawer = (
     <Box
       className={styles.drawerContainer}
@@ -41,7 +45,10 @@ const NavBar: React.FC = () => {
     >
       <Box sx={{ marginTop: 8 }}>
         <List>
-          {pages.map((page) => (
+          <ListItem button onClick={handleHomeClick}>
+            <ListItemText primary="Home" sx={{ color: 'white' }} />
+          </ListItem>
+          {pages.slice(1).map((page) => (
             <ListItem button key={page}>
               <Link href={`/${page.toLowerCase()}`} passHref>
                 <ListItemText primary={page} sx={{ color: 'white' }} />

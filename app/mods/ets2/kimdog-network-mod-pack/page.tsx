@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Button, Container, Box, Typography, Tooltip, Alert } from '@mui/material';
+import { Button, Container, Box, Typography, Tooltip, Alert, Backdrop, CircularProgress } from '@mui/material';
 import Navbar from '../../../../components/main/NavBar'; // Ensure the path is correct
 import styles from '../../../../css/Main.module.css'; // Import the CSS module
 import TypingEffect from '@/components/main/TypingAnimationKimDog-Network-Mod-Pack';
@@ -30,7 +30,7 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
       setTimeout(() => {
         if (showRedirectUI && !isRedirecting) {
           setIsRedirecting(true);
-          window.open("https://drive.google.com/drive/folders/1qMIuUpE7EE7gJtoBVYj09iRJTmCOnEKk?usp=sharing", "_blank");
+          window.open("https://drive.google.com/drive/u/0/folders/1k9sVR1X51jOgdI8rvuJysoteZoaTF7q8", "_blank");
           setShowRedirectUI(false); // Clean up redirect UI state
         }
       }, 1000);
@@ -51,6 +51,27 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
   const images = Array.from({ length: 24 }, (_, index) => 
     `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-optional-mod-pack/engines/${index + 1}.png`
   );
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
 
   return (
     <div className={styles.boldText}>
