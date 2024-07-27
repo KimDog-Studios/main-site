@@ -54,7 +54,7 @@ const Mod_DetailPage: React.FC = () => {
 
   // Construct the GitHub raw image URLs
   const Playerownedimages = Array.from({ length: 2 }, (_, index) => 
-    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-logistics-ets2/playerowned${index + 1}.png`
+    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-logistics-ets2/playerowned/${index + 1}.png`
   );
 
 
@@ -174,8 +174,8 @@ const Mod_DetailPage: React.FC = () => {
                     src={Playerownedimage}
                     alt={`Screenshot ${index + 1}`}
                     layout="responsive"
-                    width={2560} // Width of the image
-                    height={1440} // Height of the image
+                    width={1738} // Width of the image
+                    height={904} // Height of the image
                     style={{ maxWidth: '100%', height: 'auto' }}
                   />
                 </div>
