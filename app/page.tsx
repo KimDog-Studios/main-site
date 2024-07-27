@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Backdrop, CircularProgress, Container, Box, Typography } from '@mui/material';
 import NavBar from '../components/main/NavBar'; // Ensure the path is correct
-import { TypingEffectHomePage, Mods} from '../components/API'; // Import the new component with correct path
+import { TypingEffectHomePage, Mods, DiscordPage} from '../components/API'; // Import the new component with correct path
 
 const MainPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -32,6 +32,7 @@ const MainPage: React.FC = () => {
       <TypingEffectHomePage />
       <NavBar />
       <Mods />
+      <DiscordPage/>
     </div>
   );
 };
