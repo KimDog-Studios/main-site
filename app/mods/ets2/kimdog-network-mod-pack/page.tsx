@@ -155,7 +155,7 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
           {/* Screenshots Section */}
           <Box>
             <Typography variant="h6" className="text-lg font-semibold mb-2">
-              Engines
+              Engines:
             </Typography>
             <div className={styles.screenshotsGrid}>
               {images.map((image, index) => (
