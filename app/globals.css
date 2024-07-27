@@ -42,5 +42,5 @@ body {
 }
 
 .hover\:animate-pulseOutline:hover {
-  animation: pulseOutline 2.0s infinite;
+  animation: pulseOutline 1.5s infinite;
 }
