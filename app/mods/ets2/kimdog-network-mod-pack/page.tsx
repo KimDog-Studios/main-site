@@ -31,7 +31,7 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
       setTimeout(() => {
         if (showRedirectUI && !isRedirecting) {
           setIsRedirecting(true);
-          window.open("https://drive.google.com/drive/u/0/folders/1k9sVR1X51jOgdI8rvuJysoteZoaTF7q8", "_blank");
+          window.open("https://drive.google.com/file/d/1f1xUClVc6dmMX-U4EqrrWf6OpAuU8qpz/view?usp=sharing", "_blank");
           setShowRedirectUI(false); // Clean up redirect UI state
         }
       }, 1000);
