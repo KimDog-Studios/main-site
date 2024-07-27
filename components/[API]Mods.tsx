@@ -43,7 +43,7 @@ const modsData: ModsData = {
     },
     {
       id: 5,
-      title: "Modding Tools Pack [ETS2 + ATS]",
+      title: "[ETS2 + ATS] Modding Tools Pack",
       imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/KimDogLogo.png',
       link: '/mods/tools/ets-ats-tools'
     }
