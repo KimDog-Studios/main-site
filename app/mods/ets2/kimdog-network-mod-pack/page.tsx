@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Button, Container, Box, Typography, Tooltip, Alert, Backdrop, CircularProgress } from '@mui/material';
 import Navbar from '../../../../components/main/NavBar'; // Ensure the path is correct
 import styles from '../../../../css/Main.module.css'; // Import the CSS module
-import TypingEffect from '@/components/main/TypingAnimationKimDog-Network-Mod-Pack';
+import { TypingEffectETS2KimDogNetwork } from '../../../../components/API';
 
 const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
@@ -75,7 +75,7 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
 
   return (
     <div className={styles.boldText}>
-      <TypingEffect/>
+      <TypingEffectETS2KimDogNetwork/>
       <Navbar />
       <Container className={styles.mainContainer}>
         <main className="flex flex-col p-4 sm:p-8">

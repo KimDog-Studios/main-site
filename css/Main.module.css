@@ -28,7 +28,7 @@
   position: relative;
   overflow: hidden;
   width: 20%;
-  background: linear-gradient(45deg, #FF6F61 30%, #FFC107 90%);
+  background: linear-gradient(45deg, #ff6f61 30%, #ffc107 90%);
   border-radius: 0.75rem;
   box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);
   color: white;
@@ -38,7 +38,7 @@
 }
 
 .downloadButton:hover {
-  background: linear-gradient(45deg, #FF8A80 30%, #FFD740 90%);
+  background: linear-gradient(45deg, #ff8a80 30%, #ffd740 90%);
   transform: scale(1.05);
 }
 
@@ -49,7 +49,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  border: 2px solid #FFC107;
+  border: 2px solid #ffc107;
   border-radius: 50%;
   transition: transform 0.3s, opacity 0.3s;
   transform: scale(0);
@@ -81,48 +81,55 @@
 
 /* Mods.module.css */
 
-/* Container styling */
 .mainContainer {
-  margin-top: 2rem; /* Adjust the margin as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Header styling */
 .header {
-  font-size: 1.5rem; /* Adjust the font size as needed */
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem; /* Add space below the header */
+  margin-bottom: 0.5rem;
+  text-align: center;
 }
 
-/* Image container styling with animation */
 .imageContainer {
   position: relative;
-  overflow: hidden;
-  display: inline-block;
-  border-radius: 8px; /* Rounded corners */
-  transition: transform 1.0s ease;
+  width: 276px; /* Match the image width */
+  height: auto;
 }
 
-.imageContainerHovered {
-  transform: scale(1.05);
-  animation: pulseAnimation 1s infinite;
+.image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.textContainer {
+  width: 276px; /* Ensure this matches the image width */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 1rem;
 }
 
 /* Keyframes for pulsing animation */
 @keyframes pulseAnimation {
   0% {
-    box-shadow: 0 0 0 4px #FF6F61; /* Initial color */
+    box-shadow: 0 0 0 4px #ff6f61; /* Initial color */
   }
   25% {
-    box-shadow: 0 0 0 8px #FFC107; /* Intermediate color */
+    box-shadow: 0 0 0 8px #ffc107; /* Intermediate color */
   }
   50% {
-    box-shadow: 0 0 0 4px #FF8A80; /* Another intermediate color */
+    box-shadow: 0 0 0 4px #ff8a80; /* Another intermediate color */
   }
   75% {
-    box-shadow: 0 0 0 8px #FFD740; /* Final color */
+    box-shadow: 0 0 0 8px #ffd740; /* Final color */
   }
   100% {
-    box-shadow: 0 0 0 4px #FF6F61; /* Back to initial color */
+    box-shadow: 0 0 0 4px #ff6f61; /* Back to initial color */
   }
 }
 
@@ -206,7 +213,6 @@
 .button {
   color: #1976d2; /* MUI primary color */
 }
-
 
 /* SignInSignUpPage.module.css */
 
@@ -301,15 +307,25 @@
 
 /* Gradient Spinner CSS */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .gradient-spinner {
   border: 8px solid transparent; /* Border width and color */
   border-radius: 50%; /* Make the border circular */
   border-top: 8px solid; /* Top border color */
-  border-image: linear-gradient(45deg, #ff007f, #ffb600, #00b4d8, #4f7a89); /* Gradient */
+  border-image: linear-gradient(
+    45deg,
+    #ff007f,
+    #ffb600,
+    #00b4d8,
+    #4f7a89
+  ); /* Gradient */
   border-image-slice: 1; /* Ensure gradient is applied correctly */
   width: 80px; /* Spinner diameter */
   height: 80px; /* Spinner diameter */
