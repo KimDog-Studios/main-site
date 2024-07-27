@@ -50,7 +50,7 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
 
   // Construct the GitHub raw image URLs
   const images = Array.from({ length: 5 }, (_, index) => 
-    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-network-mod-pack-ets2/engines/${index + 1}.png`
+    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/templates/ats/${index + 1}.png`
   );
 
   const [loading, setLoading] = useState(true);
