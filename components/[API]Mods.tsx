@@ -1,4 +1,3 @@
-// pages/test/page.tsx
 import React from 'react';
 import Image from 'next/image';
 
@@ -20,13 +19,13 @@ const modsData: ModsData = {
     {
       id: 1,
       title: "[ATS] KimDog's ATS Mod Pack",
-      imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-optional-mod-pack/main-image.jpg',
+      imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/KimDogLogo.png',
       link: '/mods/ats/kimdog_optional_mod_pack'
     },
     {
       id: 2,
       title: "[ETS2] KimDog's Network Mod Pack",
-      imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-optional-mod-pack/main-image.jpg',
+      imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/KimDogLogo.png',
       link: '/mods/ets2/kimdog-network-mod-pack'
     },
     {
@@ -82,8 +81,8 @@ const CategorySection: React.FC<{ title: string; mods: Mod[] }> = ({ title, mods
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {mods.map((mod) => (
           <a href={mod.link} key={mod.id} className="block">
-            <div className="flex flex-col items-center"> {/* Center items */}
-              <div className="relative w-[330px] h-[200px] overflow-hidden rounded-lg mb-2"> {/* Fixed dimensions */}
+            <div className="group flex flex-col items-center p-4 rounded-lg hover:outline hover:outline-2 hover:outline-blue-500 hover:animate-pulseOutline"> {/* Added hover effect */}
+              <div className="relative w-[276px] h-[162px] overflow-hidden rounded-lg mb-2 group-hover:scale-105 transition-transform duration-300"> {/* Fixed dimensions with scale on hover */}
                 <Image
                   src={mod.imageUrl}
                   alt={mod.title}
@@ -92,7 +91,7 @@ const CategorySection: React.FC<{ title: string; mods: Mod[] }> = ({ title, mods
                   quality={100} // Optional: Adjust image quality
                 />
               </div>
-              <p className="text-white text-lg font-black text-center">{mod.title}</p> {/* Center text */}
+              <p className="text-white text-lg font-black text-center">{mod.title}</p>
             </div>
           </a>
         ))}

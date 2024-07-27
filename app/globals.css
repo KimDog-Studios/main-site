@@ -31,3 +31,16 @@ body {
     text-wrap: balance;
   }
 }
+
+@keyframes pulseOutline {
+  0%, 100% {
+    outline-color: rgba(59, 130, 246, 0); /* Transparent */
+  }
+  50% {
+    outline-color: rgba(59, 130, 246, 1); /* Fully visible blue */
+  }
+}
+
+.hover\:animate-pulseOutline:hover {
+  animation: pulseOutline 2.0s infinite;
+}
