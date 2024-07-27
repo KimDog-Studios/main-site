@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Button, Container, Box, Typography, Tooltip, Alert } from '@mui/material';
 import Navbar from '../../../../components/main/NavBar'; // Ensure the path is correct
 import styles from '../../../../css/Main.module.css'; // Import the CSS module
+import TypingEffect from '@/components/main/TypingAnimationATSModPack';
 
 const ModDetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
@@ -53,6 +54,7 @@ const ModDetailPage: React.FC = () => {
 
   return (
     <div className={styles.boldText}>
+      <TypingEffect/>
       <Navbar />
       <Container className={styles.mainContainer}>
         <main className="flex flex-col p-4 sm:p-8">

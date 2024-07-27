@@ -31,20 +31,3 @@ body {
     text-wrap: balance;
   }
 }
-
-/* Gradient Spinner CSS */
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.gradient-spinner {
-  border: 8px solid transparent; /* Border width and color */
-  border-radius: 50%; /* Make the border circular */
-  border-top: 8px solid; /* Top border color */
-  border-image: linear-gradient(45deg, #ff007f, #ffb600, #00b4d8, #4f7a89); /* Gradient */
-  border-image-slice: 1; /* Ensure gradient is applied correctly */
-  width: 80px; /* Spinner diameter */
-  height: 80px; /* Spinner diameter */
-  animation: spin 1s linear infinite; /* Spin animation */
-}
