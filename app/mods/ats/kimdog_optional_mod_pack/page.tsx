@@ -142,7 +142,7 @@ const ModDetailPage: React.FC = () => {
           {/* Screenshots Section */}
           <Box>
             <Typography variant="h6" className="text-lg font-semibold mb-2">
-              Screenshots
+              Engines:
             </Typography>
             <div className={styles.screenshotsGrid}>
               {images.map((image, index) => (
