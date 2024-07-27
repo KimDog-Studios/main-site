@@ -49,7 +49,7 @@ const Mod_DetailPage: React.FC = () => {
 
   // Construct the GitHub raw image URLs
   const images = Array.from({ length: 24 }, (_, index) => 
-    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-optional-mod-pack/engines/${index + 1}.png`
+    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/tools/softwares/${index + 1}.png`
   );
 
   const [loading, setLoading] = useState(true);
