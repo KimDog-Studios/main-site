@@ -76,6 +76,8 @@ const modsData: ModsData = {
   // Add more categories as needed
 };
 
+
+
 // Component to render a category section
 const CategorySection: React.FC<{ title: string; mods: Mod[] }> = ({ title, mods }) => {
   // Ensure `title` is a valid string
@@ -105,5 +107,4 @@ const CategorySection: React.FC<{ title: string; mods: Mod[] }> = ({ title, mods
     </div>
   );
 };
-
-export { modsData, CategorySection };
+export { modsData, CategorySection};
