@@ -16,22 +16,6 @@ interface ModsData {
 
 // Define the mods data
 const modsData: ModsData = {
-  Upcoming: [
-    {
-      id: 1,
-      title: "[ETS2] KimDog's Logistics",
-      imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/KimDogLogo.png',
-      link: '/mods/ets2/kimdog-logistics'
-    }
-  ],
-  popular: [
-    {
-      id: 1,
-      title: "[ETS2] KimDog's Network Mod Pack",
-      imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-optional-mod-pack/main-image.jpg',
-      link: '/mods/ets2/kimdog-network-mod-pack'
-    }
-  ],
   new: [
     {
       id: 1,
@@ -47,10 +31,16 @@ const modsData: ModsData = {
     },
     {
       id: 3,
-      title: "[Minecraft Java] KimDog's Resource Pack",
+      title: "[Minecraft Java | 1.20.6] KimDog's Resource Pack",
       imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/KimDogLogo.png',
       link: '/mods/minecraft/kimdogs-resource-pack'
     },
+    {
+      id: 4,
+      title: "[ETS2] KimDog's Logistics",
+      imageUrl: 'https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/KimDogLogo.png',
+      link: '/mods/ets2/kimdog-logistics'
+    }
   ],
   DiscordServers: [
     {
