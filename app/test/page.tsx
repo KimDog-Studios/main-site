@@ -9,8 +9,7 @@ const Page: React.FC = () => {
     <div className="relative min-h-screen bg-black">
         <TypingEffectHomePage />
         <NavBar />
-      <main className="flex flex-col items-center justify-center min-h-screen text-center">
-        <h1 className="text-4xl font-bold mb-8 text-white">This will be the New Home Page</h1>
+      <main className="flex flex-col items-center justify-start min-h-screen text-center">
         {Object.entries(modsData).map(([category, mods]) => (
           <CategorySection key={category} title={category} mods={mods} />
         ))}
