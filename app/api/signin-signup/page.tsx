@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import { Container, Typography, TextField, Button, Box, Grid, Paper } from '@mui/material';
-import Navbar from '../../../components/[API]NavBar'; // Ensure the path is correct
+import Navbar from '@/components/[UI]NavBar'; // Ensure the path is correct
 import { signIn } from 'next-auth/react'; // Import next-auth signIn
-import styles from '../../../css/Main.module.css'; // Import the CSS module
+import styles from '@/css/Main.module.css'; // Import the CSS module
 
 const SignInSignUpPage: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false); // Toggle between Sign In and Sign Up

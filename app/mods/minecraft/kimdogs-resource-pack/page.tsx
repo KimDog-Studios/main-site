@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button, Container, Box, Typography, Tooltip, Alert, Backdrop, CircularProgress } from '@mui/material';
-import Navbar from '@/components/[API]NavBar'; // Ensure the path is correct
+import Navbar from '@/components/[UI]NavBar'; // Ensure the path is correct
 import styles from '@/css/Main.module.css'; // Import the CSS module
 import { TypingEffectMinecraftKimDogsResourcePack } from '@/components/[API]MainFunctions';
-import BreadcrumbsComponent from '@/components/Breadcrumbs';
+import BreadcrumbsComponent from '@/components/[UI]Breadcrumbs';
 
 const Mod_DetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);

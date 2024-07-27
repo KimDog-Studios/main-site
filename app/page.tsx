@@ -1,7 +1,7 @@
 import { TypingEffectHomePage } from "@/components/[API]MainFunctions";
 import { modsData, CategorySection } from "@/components/[API]Mods";
-import NavBar from "@/components/[API]NavBar";
-import BreadcrumbsComponent from "@/components/Breadcrumbs";
+import NavBar from "@/components/[UI]NavBar";
+import BreadcrumbsComponent from "@/components/[UI]Breadcrumbs";
 
 // Page component
 const Page: React.FC = () => {
