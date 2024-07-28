@@ -1,72 +1,70 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useInView } from 'react-intersection-observer';
 import { Button, Container, Box, Typography, Tooltip, Alert, Backdrop, CircularProgress } from '@mui/material';
-import Navbar from '@/components/[UI]NavBar';
-import styles from '@/css/Main.module.css';
+import Navbar from '@/components/[UI]NavBar'; // Ensure the path is correct
+import styles from '@/css/Main.module.css'; // Import the CSS module
 import { TypingEffectETS2KimDogNetwork } from '@/components/[API]MainFunctions';
 import BreadcrumbsComponent from '@/components/[UI]Breadcrumbs';
-import {images} from '@/components/[UI]TemplateImages';
-
-const ImageGrid = ({ images }) => (
-  <Box>
-    <Typography variant="h6" className="text-lg font-semibold mb-2">ATS Templates:</Typography>
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'space-around' }}>
-      {images.map((image, index) => (
-        <div key={index} style={{ width: '30%', textAlign: 'center', backgroundColor: 'white', padding: '10px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-          <Typography variant="body1" style={{ marginBottom: '8px', color: 'black', fontWeight: 'bold' }}>{image.name}</Typography>
-          <div style={{ position: 'relative', width: '100%', height: 'auto', backgroundColor: 'white', padding: '10px', borderRadius: '8px' }}>
-            <Image src={image.url} alt={image.name} layout="responsive" width={500} height={500} style={{ maxWidth: '100%', height: 'auto', backgroundColor: 'white' }} />
-          </div>
-        </div>
-      ))}
-    </div>
-  </Box>
-);
+import { images } from '@/components/[UI]TemplateImages';
 
 const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState<number>(5); // Countdown in seconds
   const [showRedirectUI, setShowRedirectUI] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    if (!openAlert || countdown === 0) return;
+    let timer: NodeJS.Timeout;
 
-    const timer = setInterval(() => setCountdown(prev => prev - 1), 1000);
-    if (countdown === 1) {
+    if (openAlert && countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown(prev => prev - 1);
+      }, 1000);
+    }
+
+    if (countdown === 0) {
       setOpenAlert(false);
       setShowRedirectUI(true);
+
+      // Redirect after a 1-second delay
       setTimeout(() => {
-        if (!isRedirecting) {
+        if (showRedirectUI && !isRedirecting) {
           setIsRedirecting(true);
           window.open("https://drive.google.com/file/d/1f1xUClVc6dmMX-U4EqrrWf6OpAuU8qpz/view?usp=sharing", "_blank");
-          setShowRedirectUI(false);
+          setShowRedirectUI(false); // Clean up redirect UI state
         }
       }, 1000);
     }
 
-    return () => clearInterval(timer);
-  }, [openAlert, countdown, isRedirecting]);
+    return () => clearInterval(timer); // Clean up interval on unmount or when dependencies change
+  }, [openAlert, countdown, showRedirectUI, isRedirecting]);
 
-  const handleDownloadClick = useCallback(() => {
-    if (!isRedirecting) {
+  const handleDownloadClick = () => {
+    if (!isRedirecting) { // Prevent multiple redirections
       setOpenAlert(true);
-      setCountdown(5);
-      setIsRedirecting(false);
+      setCountdown(5); // Reset countdown to 5 seconds
+      setIsRedirecting(false); // Reset redirecting state
     }
-  }, [isRedirecting]);
+  };
 
   if (loading) {
     return (
-      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+      >
         <CircularProgress color="inherit" />
       </Backdrop>
     );
@@ -74,8 +72,8 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
-    { label: 'Modding Templates' },
-    { label: "ATS + ETS 2 Templates" }
+    { label: 'ETS 2 Mods' },
+    { label: "KimDog's Network Mod Pack" }
   ];
 
   return (
@@ -83,30 +81,118 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
       <TypingEffectETS2KimDogNetwork />
       <Navbar />
 
+      {/* Breadcrumbs */}
       <div className="flex justify-center">
         <BreadcrumbsComponent items={breadcrumbItems} className="breadcrumb-position" />
       </div>
 
       <Container className={styles.mainContainer}>
         <main className="flex flex-col p-4 sm:p-8">
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 4, mb: 4, alignItems: 'flex-start' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: 4,
+              mb: 4,
+              alignItems: 'flex-start'
+            }}
+          >
+            {/* Description and Download Button */}
             <Box className={styles.descriptionBox}>
-              <Typography variant="h6" className="text-lg font-semibold mb-2">Mod Description</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 2 }}>
-                <Typography className="mb-4">This template Pack Contains all Skinning Templates for ATS and ETS 2!</Typography>
-                <Typography className="mb-4">Packed by KimDog-Studios</Typography>
+              <Typography variant="h6" className="text-lg font-semibold mb-2">
+                Mod Description
+              </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 2
+                }}
+              >
+                <Typography className="mb-4">
+                  This template Pack Contains all Skinning Templates for ATS and ETS 2!
+                </Typography>
+                <Typography className="mb-4">
+                  Packed by KimDog-Studios
+                </Typography>
                 <Tooltip title="Download Mod Pack" placement="right">
-                  <Button variant="contained" color="primary" onClick={handleDownloadClick} className={styles.downloadButton}>Download</Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleDownloadClick}
+                    className={styles.downloadButton}
+                  >
+                    Download
+                  </Button>
                 </Tooltip>
               </Box>
-              {openAlert && <Alert severity="info" onClose={() => setOpenAlert(false)} className={styles.alertInfo}>Downloading will start in {countdown} seconds...</Alert>}
-              {showRedirectUI && <Alert severity="success" className={styles.alertSuccess}>Redirecting to download link...</Alert>}
+              {openAlert && (
+                <Alert severity="info" onClose={() => setOpenAlert(false)} className={styles.alertInfo}>
+                  Downloading will start in {countdown} seconds...
+                </Alert>
+              )}
+              {showRedirectUI && (
+                <Alert severity="success" className={styles.alertSuccess}>
+                  Redirecting to download link...
+                </Alert>
+              )}
             </Box>
           </Box>
 
-          <ImageGrid images={images} />
+          {/* Screenshots Section */}
+          <Box>
+            <Typography variant="h6" className="text-lg font-semibold mb-2">
+              ATS Templates:
+            </Typography>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'space-around' }}>
+              {images.map((image, index) => (
+                <LazyImage key={index} image={image} />
+              ))}
+            </div>
+          </Box>
         </main>
       </Container>
+    </div>
+  );
+};
+
+const LazyImage = ({ image }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        width: '30%',
+        textAlign: 'center',
+        backgroundColor: 'white',
+        padding: '10px',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+      }}
+    >
+      <Typography variant="body1" style={{ marginBottom: '8px', color: 'black', fontWeight: 'bold' }}>
+        {image.name}
+      </Typography>
+      <div style={{ position: 'relative', width: '100%', height: 'auto', backgroundColor: 'white', padding: '10px', borderRadius: '8px' }}>
+        {inView ? (
+          <Image
+            src={image.url}
+            alt={image.name}
+            layout="responsive"
+            width={250} // Width of the image
+            height={250} // Height of the image
+            style={{ maxWidth: '100%', height: 'auto', backgroundColor: 'white' }}
+          />
+        ) : (
+          <div style={{ width: '100%', height: '250px', backgroundColor: '#f0f0f0' }}></div>
+        )}
+      </div>
     </div>
   );
 };
