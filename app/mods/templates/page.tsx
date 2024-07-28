@@ -8,7 +8,7 @@ import Navbar from '@/components/[UI]NavBar'; // Ensure the path is correct
 import styles from '@/css/Main.module.css'; // Import the CSS module
 import { TypingEffectETS2KimDogNetwork } from '@/components/[API]MainFunctions';
 import BreadcrumbsComponent from '@/components/[UI]Breadcrumbs';
-import { images } from '@/components/[UI]TemplateImages';
+import { images } from '@/components/[UI]ATSTruckTemplate';
 
 interface ImageProps {
   name: string;
@@ -202,7 +202,7 @@ const LazyImage: React.FC<{ image: ImageProps }> = ({ image }) => {
             width={250} // Width of the image
             height={250} // Height of the image
             style={{ maxWidth: '100%', height: 'auto', backgroundColor: 'white' }}
-            quality={20}
+            quality={10}
           />
         ) : (
           <div style={{ width: '100%', height: '250px', backgroundColor: '#f0f0f0' }}></div>

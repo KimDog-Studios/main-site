@@ -246,6 +246,32 @@ const TypingEffectATSAndETSTools: React.FC = () => {
   );
 };
 
+// TypingEffectATSAndETSTemplates Component
+const TypingEffectATSAndETSTemplates: React.FC = () => {
+  return (
+    <Box sx={{ textAlign: 'center', mt: 8 }}>
+      <Typography variant="h2" component="h1" gutterBottom>
+        <Typewriter
+          options={{
+            loop: true, // Enables infinite looping
+            delay: 100, // Adjust typing speed here
+          }}
+          onInit={(typewriter) => {
+            typewriter
+              .typeString("KimDog's ATS and ETS 2 Templates Pack")
+              .pauseFor(2000)
+              .deleteAll()
+              .typeString("Last updated: 28.7.24")
+              .pauseFor(2000)
+              .deleteAll()
+              .start();
+          }}
+        />
+      </Typography>
+    </Box>
+  );
+};
+
 // Redirect backdrop
 interface RedirectBackdropProps {
     open: boolean;
@@ -419,4 +445,4 @@ const DiscordPage: React.FC = () => {
   );
 };
 
-export { TypingEffectATSModPack, TypingEffectETS2KimDogNetwork, TypingEffectHomePage, Mods, RedirectBackdrop, LoadingScreen, DiscordPage, TypingEffectMinecraftKimDogsResourcePack, TypingEffectKimDoglogisticsETS2, TypingEffectATSAndETSTools};
+export { TypingEffectATSModPack, TypingEffectETS2KimDogNetwork, TypingEffectHomePage, Mods, RedirectBackdrop, LoadingScreen, DiscordPage, TypingEffectMinecraftKimDogsResourcePack, TypingEffectKimDoglogisticsETS2, TypingEffectATSAndETSTools, TypingEffectATSAndETSTemplates};
