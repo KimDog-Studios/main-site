@@ -10,6 +10,11 @@ import { TypingEffectETS2KimDogNetwork } from '@/components/[API]MainFunctions';
 import BreadcrumbsComponent from '@/components/[UI]Breadcrumbs';
 import { images } from '@/components/[UI]TemplateImages';
 
+interface ImageProps {
+  name: string;
+  url: string;
+}
+
 const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
   const [openAlert, setOpenAlert] = useState(false);
   const [countdown, setCountdown] = useState<number>(5); // Countdown in seconds
@@ -146,7 +151,7 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
             <Typography variant="h6" className="text-lg font-semibold mb-2">
               ATS Templates:
             </Typography>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'space-around' }}>
+            <div style={{ overflowX: 'auto', whiteSpace: 'nowrap', paddingBottom: '16px', width: '100%' }}>
               {images.map((image, index) => (
                 <LazyImage key={index} image={image} />
               ))}
@@ -158,29 +163,38 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
   );
 };
 
-const LazyImage = ({ image }) => {
+const LazyImage: React.FC<{ image: ImageProps }> = ({ image }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+  const [hasBeenInView, setHasBeenInView] = useState(false);
+
+  useEffect(() => {
+    if (inView && !hasBeenInView) {
+      setHasBeenInView(true);
+    }
+  }, [inView, hasBeenInView]);
 
   return (
     <div
       ref={ref}
       style={{
-        width: '30%',
+        display: 'inline-block',
+        width: '250px',
         textAlign: 'center',
         backgroundColor: 'white',
         padding: '10px',
         borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        marginRight: '16px',
       }}
     >
       <Typography variant="body1" style={{ marginBottom: '8px', color: 'black', fontWeight: 'bold' }}>
         {image.name}
       </Typography>
-      <div style={{ position: 'relative', width: '100%', height: 'auto', backgroundColor: 'white', padding: '10px', borderRadius: '8px' }}>
-        {inView ? (
+      <div style={{ position: 'relative', width: '100%', height: '250px', backgroundColor: 'white', padding: '10px', borderRadius: '8px' }}>
+        {hasBeenInView ? (
           <Image
             src={image.url}
             alt={image.name}
@@ -188,6 +202,7 @@ const LazyImage = ({ image }) => {
             width={250} // Width of the image
             height={250} // Height of the image
             style={{ maxWidth: '100%', height: 'auto', backgroundColor: 'white' }}
+            quality={20}
           />
         ) : (
           <div style={{ width: '100%', height: '250px', backgroundColor: '#f0f0f0' }}></div>
