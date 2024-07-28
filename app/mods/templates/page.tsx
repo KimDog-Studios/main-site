@@ -6,9 +6,9 @@ import { useInView } from 'react-intersection-observer';
 import { Button, Container, Box, Typography, Tooltip, Alert, Backdrop, CircularProgress } from '@mui/material';
 import Navbar from '@/components/[UI]NavBar'; // Ensure the path is correct
 import styles from '@/css/Main.module.css'; // Import the CSS module
-import { TypingEffectETS2KimDogNetwork } from '@/components/[API]MainFunctions';
+import { TypingEffectATSAndETSTemplates} from '@/components/[API]MainFunctions';
 import BreadcrumbsComponent from '@/components/[UI]Breadcrumbs';
-import { images } from '@/components/[UI]ATSTruckTemplate';
+import { ATSTruckTemplateImages, ATSTrailerTemplateImages } from '@/components/Templates/[UI]Template';
 
 interface ImageProps {
   name: string;
@@ -77,13 +77,13 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
-    { label: 'ETS 2 Mods' },
-    { label: "KimDog's Network Mod Pack" }
+    { label: 'Templates' },
+    { label: "ETS2 + ATS Templates" }
   ];
 
   return (
     <div className={styles.boldText}>
-      <TypingEffectETS2KimDogNetwork />
+      <TypingEffectATSAndETSTemplates />
       <Navbar />
 
       {/* Breadcrumbs */}
@@ -147,67 +147,54 @@ const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
           </Box>
 
           {/* Screenshots Section */}
+          
+          {/* ATS Truck Templates */}
           <Box>
             <Typography variant="h6" className="text-lg font-semibold mb-2">
-              ATS Templates:
+              ATS Truck Templates:
             </Typography>
-            <div style={{ overflowX: 'auto', whiteSpace: 'nowrap', paddingBottom: '16px', width: '100%' }}>
-              {images.map((image, index) => (
-                <LazyImage key={index} image={image} />
+            <div style={{ overflowX: 'auto', whiteSpace: 'nowrap', paddingBottom: '16px', width: '2300px', border: '1px solid #ccc' }}>
+              {ATSTruckTemplateImages.map((image, index) => (
+                <div key={index} style={{ display: 'inline-block', position: 'relative', marginRight: '10px', backgroundColor: 'white' }}>
+                  <Image
+                    src={image.url}
+                    alt={image.name}
+                    width={500}
+                    height={300}
+                    style={{ display: 'inline-block', objectFit: 'cover' }}
+                  />
+                  <div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', color: 'black', backgroundColor: 'rgba(255, 255, 255, 0.7)', textAlign: 'center', fontWeight: 'bold' }}>
+                    {image.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Box>
+
+          {/* ATS Trailer Templates */}
+          <Box>
+            <Typography variant="h6" className="text-lg font-semibold mb-2">
+              ATS Trailer Templates:
+            </Typography>
+            <div style={{ overflowX: 'auto', whiteSpace: 'nowrap', paddingBottom: '16px', width: '2300px', border: '1px solid #ccc' }}>
+              {ATSTrailerTemplateImages.map((image, index) => (
+                <div key={index} style={{ display: 'inline-block', position: 'relative', marginRight: '10px', backgroundColor: 'white' }}>
+                  <Image
+                    src={image.url}
+                    alt={image.name}
+                    width={500}
+                    height={300}
+                    style={{ display: 'inline-block', objectFit: 'cover' }}
+                  />
+                  <div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', color: 'black', backgroundColor: 'rgba(255, 255, 255, 0.7)', textAlign: 'center', fontWeight: 'bold' }}>
+                    {image.name}
+                  </div>
+                </div>
               ))}
             </div>
           </Box>
         </main>
       </Container>
-    </div>
-  );
-};
-
-const LazyImage: React.FC<{ image: ImageProps }> = ({ image }) => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-  const [hasBeenInView, setHasBeenInView] = useState(false);
-
-  useEffect(() => {
-    if (inView && !hasBeenInView) {
-      setHasBeenInView(true);
-    }
-  }, [inView, hasBeenInView]);
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        display: 'inline-block',
-        width: '250px',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        padding: '10px',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        marginRight: '16px',
-      }}
-    >
-      <Typography variant="body1" style={{ marginBottom: '8px', color: 'black', fontWeight: 'bold' }}>
-        {image.name}
-      </Typography>
-      <div style={{ position: 'relative', width: '100%', height: '250px', backgroundColor: 'white', padding: '10px', borderRadius: '8px' }}>
-        {hasBeenInView ? (
-          <Image
-            src={image.url}
-            alt={image.name}
-            layout="responsive"
-            width={250} // Width of the image
-            height={250} // Height of the image
-            style={{ maxWidth: '100%', height: 'auto', backgroundColor: 'white' }}
-            quality={10}
-          />
-        ) : (
-          <div style={{ width: '100%', height: '250px', backgroundColor: '#f0f0f0' }}></div>
-        )}
-      </div>
     </div>
   );
 };
