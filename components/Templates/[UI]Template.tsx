@@ -85,6 +85,8 @@ const ATSTrailerTemplateImages = [
   { name: '[SCS Chip Van] Trailer Rear', url: '/assets/templates/trailers/[SCS Chip Van] Trailer Rear.png' },
   { name: '[SCS Chip Van] Body (Belly Van)', url: '/assets/templates/trailers/[SCS Chip Van] Body (Belly Van).png' },
   { name: '[SCS Bulk Feed] Body', url: '/assets/templates/trailers/[SCS Bulk Feed] Body.png' },
+  { name: '[Lode King Prestige] Body (Single)', url: '/assets/templates/trailers/[Lode King Prestige] Body (Single).png' },
+  { name: '[Lode King Prestige] Body (B-Double)', url: '/assets/templates/trailers/[Lode King Prestige] Body (B-Double).png' },
 ]
 
 export {ATSTruckTemplateImages, ATSTrailerTemplateImages}
