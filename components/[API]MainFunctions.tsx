@@ -413,4 +413,4 @@ const DiscordPage: React.FC = () => {
   );
 };
 
-export { TypingEffectATSModPack, TypingEffectETS2KimDogNetwork, TypingEffectHomePage, Mods, RedirectBackdrop, LoadingScreen, DiscordPage, TypingEffectMinecraftKimDogsResourcePack, TypingEffectKimDoglogisticsETS2, TypingEffectATSAndETSTools, TypingEffectATSAndETSTemplates};
+export { TypingEffectATSModPack, TypingEffectETS2KimDogNetwork, Mods, RedirectBackdrop, LoadingScreen, DiscordPage, TypingEffectMinecraftKimDogsResourcePack, TypingEffectKimDoglogisticsETS2, TypingEffectATSAndETSTools, TypingEffectATSAndETSTemplates};
