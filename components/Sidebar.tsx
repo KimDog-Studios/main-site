@@ -14,9 +14,14 @@ type Props = {
   isSidebarVisible: boolean;
 };
 
+type Mod = {
+  title: string;
+  game: string;
+};
+
 const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery, onSearchChange }) => {
   const [isSidebarVisible, setSidebarVisible] = useState(true);
-  const [searchResults, setSearchResults] = useState<string[]>([]);
+  const [searchResults, setSearchResults] = useState<Mod[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +36,7 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
     const results = query
       ? modData.filter(mod => mod.title.toLowerCase().includes(query.toLowerCase()))
       : modData; // Show all mods if no query
-    setSearchResults(results.map(mod => mod.title));
+    setSearchResults(results);
   };
 
   const handleSuggestionClick = (suggestion: string) => {
@@ -42,7 +47,7 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
 
   const handleFocus = () => {
     setShowSuggestions(true);
-    setSearchResults(modData.map(mod => mod.title));
+    setSearchResults(modData);
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
@@ -107,11 +112,11 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
                 {searchResults.map((result, index) => (
                   <div
                     key={index}
-                    className='text-white hover:bg-gray-700 p-2 rounded-md cursor-pointer'
-                    onClick={() => handleSuggestionClick(result)}
+                    className='text-white hover:bg-gray-700 p-2 rounded-md cursor-pointer flex justify-between'
+                    onClick={() => handleSuggestionClick(result.title)}
                     tabIndex={0}
                   >
-                    {result}
+                    <span>{result.title} | {result.game}</span>
                   </div>
                 ))}
               </div>
