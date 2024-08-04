@@ -2,10 +2,11 @@
 
 import Sidebar from '@/components/Sidebar';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ImageList, ImageListItem } from '@mui/material';
 import { Mod } from '@/app/mods/Data';
+import GradientCircularProgress from "@/components/LoadingScreen"
 
 // Filtering and searching function to apply selected filters and search query
 const filterAndSearchMods = (mods: Mod[], filters: string[], query: string): Mod[] => {
@@ -45,6 +46,24 @@ function Page() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [open, setOpen] = useState(false);
 
+    const [loading, setLoading] = useState(true); // Add loading state
+
+    // Simulate data fetching or loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false); // Stop loading after 3 seconds
+    }, 2200);
+        return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className='flex items-center justify-center h-screen'>
+        <GradientCircularProgress />
+        </div>
+    );
+  }
+
   // Handlers
   const handleFilterChange = (game: string, checked: boolean) => {
     setSelectedFilters(prevFilters =>
@@ -78,6 +97,7 @@ function Page() {
         onFilterChange={handleFilterChange}
         searchQuery={searchQuery}
         onSearchChange={handleSearchChange}
+        isSidebarVisible={true}
       />
 
       {/* Main Content */}

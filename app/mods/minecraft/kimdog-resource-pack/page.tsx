@@ -2,9 +2,10 @@
 
 import Sidebar from '@/components/Sidebar';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ImageList, ImageListItem } from '@mui/material';
+import GradientCircularProgress from "@/components/LoadingScreen"
 
 // Transition component for the dialog
 const Transition = React.forwardRef(function Transition(props: any, ref: React.Ref<unknown>) {
@@ -24,6 +25,15 @@ function Page() {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true); // Add loading state
+
+    // Simulate data fetching or loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false); // Stop loading after 3 seconds
+    }, 2200);
+        return () => clearTimeout(timer);
+  }, []);
 
   // Handlers
   const handleFilterChange = (game: string, checked: boolean) => {
@@ -50,6 +60,14 @@ function Page() {
     setOpen(false);
   };
 
+    if (loading) {
+    return (
+      <div className='flex items-center justify-center h-screen'>
+        <GradientCircularProgress />
+        </div>
+    );
+  }
+
   return (
     <div className='flex'>
       {/* Sidebar */}
@@ -58,6 +76,7 @@ function Page() {
         onFilterChange={handleFilterChange}
         searchQuery={searchQuery}
         onSearchChange={handleSearchChange}
+        isSidebarVisible={true}
       />
 
       {/* Main Content */}

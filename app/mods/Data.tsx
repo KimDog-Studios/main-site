@@ -24,14 +24,23 @@ const mods = [
     {
         id: 3,
         img: '/assets/Logos/ResourcePack.webp',
-        title: "Resource Pack",
+        title: "KimDog's Resource Pack",
         game: "Minecraft",
         version: "1.20.6",
         author: "KimDog",
         downloadCount: 0, // Static download count
         link: "/mods/minecraft/kimdog-resource-pack",
-      },
-    // Add more mods here
+  },
+  {
+    id: 4,
+    img: '/assets/Logos/ResourcePack.webp',
+    title: "KimDog's Mod Pack",
+    game: "Minecraft",
+    version: "1.20.6",
+    author: "KimDog",
+    downloadCount: 0, // Static download count
+    link: "/mods/minecraft/kimdog-mod-pack",
+  },
 ];
   
 export interface Mod {

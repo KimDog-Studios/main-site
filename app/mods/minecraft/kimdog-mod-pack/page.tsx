@@ -1,10 +1,11 @@
 'use client';
 
 import Sidebar from '@/components/Sidebar';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Link, Slide } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ImageList, ImageListItem } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import GradientCircularProgress from "@/components/LoadingScreen"
 
 // Transition component for the dialog
@@ -13,11 +14,11 @@ const Transition = React.forwardRef(function Transition(props: any, ref: React.R
 });
 
 const itemData = [
-  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/1.png' },
-  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/2.png' },
-  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/3.png' },
-  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/4.png' },
-  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/5.png' }
+  { img: '/assets/mods/resource-pack-minecraft/1.png' },
+  { img: '/assets/mods/resource-pack-minecraft/2.png' },
+  { img: '/assets/mods/resource-pack-minecraft/3.png' },
+  { img: '/assets/mods/resource-pack-minecraft/4.png' },
+  { img: '/assets/mods/resource-pack-minecraft/5.png' }
 ];
 
 function Page() {
@@ -34,14 +35,6 @@ function Page() {
     }, 2200);
         return () => clearTimeout(timer);
   }, []);
-
-  if (loading) {
-    return (
-      <div className='flex items-center justify-center h-screen'>
-        <GradientCircularProgress />
-        </div>
-    );
-  }
 
   // Handlers
   const handleFilterChange = (game: string, checked: boolean) => {
@@ -64,9 +57,17 @@ function Page() {
 
   const handleProceed = () => {
     // Open the direct download link in a new tab
-    window.open('https://drive.google.com/uc?export=download&id=1f1xUClVc6dmMX-U4EqrrWf6OpAuU8qpz', '_blank');
+    window.open('https://drive.google.com/uc?export=download&id=1mmOi6leslUVg50MbACV8mWCwp4Dp7qUI', '_blank');
     setOpen(false);
   };
+
+  if (loading) {
+    return (
+      <div className='flex items-center justify-center h-screen'>
+        <GradientCircularProgress />
+        </div>
+    );
+  }
 
   return (
     <div className='flex'>
@@ -91,12 +92,12 @@ function Page() {
           {/* Images Section */}
           <div className='flex-1 md:mr-8'>
             <div className='w-full flex justify-center ml-56 -mt-11'>
-              <ImageList sx={{ width: 800, height: 1250 }} cols={3} rowHeight={256}>
+              <ImageList sx={{ width: 800, height: 320 }} cols={3} rowHeight={126}>
                 {itemData.map((item) => (
                   <ImageListItem key={item.img}>
                     <Image
                       src={item.img}
-                      alt='Game Image'
+                      alt='Resource Pack Image'
                       width={256}
                       height={256}
                     />
@@ -110,10 +111,10 @@ function Page() {
           <div className='flex-1'>
             <h2 className='text-xl font-bold mb-4'>Description:</h2>
             <p className='text-lg'>
-              This mod pack includes all sorts of Mods inside!<br />
-              Engines<br />
-              Trucks<br />
-              Tuning Parts
+              This resource pack includes all the mods that KimDog uses!<br />
+              Supports 1.20.6!<br />
+              Java Only! <br />
+              You need Fabric! : <Link href="https://maven.fabricmc.net/net/fabricmc/fabric-installer/1.0.1/fabric-installer-1.0.1.exe">Download Fabric</Link>
             </p>
             <div className='mt-4'>
               <Button variant="contained" onClick={handleClickOpen}>

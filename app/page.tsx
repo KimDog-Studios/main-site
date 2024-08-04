@@ -1,20 +1,19 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from "next/link";
 import { Tooltip } from '@mui/material';
 import { mods as allMods, verifiedAuthors, Mod } from '@/app/mods/Data'; // Import data script
 import Image from 'next/image';
 import { FaDownload, FaCheckCircle, FaGamepad, FaUser, FaTag } from 'react-icons/fa';
 import Sidebar from '@/components/Sidebar';
+import LoadingScreen from '@/components/LoadingScreen'; // Import the LoadingScreen component
 
 // Filtering and searching function to apply selected filters and search query
 const filterAndSearchMods = (mods: Mod[], filters: string[], query: string): Mod[] => {
   return mods.filter(mod => {
-    // Check if the mod passes the filter
     const isFiltered = filters.length === 0 || filters.includes(mod.game);
-    // Check if the mod matches the search query (case-insensitive)
     const matchesSearch = mod.title.toLowerCase().includes(query.toLowerCase()) ||
-                           mod.author.toLowerCase().includes(query.toLowerCase());
+    mod.author.toLowerCase().includes(query.toLowerCase());
     return isFiltered && matchesSearch;
   });
 };
@@ -23,6 +22,7 @@ const Page: React.FC = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(true);
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarVisible(prevState => !prevState);
@@ -40,6 +40,18 @@ const Page: React.FC = () => {
 
   const filteredMods = filterAndSearchMods(allMods, selectedFilters, searchQuery);
 
+  // Simulate a loading delay (for demonstration purposes)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2200); // Adjust the delay as needed
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div className='text-white h-screen flex'>
       {/* Sidebar */}
@@ -48,17 +60,18 @@ const Page: React.FC = () => {
         onFilterChange={handleFilterChange} 
         searchQuery={searchQuery} 
         onSearchChange={handleSearchChange} 
+        isSidebarVisible={isSidebarVisible}
       />
 
       {/* Main Content */}
-      <div className={`flex-grow transition-transform${isSidebarVisible ? 'ml-54' : 'ml-0'}`}>
-        <div className='ml-64 mt-11 p-8'>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-8 gap-8'>
+      <div className={`flex-grow transition-transform duration-300 ${isSidebarVisible ? 'ml-64' : 'ml-0'}`}>
+        <div className='mt-11 p-8'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-32'>
             {filteredMods.map(mod => (
               <Link
                 key={mod.id}
                 href={mod.link}
-                className='w-64 relative bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center hover:outline hover:outline-2 hover:outline-blue-500 hover:animate-pulseOutline transition-transform duration-250 transform hover:scale-95'
+                className='w-80 relative bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center hover:outline hover:outline-2 hover:outline-blue-500 hover:animate-pulseOutline transition-transform duration-250 transform hover:scale-95'
               >
                 <div className='relative'>
                   <Image 
@@ -68,7 +81,7 @@ const Page: React.FC = () => {
                     height={256}
                     className='rounded-lg'
                   />
-                  <Tooltip title={`Version ${mod.game}`} arrow>
+                  <Tooltip title={`${mod.game}`} arrow>
                     <div className='absolute top-2 left-2 flex items-center bg-gray-800 text-white text-xs px-2 py-1 rounded-full'>
                       <FaGamepad className='mr-1 text-pink-500' />
                       {mod.game}
@@ -93,7 +106,7 @@ const Page: React.FC = () => {
                 </div>
 
                 {/* Mod Title */}
-                <p className='text-white text-center mt-4 text-xl font-bold'>
+                <p className='text-white text-center mt-4 text-lg font-bold'>
                   {mod.title}
                 </p>
                 
