@@ -23,15 +23,26 @@ const mods = [
     },
     {
         id: 3,
-        img: '/assets/KimDogLogo.png',
-        title: "KimDog's Template Pack",
-        game: "ETS 2 + ATS",
-        version: "1.50",
+        img: '/assets/Logos/ResourcePack.webp',
+        title: "Resource Pack",
+        game: "Minecraft",
+        version: "1.20.6",
         author: "KimDog",
         downloadCount: 0, // Static download count
-        link: "/mods/templates/kimdog-template-pack",
+        link: "/mods/minecraft/kimdog-resource-pack",
       },
     // Add more mods here
-  ];
+];
+  
+export interface Mod {
+  id: number;
+  img: string;
+  title: string;
+  game: string;
+  version: string;
+  author: string;
+  downloadCount: number;
+  link: string;
+}
 
 export {mods, verifiedAuthors};

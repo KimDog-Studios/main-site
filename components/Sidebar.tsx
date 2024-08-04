@@ -1,19 +1,22 @@
 'use client';
 import React, { useState } from 'react';
 import Link from "next/link";
-import { HomeIcon, UserCircleIcon, CogIcon, UploadIcon, MenuIcon, SearchCircleIcon } from "@heroicons/react/outline";
+import { HomeIcon, UserCircleIcon, CogIcon, UploadIcon, MenuIcon } from "@heroicons/react/outline";
 import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
-type Props = {};
+type Props = {
+  selectedFilters: string[];
+  onFilterChange: (game: string, checked: boolean) => void;
+  searchQuery: string;  // New prop for search query
+  onSearchChange: (query: string) => void;  // New prop for search change handler
+};
 
-const Sidebar: React.FC<Props> = () => {
+const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery, onSearchChange }) => {
   const [isSidebarVisible, setSidebarVisible] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarVisible(prevState => !prevState);
   };
-
-  const hoverColor = (color: string) => `text-${color}-500`;
 
   return (
     <div className='text-white h-screen'>
@@ -39,6 +42,8 @@ const Sidebar: React.FC<Props> = () => {
           <input
             type="text"
             placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}  // Call the search change handler
             className='w-120 px-4 py-2 rounded-md bg-[rgb(36,36,36)] text-white border border-gray-700'
           />
         </div>
@@ -64,26 +69,49 @@ const Sidebar: React.FC<Props> = () => {
       <div
         style={{
           position: 'fixed',
-          top: '58px', // Adjust this value based on the height of your TopBar
+          top: '58px',
           left: 0,
           width: '255px',
-          height: 'calc(100vh - 58px)', // Adjust this value based on the height of your TopBar
+          height: 'calc(100vh - 58px)',
           backgroundColor: 'rgb(20,20,20)',
           borderRight: '1px solid #ddd',
           padding: '20px',
           boxSizing: 'border-box',
           overflowY: 'auto',
-          color: 'white', // Ensure text color contrasts well with the background
-          transition: 'transform 0.3s ease', // Smooth transition for showing/hiding
-          transform: isSidebarVisible ? 'translateX(0)' : 'translateX(-100%)' // Hide with translate
+          color: 'white',
+          transition: 'transform 0.3s ease',
+          transform: isSidebarVisible ? 'translateX(0)' : 'translateX(-100%)'
         }}
       >
         <h2>Filters</h2>
         <FormGroup>
-          <FormControlLabel control={<Checkbox />} label="Show All Mods" />
-          <FormControlLabel control={<Checkbox />} label="ATS" />
-          <FormControlLabel control={<Checkbox />} label="ETS 2" />
-          <FormControlLabel control={<Checkbox />} label="Minecraft" />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={selectedFilters.includes('ATS')}
+                onChange={(e) => onFilterChange('ATS', e.target.checked)}
+              />
+            }
+            label="ATS"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={selectedFilters.includes('ETS 2')}
+                onChange={(e) => onFilterChange('ETS 2', e.target.checked)}
+              />
+            }
+            label="ETS 2"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={selectedFilters.includes('Minecraft')}
+                onChange={(e) => onFilterChange('Minecraft', e.target.checked)}
+              />
+            }
+            label="Minecraft"
+          />
           {/* Add more filters as needed */}
         </FormGroup>
       </div>
