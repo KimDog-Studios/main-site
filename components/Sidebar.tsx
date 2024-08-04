@@ -9,6 +9,7 @@ type Props = {
   onFilterChange: (game: string, checked: boolean) => void;
   searchQuery: string;  // New prop for search query
   onSearchChange: (query: string) => void;  // New prop for search change handler
+  
 };
 
 const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery, onSearchChange }) => {

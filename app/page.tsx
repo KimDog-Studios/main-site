@@ -43,7 +43,7 @@ const Page: React.FC = () => {
   return (
     <div className='text-white h-screen flex'>
       {/* Sidebar */}
-      <Sidebar 
+      <Sidebar
         selectedFilters={selectedFilters} 
         onFilterChange={handleFilterChange} 
         searchQuery={searchQuery} 
