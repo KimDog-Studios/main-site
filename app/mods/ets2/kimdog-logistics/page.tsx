@@ -5,6 +5,19 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide } from
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ImageList, ImageListItem } from '@mui/material';
+import { Mod } from '@/app/mods/Data';
+
+// Filtering and searching function to apply selected filters and search query
+const filterAndSearchMods = (mods: Mod[], filters: string[], query: string): Mod[] => {
+  return mods.filter(mod => {
+    // Check if the mod passes the filter
+    const isFiltered = filters.length === 0 || filters.includes(mod.game);
+    // Check if the mod matches the search query (case-insensitive)
+    const matchesSearch = mod.title.toLowerCase().includes(query.toLowerCase()) ||
+                           mod.author.toLowerCase().includes(query.toLowerCase());
+    return isFiltered && matchesSearch;
+  });
+};
 
 // Transition component for the dialog
 const Transition = React.forwardRef(function Transition(props: any, ref: React.Ref<unknown>) {
@@ -12,46 +25,36 @@ const Transition = React.forwardRef(function Transition(props: any, ref: React.R
 });
 
 const itemData = [
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/1.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/2.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/3.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/4.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/5.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/6.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/7.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/8.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/9.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/10.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/11.png',
-  },
-  {
-    img: '/assets/mods/kimdog-logistics-ets2/12.png',
-  }
+  { img: '/assets/mods/kimdog-logistics-ets2/1.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/2.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/3.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/4.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/5.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/6.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/7.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/8.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/9.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/10.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/11.png' },
+  { img: '/assets/mods/kimdog-logistics-ets2/12.png' }
 ];
 
 function Page() {
+  // Define state variables
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [open, setOpen] = useState(false);
+
+  // Handlers
+  const handleFilterChange = (game: string, checked: boolean) => {
+    setSelectedFilters(prevFilters =>
+      checked ? [...prevFilters, game] : prevFilters.filter(filter => filter !== game)
+    );
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,11 +73,15 @@ function Page() {
   return (
     <div className='flex'>
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar
+        selectedFilters={selectedFilters}
+        onFilterChange={handleFilterChange}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+      />
 
       {/* Main Content */}
       <div className='flex-1 mt-0 p-8'>
-        
         {/* Title */}
         <div className='flex justify-center items-center mt-10'>
           <h1 className='font-bold text-3xl'>KimDog's Logistics</h1>
@@ -106,7 +113,7 @@ function Page() {
             <p className='text-lg'>
               This mod pack includes all sorts of Mods inside!<br />
               Skinned AI!<br />
-              Buildings and Compannies coming in the future!
+              Buildings and Companies coming in the future!
             </p>
             <div className='mt-4'>
               <Button variant="contained" onClick={handleClickOpen}>

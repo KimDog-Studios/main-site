@@ -12,25 +12,29 @@ const Transition = React.forwardRef(function Transition(props: any, ref: React.R
 });
 
 const itemData = [
-  {
-    img: '/assets/mods/resource-pack-minecraft/1.png',
-    },
-    {
-    img: '/assets/mods/resource-pack-minecraft/2.png',
-    },
-    {
-        img: '/assets/mods/resource-pack-minecraft/3.png',
-    },
-    {
-        img: '/assets/mods/resource-pack-minecraft/4.png',
-    },
-    {
-        img: '/assets/mods/resource-pack-minecraft/5.png',
-    }
+  { img: '/assets/mods/resource-pack-minecraft/1.png' },
+  { img: '/assets/mods/resource-pack-minecraft/2.png' },
+  { img: '/assets/mods/resource-pack-minecraft/3.png' },
+  { img: '/assets/mods/resource-pack-minecraft/4.png' },
+  { img: '/assets/mods/resource-pack-minecraft/5.png' }
 ];
 
 function Page() {
+  // Define state variables
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [open, setOpen] = useState(false);
+
+  // Handlers
+  const handleFilterChange = (game: string, checked: boolean) => {
+    setSelectedFilters(prevFilters =>
+      checked ? [...prevFilters, game] : prevFilters.filter(filter => filter !== game)
+    );
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,11 +53,15 @@ function Page() {
   return (
     <div className='flex'>
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar
+        selectedFilters={selectedFilters}
+        onFilterChange={handleFilterChange}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+      />
 
       {/* Main Content */}
       <div className='flex-1 mt-0 p-8'>
-        
         {/* Title */}
         <div className='flex justify-center items-center mt-10'>
           <h1 className='font-bold text-3xl'>KimDog's Resource Pack</h1>
@@ -69,7 +77,7 @@ function Page() {
                   <ImageListItem key={item.img}>
                     <Image
                       src={item.img}
-                      alt='Game Image'
+                      alt='Resource Pack Image'
                       width={256}
                       height={256}
                     />
@@ -83,10 +91,10 @@ function Page() {
           <div className='flex-1'>
             <h2 className='text-xl font-bold mb-4'>Description:</h2>
             <p className='text-lg'>
-                          This resource pack includes all sorts of Textures and other items inside!<br />
-                          Supports 1.20.6! Other versions not tested! <br />
-                          Java Only! <br />
-                          These are some pictures but there is more in Game to Explore!
+              This resource pack includes all sorts of Textures and other items inside!<br />
+              Supports 1.20.6! Other versions not tested! <br />
+              Java Only! <br />
+              These are some pictures but there is more in Game to Explore!
             </p>
             <div className='mt-4'>
               <Button variant="contained" onClick={handleClickOpen}>

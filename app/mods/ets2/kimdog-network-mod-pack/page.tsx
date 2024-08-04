@@ -12,25 +12,29 @@ const Transition = React.forwardRef(function Transition(props: any, ref: React.R
 });
 
 const itemData = [
-  {
-    img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/1.png',
-  },
-  {
-    img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/2.png',
-  },
-  {
-    img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/3.png',
-  },
-  {
-    img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/4.png',
-  },
-  {
-    img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/5.png',
-  }
+  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/1.png' },
+  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/2.png' },
+  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/3.png' },
+  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/4.png' },
+  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/5.png' }
 ];
 
 function Page() {
+  // Define state variables
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [open, setOpen] = useState(false);
+
+  // Handlers
+  const handleFilterChange = (game: string, checked: boolean) => {
+    setSelectedFilters(prevFilters =>
+      checked ? [...prevFilters, game] : prevFilters.filter(filter => filter !== game)
+    );
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,11 +53,15 @@ function Page() {
   return (
     <div className='flex'>
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar
+        selectedFilters={selectedFilters}
+        onFilterChange={handleFilterChange}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+      />
 
       {/* Main Content */}
       <div className='flex-1 mt-0 p-8'>
-        
         {/* Title */}
         <div className='flex justify-center items-center mt-10'>
           <h1 className='font-bold text-3xl'>KimDog's Mod Pack</h1>
