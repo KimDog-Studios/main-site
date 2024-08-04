@@ -1,14 +1,14 @@
 'use client';
 import React, { useState } from 'react';
-import Sidebar from '@/components/Sidebar';
+import Link from "next/link";
+import { Tooltip } from '@mui/material';
+import { mods, verifiedAuthors } from '@/app/mods/Data'; // Import data script
 import Image from 'next/image';
-import Link from 'next/link';
 import { FaDownload, FaCheckCircle, FaGamepad, FaUser, FaTag } from 'react-icons/fa';
-import { Tooltip } from '@mui/material'; // Import Tooltip from MUI
-import { mods } from '@/app/mods/Data';
+import Sidebar from '@/components/Sidebar';
 
 const Page: React.FC = () => {
-  const [isSidebarVisible, setSidebarVisible] = useState(false); // Hidden by default
+  const [isSidebarVisible, setSidebarVisible] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarVisible(prevState => !prevState);
@@ -20,16 +20,16 @@ const Page: React.FC = () => {
       <Sidebar />
 
       {/* Main Content */}
-      <div className={`flex-grow transition-transform ${isSidebarVisible ? 'ml-64' : 'ml-0'}`}>
-        <div className='ml-64 mt-11 p-8 flex-grow'>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4'>
+      <div className={`flex-grow transition-transform ${isSidebarVisible ? 'ml-54' : 'ml-0'}`}>
+        <div className='ml-64 mt-11 p-8 flex'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-3'>
             {mods.map(mod => (
               <Link
                 key={mod.id}
                 href={mod.link}
-                className='relative bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center w-80 hover:outline hover:outline-2 hover:outline-blue-500 hover:animate-pulseOutline transition-transform duration-300 transform hover:scale-95'
+                className='relative bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center w-80 hover:outline hover:outline-2 hover:outline-blue-500 hover:animate-pulseOutline transition-transform duration-250 transform hover:scale-95'
               >
-                <div className='relative'>
+                <div className='relative font-black'>
                   <Image 
                     src={mod.img}
                     alt={mod.title}
@@ -37,24 +37,23 @@ const Page: React.FC = () => {
                     height={256}
                     className='rounded-lg'
                   />
-                  {/* Game icon with Tooltip */}
-                  <Tooltip title={`Game: ${mod.game}`} arrow>
+                  <Tooltip title={`Version ${mod.game}`} arrow>
                     <div className='absolute top-2 left-2 flex items-center bg-gray-800 text-white text-xs px-2 py-1 rounded-full'>
-                      <FaGamepad className='mr-1' /> {/* Gamepad icon */}
+                      <FaGamepad className='mr-1 text-pink-500' /> {/* Gamepad icon */}
                       {mod.game}
                     </div>
                   </Tooltip>
-                  {/* Badge for download count with Tooltip */}
+                  {/* Badge for download count */}
                   <Tooltip title={`Downloads: ${mod.downloadCount}`} arrow>
-                    <div className='absolute bottom-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full flex items-center cursor-pointer'>
-                      <FaDownload className='mr-1' /> {/* Download icon */}
+                    <div className='absolute bottom-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded-full flex items-center cursor-pointer'>
+                      <FaDownload className='mr-1 text-red-500' /> {/* Download icon */}
                       {mod.downloadCount}
                     </div>
                   </Tooltip>
-                  {/* Version label with Tooltip */}
-                  <Tooltip title={`Game Version: ${mod.version}`} arrow>
+                  {/* Version label */}
+                  <Tooltip title={`Version ${mod.version}`} arrow>
                     <div className='absolute bottom-2 right-2 flex items-center bg-gray-800 text-white text-xs px-2 py-1 rounded-full cursor-pointer'>
-                      <FaTag className='mr-1' /> {/* Tag icon */}
+                      <FaTag className='mr-1 text-green-500' /> {/* Tag icon */}
                       {mod.version}
                     </div>
                   </Tooltip>
@@ -64,9 +63,13 @@ const Page: React.FC = () => {
                   {mod.title}
                 </p>
                 {/* Author Information */}
-                  <p className='text-white text-center text-sm mt-2'>
-                    <FaUser className='inline mr-1' /> {mod.author}
-                  </p>
+                <p className='text-white text-center text-sm mt-2 flex items-center justify-center font-black'>
+                  <FaUser className='inline mr-1 text-white font-black' />
+                  {mod.author}
+                  {verifiedAuthors.includes(mod.author) && (
+                      <FaCheckCircle className='ml-1 w-4 h-4 text-blue-500' />
+                  )}
+                </p>
               </Link>
             ))}
           </div>

@@ -1,3 +1,5 @@
+const verifiedAuthors = ['KimDog'];
+
 const mods = [
     {
       id: 1,
@@ -32,4 +34,4 @@ const mods = [
     // Add more mods here
   ];
 
-export {mods};
+export {mods, verifiedAuthors};
