@@ -81,10 +81,9 @@ function Page() {
         </div>
 
         {/* In-Game Images and Description */}
-        <div className='flex flex-col md:flex-row mt-10'>
+        <div className='flex flex-col md:flex-row mt-14'>
           {/* Images Section */}
           <div className='flex-1 md:mr-8'>
-            <h2 className='text-xl font-bold mb-4'>In Game Images:</h2>
             <div className='w-full flex justify-center ml-56 -mt-11'>
               <ImageList sx={{ width: 800, height: 600 }} cols={3} rowHeight={126}>
                 {itemData.map((item) => (
