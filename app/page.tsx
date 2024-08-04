@@ -43,6 +43,7 @@ const Page: React.FC = () => {
                       {mod.game}
                     </div>
                   </Tooltip>
+
                   {/* Badge for download count */}
                   <Tooltip title={`Downloads: ${mod.downloadCount}`} arrow>
                     <div className='absolute bottom-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded-full flex items-center cursor-pointer'>
@@ -50,6 +51,7 @@ const Page: React.FC = () => {
                       {mod.downloadCount}
                     </div>
                   </Tooltip>
+
                   {/* Version label */}
                   <Tooltip title={`Version ${mod.version}`} arrow>
                     <div className='absolute bottom-2 right-2 flex items-center bg-gray-800 text-white text-xs px-2 py-1 rounded-full cursor-pointer'>
@@ -58,10 +60,12 @@ const Page: React.FC = () => {
                     </div>
                   </Tooltip>
                 </div>
+
                 {/* Mod Title */}
                 <p className='text-white text-center mt-4 text-xl font-bold'>
                   {mod.title}
                 </p>
+                
                 {/* Author Information */}
                 <p className='text-white text-center text-sm mt-2 flex items-center justify-center font-black'>
                   <FaUser className='inline mr-1 text-white font-black' />

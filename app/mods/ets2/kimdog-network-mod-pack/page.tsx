@@ -60,7 +60,7 @@ function Page() {
         </div>
 
         {/* In-Game Images and Description */}
-        <div className='flex flex-col md:flex-row mt-10'>
+        <div className='flex flex-col md:flex-row mt-14'>
           {/* Images Section */}
           <div className='flex-1 md:mr-8'>
             <div className='w-full flex justify-center ml-56 -mt-11'>
