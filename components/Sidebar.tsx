@@ -8,9 +8,9 @@ type Props = {}
 
 function Sidebar({}: Props) {
   return (
-    <div className='bg-[rgb(36,36,36)] text-white h-screen'>
+    <div className=' text-white h-screen'>
       {/* Top Navigation Bar */}
-      <div className='flex items-center justify-between bg-[rgb(70,70,70)] bg-opacity-50 p-2 shadow-md fixed top-0 left-0 right-0 z-10'>
+      <div className='flex items-center justify-between bg-[rgb(20,20,20)] p-2 shadow-md fixed top-0 left-0 right-0 z-10'>
         <div className='flex items-center space-x-4'>
           <Link href="/" className='flex items-center space-x-2 cursor-pointer hover:text-purple-500'>
             <HomeIcon className='w-8 h-8' />
@@ -50,7 +50,7 @@ function Sidebar({}: Props) {
         left: 0,
         width: '255px',
         height: 'calc(100vh - 58px)', // Adjust this value based on the height of your TopBar
-        backgroundColor: 'rgb(50,50,50)',
+        backgroundColor: 'rgb(20,20,20)',
         borderRight: '1px solid #ddd',
         padding: '20px',
         boxSizing: 'border-box',
