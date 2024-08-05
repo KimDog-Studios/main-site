@@ -1,6 +1,29 @@
-const verifiedAuthors = ['KimDog'];
+// In your Data.ts file
+export interface DLC {
+   id: number;
+  img: string;
+  title: string;
+  game: string;
+  version: string;
+  author: string;
+  downloadCount: number;
+  link: string;
+}
 
-const mods = [
+export interface Mod {
+  id: number;
+  img: string;
+  title: string;
+  game: string;
+  version: string;
+  author: string;
+  downloadCount: number;
+  link: string;
+}
+
+const verifiedAuthors = ['KimDog', 'SCS Software'];
+
+const mods: Mod[] = [
     {
       id: 1,
       img: '/assets/KimDogLogo.png',
@@ -30,28 +53,41 @@ const mods = [
         author: "KimDog",
         downloadCount: 0, // Static download count
         link: "/mods/minecraft/kimdog-resource-pack",
+    },
+    {
+      id: 4,
+      img: '/assets/Logos/ResourcePack.webp',
+      title: "KimDog's Mod Pack",
+      game: "Minecraft",
+      version: "1.20.6",
+      author: "KimDog",
+      downloadCount: 0, // Static download count
+      link: "/mods/minecraft/kimdog-mod-pack",
+    },
+];
+
+const dlcs: DLC[] = [
+  {
+    id: 1,
+    img: '/assets/DLC/ETS2.webp',
+    title: "ETS 2 DLC",
+    game: "ETS 2",
+    version: "1.50",
+    author: "SCS Software",
+    downloadCount: 0, // Static download count
+    link: "/dlcs/ets2",
   },
   {
-    id: 4,
-    img: '/assets/Logos/ResourcePack.webp',
-    title: "KimDog's Mod Pack",
-    game: "Minecraft",
-    version: "1.20.6",
-    author: "KimDog",
+    id: 2,
+    img: '/assets/DLC/ATS.webp',
+    title: "ATS DLC",
+    game: "ATS",
+    version: "1.50",
+    author: "SCS Software",
     downloadCount: 0, // Static download count
-    link: "/mods/minecraft/kimdog-mod-pack",
+    link: "/dlcs/ats",
   },
+  // Add more DLCs as needed
 ];
-  
-export interface Mod {
-  id: number;
-  img: string;
-  title: string;
-  game: string;
-  version: string;
-  author: string;
-  downloadCount: number;
-  link: string;
-}
 
-export {mods, verifiedAuthors};
+export { mods, dlcs, verifiedAuthors };

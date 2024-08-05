@@ -4,7 +4,7 @@ import Link from "next/link";
 import { HomeIcon, UserCircleIcon, CogIcon, UploadIcon, MenuIcon } from "@heroicons/react/outline";
 import { FormGroup, FormControlLabel, Checkbox, TextField, InputAdornment, IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import { mods as modData } from '@/app/mods/Data';  // Adjust the import path as needed
+import { mods as modData, dlcs as dlcData } from '@/app/mods/Data';  // Import DLC data if needed
 
 type Props = {
   selectedFilters: string[];
@@ -19,35 +19,54 @@ type Mod = {
   game: string;
 };
 
-const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery, onSearchChange }) => {
-  const [isSidebarVisible, setSidebarVisible] = useState(true);
+const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery, onSearchChange, isSidebarVisible }) => {
+  const [localSidebarVisible, setLocalSidebarVisible] = useState<boolean>(isSidebarVisible);
   const [searchResults, setSearchResults] = useState<Mod[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
+  // Sync localSidebarVisible with isSidebarVisible prop
+  useEffect(() => {
+    setLocalSidebarVisible(isSidebarVisible);
+  }, [isSidebarVisible]);
+
+  // Handle search query changes
+  useEffect(() => {
+    const results = searchQuery
+      ? [...modData, ...dlcData].filter(mod => mod.title.toLowerCase().includes(searchQuery.toLowerCase()))
+      : [...modData, ...dlcData];
+
+    setSearchResults(results);
+
+    // Apply filters based on search results
+    const appliedFilters = new Set<string>();
+    results.forEach(mod => appliedFilters.add(mod.game));
+    [...modData, ...dlcData].forEach(mod => {
+      if (selectedFilters.includes(mod.game) && !appliedFilters.has(mod.game)) {
+        onFilterChange(mod.game, false);
+      }
+    });
+
+  }, [searchQuery, selectedFilters, onFilterChange]);
+
   const toggleSidebar = () => {
-    setSidebarVisible(prevState => !prevState);
+    setLocalSidebarVisible(prevState => !prevState);
   };
 
   const handleSearchChange = (query: string) => {
     onSearchChange(query);
-
-    // Filter modData based on the search query
-    const results = query
-      ? modData.filter(mod => mod.title.toLowerCase().includes(query.toLowerCase()))
-      : modData; // Show all mods if no query
-    setSearchResults(results);
   };
 
-  const handleSuggestionClick = (suggestion: string) => {
-    onSearchChange(suggestion);
+  const handleSuggestionClick = (mod: Mod) => {
+    onSearchChange(mod.title);
+    onFilterChange(mod.game, true);
     setSearchResults([]);
     setShowSuggestions(false);
   };
 
   const handleFocus = () => {
     setShowSuggestions(true);
-    setSearchResults(modData);
+    setSearchResults([...modData, ...dlcData]);
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
@@ -59,6 +78,15 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
   const clearSearch = () => {
     onSearchChange('');
     setSearchResults([]);
+    [...modData, ...dlcData].forEach(mod => {
+      if (selectedFilters.includes(mod.game)) {
+        onFilterChange(mod.game, false);
+      }
+    });
+  };
+
+  const handleCheckboxChange = (game: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    onFilterChange(game, event.target.checked);
   };
 
   return (
@@ -70,7 +98,7 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
           <button
             onClick={toggleSidebar}
             className='text-white p-2 hover:bg-gray-700 rounded-md transition'
-            aria-label={isSidebarVisible ? 'Hide Filters' : 'Show Filters'}
+            aria-label={localSidebarVisible ? 'Hide Filters' : 'Show Filters'}
           >
             <MenuIcon className='w-8 h-8' />
           </button>
@@ -109,14 +137,14 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
             />
             {showSuggestions && searchResults.length > 0 && (
               <div className='absolute bg-[#1E1E1E] w-full mt-2 p-2 border border-gray-700 rounded-md'>
-                {searchResults.map((result, index) => (
+                {searchResults.map((mod, index) => (
                   <div
                     key={index}
                     className='text-white hover:bg-gray-700 p-2 rounded-md cursor-pointer flex justify-between'
-                    onClick={() => handleSuggestionClick(result.title)}
+                    onClick={() => handleSuggestionClick(mod)}
                     tabIndex={0}
                   >
-                    <span>{result.title} | {result.game}</span>
+                    <span>{mod.title} | {mod.game}</span>
                   </div>
                 ))}
               </div>
@@ -156,7 +184,7 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
           overflowY: 'auto',
           color: 'white',
           transition: 'transform 0.3s ease',
-          transform: isSidebarVisible ? 'translateX(0)' : 'translateX(-100%)'
+          transform: localSidebarVisible ? 'translateX(0)' : 'translateX(-100%)'
         }}
       >
         <h2 className='text-lg font-semibold mb-4'>Filters</h2>
@@ -166,7 +194,7 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
             control={
               <Checkbox
                 checked={selectedFilters.includes('ATS')}
-                onChange={(e) => onFilterChange('ATS', e.target.checked)}
+                onChange={handleCheckboxChange('ATS')}
                 sx={{
                   '& .MuiSvgIcon-root': { fontSize: 28 },
                   color: '#B0B0B0',
@@ -183,7 +211,7 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
             control={
               <Checkbox
                 checked={selectedFilters.includes('ETS 2')}
-                onChange={(e) => onFilterChange('ETS 2', e.target.checked)}
+                onChange={handleCheckboxChange('ETS 2')}
                 sx={{
                   '& .MuiSvgIcon-root': { fontSize: 28 },
                   color: '#B0B0B0',
@@ -200,7 +228,7 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
             control={
               <Checkbox
                 checked={selectedFilters.includes('Minecraft')}
-                onChange={(e) => onFilterChange('Minecraft', e.target.checked)}
+                onChange={handleCheckboxChange('Minecraft')}
                 sx={{
                   '& .MuiSvgIcon-root': { fontSize: 28 },
                   color: '#B0B0B0',
