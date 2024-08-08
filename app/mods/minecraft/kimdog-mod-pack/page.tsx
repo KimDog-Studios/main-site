@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ImageList, ImageListItem } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import GradientCircularProgress from "@/components/LoadingScreen"
+import GradientCircularProgress from "@/components/Main"
 
 // Transition component for the dialog
 const Transition = React.forwardRef(function Transition(props: any, ref: React.Ref<unknown>) {

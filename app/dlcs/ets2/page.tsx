@@ -5,8 +5,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide } from
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ImageList, ImageListItem } from '@mui/material';
-import { Mod } from '@/app/mods/Data';
-import GradientCircularProgress from "@/components/LoadingScreen"
+import { Mod } from '@/components/Main';
+import GradientCircularProgress from "@/components/Main"
 
 // Filtering and searching function to apply selected filters and search query
 const filterAndSearchMods = (mods: Mod[], filters: string[], query: string): Mod[] => {

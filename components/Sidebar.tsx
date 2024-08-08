@@ -4,7 +4,7 @@ import Link from "next/link";
 import { HomeIcon, UserCircleIcon, CogIcon, UploadIcon, MenuIcon } from "@heroicons/react/outline";
 import { FormGroup, FormControlLabel, Checkbox, TextField, InputAdornment, IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import { mods as modData, dlcs as dlcData } from '@/app/mods/Data';  // Import DLC data if needed
+import { mods as modData, dlcs as dlcData } from '@/components/Main';  // Import DLC data if needed
 
 type Props = {
   selectedFilters: string[];
@@ -25,12 +25,10 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  // Sync localSidebarVisible with isSidebarVisible prop
   useEffect(() => {
     setLocalSidebarVisible(isSidebarVisible);
   }, [isSidebarVisible]);
 
-  // Handle search query changes
   useEffect(() => {
     const results = searchQuery
       ? [...modData, ...dlcData].filter(mod => mod.title.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -38,7 +36,6 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
 
     setSearchResults(results);
 
-    // Apply filters based on search results
     const appliedFilters = new Set<string>();
     results.forEach(mod => appliedFilters.add(mod.game));
     [...modData, ...dlcData].forEach(mod => {
@@ -90,22 +87,22 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
   };
 
   return (
-    <div className='flex'>
+    <div className='flex flex-col md:flex-row'>
       {/* Top Navigation Bar */}
       <div className='flex items-center justify-between bg-[#1E1E1E] p-2 shadow-md fixed top-0 left-0 right-0 z-10'>
         <div className='flex items-center space-x-4'>
           {/* Toggle Sidebar Button */}
           <button
             onClick={toggleSidebar}
-            className='text-white p-2 hover:bg-gray-700 rounded-md transition'
+            className='text-white p-2 hover:bg-gray-700 rounded-md transition md:hidden'
             aria-label={localSidebarVisible ? 'Hide Filters' : 'Show Filters'}
           >
-            <MenuIcon className='w-8 h-8' />
+            <MenuIcon className='w-6 h-6' />
           </button>
 
           <Link href="/" className='flex items-center space-x-2 text-white hover:text-purple-500 transition'>
-            <HomeIcon className='w-8 h-8' />
-            <p>Home</p>
+            <HomeIcon className='w-6 h-6 md:w-8 md:h-8' />
+            <p className='text-sm md:text-base'>Home</p>
           </Link>
         </div>
 
@@ -152,40 +149,28 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
           </div>
         </div>
 
-        <div className='flex items-center space-x-4'>
+        <div className='hidden md:flex items-center space-x-4'>
           <Link href="/upload" className='flex items-center space-x-2 text-white hover:text-purple-500 transition'>
-            <UploadIcon className='w-8 h-8' />
-            <p>Upload</p>
+            <UploadIcon className='w-6 h-6 md:w-8 md:h-8' />
+            <p className='text-sm md:text-base'>Upload</p>
           </Link>
 
           <Link href="/signin" className='flex items-center space-x-2 text-white hover:text-purple-500 transition'>
-            <UserCircleIcon className='w-8 h-8' />
-            <p>Sign In</p>
+            <UserCircleIcon className='w-6 h-6 md:w-8 md:h-8' />
+            <p className='text-sm md:text-base'>Sign In</p>
           </Link>
 
           <Link href="/settings" className='flex items-center space-x-2 text-white hover:text-purple-500 transition'>
-            <CogIcon className='w-8 h-8' />
+            <CogIcon className='w-6 h-6 md:w-8 md:h-8' />
           </Link>
         </div>
       </div>
 
       {/* Sidebar with Filters */}
       <div
-        style={{
-          position: 'fixed',
-          top: '58px',
-          left: 0,
-          width: '255px',
-          height: 'calc(100vh - 58px)',
-          backgroundColor: '#1E1E1E',
-          borderRight: '1px solid #333',
-          padding: '20px',
-          boxSizing: 'border-box',
-          overflowY: 'auto',
-          color: 'white',
-          transition: 'transform 0.3s ease',
-          transform: localSidebarVisible ? 'translateX(0)' : 'translateX(-100%)'
-        }}
+        className={`fixed top-16 md:top-16 left-0 md:left-0 bg-[#1E1E1E] border-r border-gray-700 p-4 md:w-64 md:h-screen overflow-y-auto z-10 transition-transform duration-300 ${
+          localSidebarVisible ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        }`}
       >
         <h2 className='text-lg font-semibold mb-4'>Filters</h2>
         <FormGroup>
@@ -196,7 +181,7 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
                 checked={selectedFilters.includes('ATS')}
                 onChange={handleCheckboxChange('ATS')}
                 sx={{
-                  '& .MuiSvgIcon-root': { fontSize: 28 },
+                  '& .MuiSvgIcon-root': { fontSize: 24 },
                   color: '#B0B0B0',
                   '&.Mui-checked': {
                     color: '#9C27B0',
@@ -213,7 +198,7 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
                 checked={selectedFilters.includes('ETS 2')}
                 onChange={handleCheckboxChange('ETS 2')}
                 sx={{
-                  '& .MuiSvgIcon-root': { fontSize: 28 },
+                  '& .MuiSvgIcon-root': { fontSize: 24 },
                   color: '#B0B0B0',
                   '&.Mui-checked': {
                     color: '#9C27B0',
@@ -230,7 +215,7 @@ const Sidebar: React.FC<Props> = ({ selectedFilters, onFilterChange, searchQuery
                 checked={selectedFilters.includes('Minecraft')}
                 onChange={handleCheckboxChange('Minecraft')}
                 sx={{
-                  '& .MuiSvgIcon-root': { fontSize: 28 },
+                  '& .MuiSvgIcon-root': { fontSize: 24 },
                   color: '#B0B0B0',
                   '&.Mui-checked': {
                     color: '#9C27B0',

@@ -1,3 +1,48 @@
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+
+// Gradient Circular Progress Component
+function GradientCircularProgress() {
+  return (
+    <React.Fragment>
+      <svg width={0} height={0}>
+        <defs>
+          <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#e01cd5" />
+            <stop offset="100%" stopColor="#1CB5E0" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <CircularProgress sx={{ 'svg circle': { stroke: 'url(#my_gradient)' } }} />
+    </React.Fragment>
+  );
+}
+
+// LoadingScreen Component
+export default function LoadingScreen() {
+  return (
+    <Box
+      className='fixed inset-0 flex items-center justify-center z-50'
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        scale: '1.26',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Optional: Add a semi-transparent background
+        borderRadius: '8px', // Optional: Add border radius
+      }}
+    >
+      <Stack spacing={2} alignItems="center">
+        <GradientCircularProgress />
+        <div className='text-xl font-black text-white'>Loading...</div>
+      </Stack>
+    </Box>
+  );
+}
+
+//Template Images Data
 const ATSTruckTemplateImages = [
   // Trucks
   { name: '[Western Star 57X] Cabin A (72-inch Sleeper)', url: '/assets/templates/trucks/[Western Star 57X] Cabin A (72-inch Sleeper).png' },
@@ -84,4 +129,106 @@ const ATSTrailerTemplateImages = [
   { name: '[SCS Insulated 53 feet] Trailer Side Rear', url: '/assets/templates/trailers/[SCS Insulated 53 feet] Trailer Side Rear.png' },
 ];
 
-export {ATSTruckTemplateImages, ATSTrailerTemplateImages}
+//Mods and DLC Data
+export interface DLC {
+   id: number;
+  img: string;
+  title: string;
+  game: string;
+  version: string;
+  author: string;
+  downloadCount: number;
+  link: string;
+}
+
+export interface Mod {
+  id: number;
+  img: string;
+  title: string;
+  game: string;
+  version: string;
+  author: string;
+  downloadCount: number;
+  link: string;
+}
+
+const verifiedAuthors = ['KimDog', 'SCS Software'];
+
+const mods: Mod[] = [
+    {
+      id: 1,
+      img: '/assets/KimDogLogo.png',
+      title: "KimDog's Mod Pack",
+      game: "ETS 2",
+      version: "1.50",
+      author: "KimDog",
+      downloadCount: 0, // Static download count
+      link: "/mods/ets2/kimdog-network-mod-pack",
+    },
+    {
+      id: 2,
+      img: '/assets/KimDogLogo.png',
+      title: "KimDog's Logistics",
+      game: "ETS 2",
+      version: "1.50",
+      author: "KimDog",
+      downloadCount: 0, // Static download count
+      link: "/mods/ets2/kimdog-logistics",
+    },
+    {
+        id: 3,
+        img: '/assets/Logos/ResourcePack.webp',
+        title: "KimDog's Resource Pack",
+        game: "Minecraft",
+        version: "1.20.6",
+        author: "KimDog",
+        downloadCount: 0, // Static download count
+        link: "/mods/minecraft/kimdog-resource-pack",
+    },
+    {
+      id: 4,
+      img: '/assets/Logos/ResourcePack.webp',
+      title: "KimDog's Mod Pack",
+      game: "Minecraft",
+      version: "1.20.6",
+      author: "KimDog",
+      downloadCount: 0, // Static download count
+      link: "/mods/minecraft/kimdog-mod-pack",
+    },
+     {
+      id: 4,
+      img: '/assets/Logos/ResourcePack.webp',
+      title: "KimDog's Mod Pack",
+      game: "ATS",
+      version: "1.50",
+      author: "KimDog",
+      downloadCount: 0, // Static download count
+      link: "/mods/ats/kimdog-mod-pack",
+    },
+];
+
+const dlcs: DLC[] = [
+  {
+    id: 1,
+    img: '/assets/Logos/ETS2.jpeg',
+    title: "ETS 2 DLC",
+    game: "ETS 2",
+    version: "1.50",
+    author: "SCS Software",
+    downloadCount: 0, // Static download count
+    link: "/dlcs/ets2",
+  },
+  {
+    id: 2,
+    img: '/assets/Logos/ATS.webp',
+    title: "ATS DLC",
+    game: "ATS",
+    version: "1.50",
+    author: "SCS Software",
+    downloadCount: 0, // Static download count
+    link: "/dlcs/ats",
+  },
+  // Add more DLCs as needed
+];
+
+export { ATSTruckTemplateImages, ATSTrailerTemplateImages, mods, dlcs, verifiedAuthors };
