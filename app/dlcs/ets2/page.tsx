@@ -80,7 +80,11 @@ function Page() {
 
   const handleProceed = () => {
     // Open the direct download link in a new tab
+<<<<<<< HEAD
     window.open('https://drive.google.com/uc?export=download&id=15N6gUM5kem6zL8IYNAv6Zzv_8nZzyxjh', '_blank');
+=======
+    window.open('https://drive.google.com/uc?export=download&id=1-uBvxi4AJMi5TV0M1onn_SA_7LdJsfe7', '_blank');
+>>>>>>> 422efd01831acefb304d975fd4312181015eeacd
     setOpen(false);
   };
 
