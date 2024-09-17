@@ -26,18 +26,14 @@ const Transition = React.forwardRef(function Transition(props: any, ref: React.R
 });
 
 const itemData = [
-  { img: '/assets/mods/kimdog-logistics-ets2/1.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/2.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/3.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/4.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/5.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/6.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/7.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/8.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/9.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/10.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/11.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/12.png' }
+    { img: '/assets/DLC/ATS/1.jpg' },
+    { img: '/assets/DLC/ATS/2.jpg' },
+    { img: '/assets/DLC/ATS/3.jpg' },
+    { img: '/assets/DLC/ATS/4.jpg' },
+    { img: '/assets/DLC/ATS/5.jpg' },
+    { img: '/assets/DLC/ATS/6.jpg' },
+    { img: '/assets/DLC/ATS/7.jpg' },
+    { img: '/assets/DLC/ATS/8.jpg' },
 ];
 
 function Page() {
@@ -85,7 +81,7 @@ function Page() {
 
   const handleProceed = () => {
     // Open the direct download link in a new tab
-    window.open('https://drive.google.com/uc?export=download&id=1B0x5e4zPx8RaxK1aduHPZ6kgnN9jBI0_', '_blank');
+    window.open('https://drive.google.com/uc?export=download&id=1NfgR-8EWQvF9sYCeyKvw4RJhjnI_sYCA', '_blank');
     setOpen(false);
   };
 
@@ -104,15 +100,15 @@ function Page() {
       <div className='flex-1 mt-0 p-8'>
         {/* Title */}
         <div className='flex justify-center items-center mt-10'>
-          <h1 className='font-bold text-3xl'>KimDog's Logistics</h1>
+          <h1 className='font-bold text-3xl'>All ATS DLC</h1>
         </div>
 
         {/* In-Game Images and Description */}
         <div className='flex flex-col md:flex-row mt-14'>
           {/* Images Section */}
           <div className='flex-1 md:mr-8'>
-            <div className='w-full flex justify-center ml-56 -mt-11'>
-              <ImageList sx={{ width: 800, height: 600 }} cols={3} rowHeight={126}>
+            <div className='w-full flex justify-center ml-56 mt-1'>
+              <ImageList sx={{ width: 800, height: 400 }} cols={3} rowHeight={126}>
                 {itemData.map((item) => (
                   <ImageListItem key={item.img}>
                     <Image
@@ -131,9 +127,8 @@ function Page() {
           <div className='flex-1'>
             <h2 className='text-xl font-bold mb-4'>Description:</h2>
             <p className='text-lg'>
-              This mod pack includes all sorts of Mods inside!<br />
-              Skinned AI!<br />
-              Buildings and Companies coming in the future!
+                          This includes all the DLC for American Truck Simulator!
+                          Replace all files if it asks you to replace them!
             </p>
             <div className='mt-4'>
               <Button variant="contained" onClick={handleClickOpen}>
@@ -155,7 +150,7 @@ function Page() {
             Confirm Download
           </DialogTitle>
           <DialogContent>
-            <p>Are you sure you want to download the mod pack?</p>
+            <p>Are you sure you want to download the DLC pack?</p>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">

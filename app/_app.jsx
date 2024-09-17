@@ -1,12 +1,9 @@
-import React from 'react';
-import { ParallaxProvider } from 'react-scroll-parallax';
-import '../styles/globals.css'; // Adjust the path if necessary
+import { AppProps } from 'next/app';
+import '@/styles/globals.css';  // Import global styles
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ParallaxProvider>
       <Component {...pageProps} />
-    </ParallaxProvider>
   );
 }
 

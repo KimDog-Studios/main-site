@@ -5,20 +5,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide } from
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ImageList, ImageListItem } from '@mui/material';
-import { Mod } from '@/components/Main';
 import GradientCircularProgress from "@/components/Main"
-
-// Filtering and searching function to apply selected filters and search query
-const filterAndSearchMods = (mods: Mod[], filters: string[], query: string): Mod[] => {
-  return mods.filter(mod => {
-    // Check if the mod passes the filter
-    const isFiltered = filters.length === 0 || filters.includes(mod.game);
-    // Check if the mod matches the search query (case-insensitive)
-    const matchesSearch = mod.title.toLowerCase().includes(query.toLowerCase()) ||
-                           mod.author.toLowerCase().includes(query.toLowerCase());
-    return isFiltered && matchesSearch;
-  });
-};
 
 // Transition component for the dialog
 const Transition = React.forwardRef(function Transition(props: any, ref: React.Ref<unknown>) {
@@ -26,18 +13,11 @@ const Transition = React.forwardRef(function Transition(props: any, ref: React.R
 });
 
 const itemData = [
-  { img: '/assets/mods/kimdog-logistics-ets2/1.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/2.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/3.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/4.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/5.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/6.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/7.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/8.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/9.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/10.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/11.png' },
-  { img: '/assets/mods/kimdog-logistics-ets2/12.png' }
+  { img: '/assets/mods/resource-pack-minecraft/1.png' },
+  { img: '/assets/mods/resource-pack-minecraft/2.png' },
+  { img: '/assets/mods/resource-pack-minecraft/3.png' },
+  { img: '/assets/mods/resource-pack-minecraft/4.png' },
+  { img: '/assets/mods/resource-pack-minecraft/5.png' }
 ];
 
 function Page() {
@@ -45,8 +25,7 @@ function Page() {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [open, setOpen] = useState(false);
-
-    const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true); // Add loading state
 
     // Simulate data fetching or loading
   useEffect(() => {
@@ -55,14 +34,6 @@ function Page() {
     }, 2200);
         return () => clearTimeout(timer);
   }, []);
-
-  if (loading) {
-    return (
-      <div className='flex items-center justify-center h-screen'>
-        <GradientCircularProgress />
-        </div>
-    );
-  }
 
   // Handlers
   const handleFilterChange = (game: string, checked: boolean) => {
@@ -85,9 +56,17 @@ function Page() {
 
   const handleProceed = () => {
     // Open the direct download link in a new tab
-    window.open('https://drive.google.com/uc?export=download&id=1B0x5e4zPx8RaxK1aduHPZ6kgnN9jBI0_', '_blank');
+    window.open('https://drive.google.com/uc?export=download&id=1mmOi6leslUVg50MbACV8mWCwp4Dp7qUI', '_blank');
     setOpen(false);
   };
+
+    if (loading) {
+    return (
+      <div className='flex items-center justify-center h-screen'>
+        <GradientCircularProgress />
+        </div>
+    );
+  }
 
   return (
     <div className='flex'>
@@ -104,7 +83,7 @@ function Page() {
       <div className='flex-1 mt-0 p-8'>
         {/* Title */}
         <div className='flex justify-center items-center mt-10'>
-          <h1 className='font-bold text-3xl'>KimDog's Logistics</h1>
+          <h1 className='font-bold text-3xl'>KimDog's Resource Pack</h1>
         </div>
 
         {/* In-Game Images and Description */}
@@ -112,12 +91,12 @@ function Page() {
           {/* Images Section */}
           <div className='flex-1 md:mr-8'>
             <div className='w-full flex justify-center ml-56 -mt-11'>
-              <ImageList sx={{ width: 800, height: 600 }} cols={3} rowHeight={126}>
+              <ImageList sx={{ width: 800, height: 320 }} cols={3} rowHeight={126}>
                 {itemData.map((item) => (
                   <ImageListItem key={item.img}>
                     <Image
                       src={item.img}
-                      alt='Game Image'
+                      alt='Resource Pack Image'
                       width={256}
                       height={256}
                     />
@@ -131,9 +110,10 @@ function Page() {
           <div className='flex-1'>
             <h2 className='text-xl font-bold mb-4'>Description:</h2>
             <p className='text-lg'>
-              This mod pack includes all sorts of Mods inside!<br />
-              Skinned AI!<br />
-              Buildings and Companies coming in the future!
+              This resource pack includes all sorts of Textures and other items inside!<br />
+              Supports 1.20.6! Other versions not tested! <br />
+              Java Only! <br />
+              These are some pictures but there is more in Game to Explore!
             </p>
             <div className='mt-4'>
               <Button variant="contained" onClick={handleClickOpen}>
@@ -155,7 +135,7 @@ function Page() {
             Confirm Download
           </DialogTitle>
           <DialogContent>
-            <p>Are you sure you want to download the mod pack?</p>
+            <p>Are you sure you want to download the resource pack?</p>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">

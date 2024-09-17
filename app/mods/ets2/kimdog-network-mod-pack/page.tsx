@@ -1,181 +1,154 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from 'react';
+import Sidebar from '@/components/Sidebar';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Button, Container, Box, Typography, Tooltip, Alert, Backdrop, CircularProgress } from '@mui/material';
-import Navbar from '@/components/[UI]NavBar'; // Ensure the path is correct
-import styles from '@/css/Main.module.css'; // Import the CSS module
-import { TypingEffectETS2KimDogNetwork } from '@/components/[API]MainFunctions';
-import BreadcrumbsComponent from '@/components/[UI]Breadcrumbs';
+import { ImageList, ImageListItem } from '@mui/material';
+import GradientCircularProgress from "@/components/Main"
 
-const Ets2KimDog_Network_Mod_DetailPage: React.FC = () => {
-  const [openAlert, setOpenAlert] = useState(false);
-  const [countdown, setCountdown] = useState<number>(5); // Countdown in seconds
-  const [showRedirectUI, setShowRedirectUI] = useState(false);
-  const [isRedirecting, setIsRedirecting] = useState(false);
+// Transition component for the dialog
+const Transition = React.forwardRef(function Transition(props: any, ref: React.Ref<unknown>) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
+const itemData = [
+  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/1.png' },
+  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/2.png' },
+  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/3.png' },
+  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/4.png' },
+  { img: '/assets/mods/kimdog-network-mod-pack-ets2/engines/5.png' }
+];
 
-    if (openAlert && countdown > 0) {
-      timer = setInterval(() => {
-        setCountdown(prev => prev - 1);
-      }, 1000);
-    }
+function Page() {
+  // Define state variables
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true); // Add loading state
 
-    if (countdown === 0) {
-      setOpenAlert(false);
-      setShowRedirectUI(true);
-
-      // Redirect after a 1-second delay
-      setTimeout(() => {
-        if (showRedirectUI && !isRedirecting) {
-          setIsRedirecting(true);
-          window.open("https://drive.google.com/file/d/1f1xUClVc6dmMX-U4EqrrWf6OpAuU8qpz/view?usp=sharing", "_blank");
-          setShowRedirectUI(false); // Clean up redirect UI state
-        }
-      }, 1000);
-    }
-
-    return () => clearInterval(timer); // Clean up interval on unmount or when dependencies change
-  }, [openAlert, countdown, showRedirectUI, isRedirecting]);
-
-  const handleDownloadClick = () => {
-    if (!isRedirecting) { // Prevent multiple redirections
-      setOpenAlert(true);
-      setCountdown(5); // Reset countdown to 5 seconds
-      setIsRedirecting(false); // Reset redirecting state
-    }
-  };
-
-  // Construct the GitHub raw image URLs
-  const images = Array.from({ length: 5 }, (_, index) => 
-    `https://raw.githubusercontent.com/KimDog-Studios/main-site/main/public/assets/mods/kimdog-network-mod-pack-ets2/engines/${index + 1}.png`
-  );
-
-  const [loading, setLoading] = useState(true);
-
+    // Simulate data fetching or loading
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+      setLoading(false); // Stop loading after 3 seconds
+    }, 2200);
+        return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
     return (
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={true}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <div className='flex items-center justify-center h-screen'>
+        <GradientCircularProgress />
+        </div>
     );
   }
 
-  const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'ETS 2 Mods'},
-    { label: "KimDog's Network Mod Pack" }
-  ];
+  // Handlers
+  const handleFilterChange = (game: string, checked: boolean) => {
+    setSelectedFilters(prevFilters =>
+      checked ? [...prevFilters, game] : prevFilters.filter(filter => filter !== game)
+    );
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleProceed = () => {
+    // Open the direct download link in a new tab
+    window.open('https://drive.google.com/uc?export=download&id=1f1xUClVc6dmMX-U4EqrrWf6OpAuU8qpz', '_blank');
+    setOpen(false);
+  };
 
   return (
-    <div className={styles.boldText}>
-      <TypingEffectETS2KimDogNetwork/>
-      <Navbar />
+    <div className='flex'>
+      {/* Sidebar */}
+      <Sidebar
+        selectedFilters={selectedFilters}
+        onFilterChange={handleFilterChange}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        isSidebarVisible={true}
+      />
 
-      {/* Breadcrumbs */}
-      <div className="flex justify-center">
-      <BreadcrumbsComponent items={breadcrumbItems} className="breadcrumb-position" />
-      </div>
+      {/* Main Content */}
+      <div className='flex-1 mt-0 p-8'>
+        {/* Title */}
+        <div className='flex justify-center items-center mt-10'>
+          <h1 className='font-bold text-3xl'>KimDog's Mod Pack</h1>
+        </div>
 
-      <Container className={styles.mainContainer}>
-        <main className="flex flex-col p-4 sm:p-8">
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: { xs: 'column', sm: 'row' },
-              gap: 4,
-              mb: 4,
-              alignItems: 'flex-start'
-            }}
-          >
-            {/* Description and Download Button */}
-            <Box className={styles.descriptionBox}>
-              <Typography variant="h6" className="text-lg font-semibold mb-2">
-                Mod Description
-              </Typography>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 2
-                }}
-              >
-                <Typography className="mb-4">
-                  This mod pack contains various optional modifications that can enhance your gaming experience.
-                  Down below is some pictures of all the Engines in the Pack with many more things that's not shown. You must also activate the other mod that comes in the Pack!
-                  Pack Contains:
-                  Engines,
-                  Transmissions,
-                  Physics,
-                  Mirror FOV,
-                  and more!
-                </Typography>
-                <Typography className="mb-4">
-                  Enjoy the new features and enhancements! Made by KimDog-Studios!
-                </Typography>
-                <Tooltip title="Download Mod Pack" placement="right">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleDownloadClick}
-                    className={styles.downloadButton}
-                  >
-                    Download
-                  </Button>
-                </Tooltip>
-              </Box>
-              {openAlert && (
-                <Alert severity="info" onClose={() => setOpenAlert(false)} className={styles.alertInfo}>
-                  Downloading will start in {countdown} seconds...
-                </Alert>
-              )}
-              {showRedirectUI && (
-                <Alert severity="success" className={styles.alertSuccess}>
-                  Redirecting to download link...
-                </Alert>
-              )}
-            </Box>
-          </Box>
-
-          {/* Screenshots Section */}
-          <Box>
-            <Typography variant="h6" className="text-lg font-semibold mb-2">
-              Engines:
-            </Typography>
-            <div className={styles.screenshotsGrid}>
-              {images.map((image, index) => (
-                <div key={index} style={{ position: 'relative', width: '100%', height: 'auto' }}>
-                  <Image
-                    src={image}
-                    alt={`Screenshot ${index + 1}`}
-                    layout="responsive"
-                    width={487} // Width of the image
-                    height={1143} // Height of the image
-                    style={{ maxWidth: '100%', height: 'auto' }}
-                  />
-                </div>
-              ))}
+        {/* In-Game Images and Description */}
+        <div className='flex flex-col md:flex-row mt-14'>
+          {/* Images Section */}
+          <div className='flex-1 md:mr-8'>
+            <div className='w-full flex justify-center ml-56 -mt-11'>
+              <ImageList sx={{ width: 800, height: 1250 }} cols={3} rowHeight={256}>
+                {itemData.map((item) => (
+                  <ImageListItem key={item.img}>
+                    <Image
+                      src={item.img}
+                      alt='Game Image'
+                      width={256}
+                      height={256}
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>
             </div>
-          </Box>
-        </main>
-      </Container>
+          </div>
+
+          {/* Description Section */}
+          <div className='flex-1'>
+            <h2 className='text-xl font-bold mb-4'>Description:</h2>
+            <p className='text-lg'>
+              This mod pack includes all sorts of Mods inside!<br />
+              Engines<br />
+              Trucks<br />
+              Tuning Parts
+            </p>
+            <div className='mt-4'>
+              <Button variant="contained" onClick={handleClickOpen}>
+                Download
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Dialog for Confirmation */}
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Transition}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Confirm Download
+          </DialogTitle>
+          <DialogContent>
+            <p>Are you sure you want to download the mod pack?</p>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleProceed} color="primary" autoFocus>
+              Proceed
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </div>
   );
-};
+}
 
-export default Ets2KimDog_Network_Mod_DetailPage;
+export default Page;
